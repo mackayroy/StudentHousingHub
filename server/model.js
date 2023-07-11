@@ -7,7 +7,9 @@ dotenv.config();
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.DB_LINK);
 
-const sampleSchema = Schema({});
+const PhotoSchema = Schema({
+  
+});
 
 const Sample = mongoose.model("Sample", sampleSchema);
 
