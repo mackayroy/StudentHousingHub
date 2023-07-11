@@ -6,7 +6,10 @@
 :root {
   --green: #9caf88;
   --light-green: #dfe6da;
+  --dark-green: #819171;
 }
+
+/* Nav */
 
 nav {
   background-color: var(--green);
@@ -14,6 +17,7 @@ nav {
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
+  text-align: center;
   color: white;
   font-size: 20px;
 }
@@ -31,6 +35,9 @@ nav .navRefs {
   text-decoration: none;
   margin-right: 10%;
 }
+
+/* Hero */
+
 .hero {
   background-image: url("hero.jpg");
   background-size: cover;
@@ -50,4 +57,105 @@ nav .navRefs {
   font-size: 25px;
   border: none;
   box-shadow: 0 0 10px black;
+}
+
+/* Main */
+.sectionCont {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.section {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 20px;
+  background-color: var(--light-green);
+}
+.sectionText {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 15px;
+}
+.section img {
+  width: 45%;
+}
+
+/* Footer */
+
+footer {
+  background-color: var(--dark-green);
+  height: 50px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG Stuff */
+
+.svgHero {
+  background-image: url("./heroSpacer.svg");
+  background-position: 0 0px;
+  width: 100vw;
+  height: 75px;
+  margin-bottom: 50px;
+}
+.svgFooter {
+  background-image: url("./footerSpacer.svg");
+  background-position: 0 90px;
+  width: 100vw;
+  height: 75px;
+  margin-top: 50px;
+}
+.WWDTop {
+  background-image: url("./WWD/WWDTop.svg");
+  background-position: 0 90px;
+  width: 100vw;
+  height: 75px;
+  margin-top: 50px;
+}
+.WWDBottom {
+  background-image: url("./WWD/WWDBottom.svg");
+  background-position: 0 -15px;
+  width: 100vw;
+  height: 75px;
+  margin-bottom: 50px;
+}
+.MOTTop {
+  background-image: url("./MOT/MOTTop.svg");
+  background-position: 0 90px;
+  width: 100vw;
+  height: 75px;
+  margin-top: 50px;
+}
+.MOTBottom {
+  background-image: url("./MOT/MOTBottom.svg");
+  background-position: 0 -15px;
+  width: 100vw;
+  height: 75px;
+  margin-bottom: 50px;
+}
+
+@media (min-width: 900px) {
+  .svgHero,
+  .svgFooter,
+  .WWDTop,
+  .WWDBottom,
+  .MOTTop,
+  .MOTBottom {
+    background-size: 150%;
+    height: 150px;
+  }
+  .svgFooter,
+  .WWDTop,
+  .MOTTop {
+    background-position: 0 155px;
+  }
 }

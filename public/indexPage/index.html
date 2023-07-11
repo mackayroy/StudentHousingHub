@@ -18,14 +18,54 @@
           <div @click="">Create Listing</div>
           <div @click="">My Listings</div>
           <div>
-            <div @click="toggleSignOut" v-if="userSession">Sign Out</div>
-            <div @click="toggleSignIn" v-else>Sign In</div>
+            <div @click="toggleSignOut()" v-if="userSession">Sign Out</div>
+            <div @click="toggleSignIn()" v-else>Sign In</div>
           </div>
         </div>
       </nav>
       <div class="hero">
         <input type="text" placeholder="Search by City, College..." v-model="search" />
       </div>
+      <div class="svgHero"></div>
+      <!-- What we do -->
+      <div class="WWDTop"></div>
+      <div class="sectionCont">
+        <div class="section">
+          <div class="sectionText">
+            <h2>What do we do???</h2>
+            <h5>We do cool things for cool people</h5>
+            <p>
+              Student housing hub provides students with an easy way to buy and sell leases to
+              acquire housing for college.
+            </p>
+          </div>
+          <img src="./WWD/WWD.jpg" alt="what we do" />
+        </div>
+      </div>
+      <div class="WWDBottom"></div>
+      <!-- Meet our team -->
+      <div class="MOTTop"></div>
+      <div class="sectionCont">
+        <div class="section">
+          <img src="./MOT/MOT.jpg" alt="what we do" />
+          <div class="sectionText">
+            <h2>Meet our Team!</h2>
+            <h5>(Left to right) Jack, Gabrial, Josh, MacKay</h5>
+            <p>
+              We all met through college or through codeschool where we learned to develop websites.
+            </p>
+            <p>We are ...</p>
+          </div>
+        </div>
+      </div>
+      <div class="MOTBottom"></div>
+      <!-- <div class="svgCont">
+        <img src="./footerSpacer.svg" alt="green waves" class="svg" />
+      </div> -->
+      <div class="svgFooter"></div>
+      <footer>
+        <p>Don't steal our stuff</p>
+      </footer>
     </div>
     <script src="app.js"></script>
   </body>
