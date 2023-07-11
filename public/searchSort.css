@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --nav-color: rgba(156, 175, 136, 1);
+  --sort-color: rgba(223, 230, 218, 1);
+  --body-color: rgba(255, 255, 255, 1);
+  --content-color: rgba(223, 230, 218, 0.3);
+  --search-color: rgba(156, 175, 136, 1);
+}
+
+#wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  background-color: var(--body-color);
+  grid-template-rows: 145px 1fr auto;
+  grid-template-columns: 1/3fr 1fr 1fr;
+}
+
+.nav {
+  grid-column: 1/-1;
+  grid-row: 1/2;
+  background-color: var(--nav-color);
+}
+
+.sort {
+  grid-column: 1/2;
+  grid-row: 2/-1;
+  background-color: var(--sort-color);
+}
+
+.searchCity {
+  background-color: var(--search-color);
+}
+
+.content {
+  background-color: rgba(223, 230, 218, 0.3);
+}
