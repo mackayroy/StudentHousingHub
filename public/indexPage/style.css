@@ -5,6 +5,7 @@
 }
 :root {
   --green: #9caf88;
+  --light-green: #dfe6da;
 }
 
 nav {
@@ -29,4 +30,24 @@ nav .navRefs {
   gap: 12px;
   text-decoration: none;
   margin-right: 10%;
+}
+.hero {
+  background-image: url("hero.jpg");
+  background-size: cover;
+  height: 60vh;
+  display: flex;
+  flex: column nowrap;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+.hero input {
+  background-color: var(--light-green);
+  border-radius: 10px;
+  height: 75px;
+  width: 80%;
+  padding-left: 15px;
+  font-size: 25px;
+  border: none;
+  box-shadow: 0 0 10px black;
 }

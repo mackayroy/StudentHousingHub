@@ -2,6 +2,7 @@ Vue.createApp({
   data() {
     return {
       userSession: false,
+      search: "",
     };
   },
   methods: {},
