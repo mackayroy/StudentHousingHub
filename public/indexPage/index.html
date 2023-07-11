@@ -12,6 +12,17 @@
   <body>
     <div id="app">
       <!-- Content goes here -->
+      <nav>
+        <img src="../logo.png" alt="logo" />
+        <div class="navRefs">
+          <div @click="">Create Listing</div>
+          <div @click="">My Listings</div>
+          <div>
+            <div @click="toggleSignOut" v-if="userSession">Sign Out</div>
+            <div @click="toggleSignIn" v-else>Sign In</div>
+          </div>
+        </div>
+      </nav>
     </div>
     <script src="app.js"></script>
   </body>

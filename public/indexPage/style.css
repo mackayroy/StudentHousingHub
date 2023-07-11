@@ -3,3 +3,30 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root {
+  --green: #9caf88;
+}
+
+nav {
+  background-color: var(--green);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  font-size: 20px;
+}
+nav img {
+  width: 100px;
+  height: 100px;
+  margin-left: 10%;
+}
+nav .navRefs {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-decoration: none;
+  margin-right: 10%;
+}

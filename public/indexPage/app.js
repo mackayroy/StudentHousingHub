@@ -1,6 +1,8 @@
 Vue.createApp({
   data() {
-    return {};
+    return {
+      userSession: false,
+    };
   },
   methods: {},
   created: function () {},
