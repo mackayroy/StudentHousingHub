@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vue App</title>
+    <title>Search</title>
     <link href="searchSort.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
@@ -12,16 +12,88 @@
   <body>
     <div id="app">
       <div id="wrapper">
-        <div class="nav">nav</div>
+        <nav>
+          <img src="logo.png" alt="logo" />
+          <div class="navRefs">
+            <div @click="">Create Listing</div>
+            <div @click="">My Listings</div>
+            <div>
+              <div @click="toggleSignOut" v-if="userSession">Sign Out</div>
+              <div @click="toggleSignIn" v-else>Sign In</div>
+            </div>
+          </div>
+        </nav>
 
         <div class="sort">
-          <div class="prefrences">asdf</div>
-          <div class="ammenitys">afd</div>
+
+          <div class="preferences">
+            <h3>Preferences</h3>
+            <div class="preferencesList">
+              <div class="preferenceItem">
+                <label>Price &gt;</label>
+                <input type="text" />
+              </div>
+              <div class="preferenceItem">
+                <label>Price &lt;</label>
+                <input type="text" />
+              </div>
+              <div class="preferenceItem">
+                <label>Bedrooms &gt;</label>
+                <input type="text" />
+              </div>
+              <div class="preferenceItem">
+                <label>Bathrooms &gt;</label>
+                <input type="text" />
+              </div>
+            </div>
+          </div>
+
+          <div class="ammenitys">
+            <h3>Amenities</h3>
+            <div class="amenitiesList">
+              <ul>
+                <li>
+                  <input type="checkbox" />
+                  <label>Pool</label>
+                </li>
+                <li>
+                  <input type="checkbox" />
+                  <label>WiFi</label>
+                </li>
+                <li>
+                  <input type="checkbox" />
+                  <label>Printer</label>
+                </li>
+                <li>
+                  <input type="checkbox" />
+                  <label>Kitchen</label>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
-        <div class="searchCity"></div>
+        <div class="searchCity">
+          <input
+            type="text"
+            placeholder="Search by City, College..."
+            class="cityInput"
+          />
+        </div>
 
-        <div class="content"></div>
+        <div class="content">
+          <div class="property">
+            <img
+              src="pexels-vecislavas-popa-1571460.jpg"
+              alt="property"
+            />
+            <div class="propertyInfo">
+              <h3 class="price">$430</h3>
+              <p class="propertyName">Crusty Crab</p>
+              <span class="address">123 Road, Atlantis, Ocean</span>
+              <p class="numbeds">1-3 Beds</p>
+          </div>
+        </div>
       </div>
     </div>
     <script src="searchSort.js"></script>

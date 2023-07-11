@@ -17,26 +17,147 @@
   height: 100%;
   display: grid;
   background-color: var(--body-color);
-  grid-template-rows: 145px 1fr auto;
-  grid-template-columns: 1/3fr 1fr 1fr;
+  grid-template-columns: 10px 290px 1fr 1fr 10px;
+  /* grid-template-columns: 10px minmax(1fr, 290px) 1fr 1fr 10px; */
+  grid-template-rows: 145px 60px auto;
 }
 
-.nav {
+nav {
   grid-column: 1/-1;
   grid-row: 1/2;
   background-color: var(--nav-color);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  font-size: 20px;
+}
+
+nav img {
+  width: 100px;
+  height: 100px;
+  margin-left: 10%;
+}
+nav .navRefs {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-decoration: none;
+  margin-right: 10%;
 }
 
 .sort {
-  grid-column: 1/2;
+  grid-column: 2/3;
   grid-row: 2/-1;
   background-color: var(--sort-color);
+  align-items: center;
+}
+
+.preferenceItem {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  text-align: center;
+  font-size: large;
+}
+
+.preferences,
+.ammenitys h3 {
+  text-align: center;
+  padding: 10px;
+}
+
+.amenitiesList {
+  background-color: var(--white);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px 10px;
+}
+.amenitiesList ul {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+.amenitiesList ul li {
+  list-style: none;
+  padding: 5px 0px;
+  font-size: large;
+}
+.amenitiesList ul li input {
+  margin-right: 10px;
 }
 
 .searchCity {
-  background-color: var(--search-color);
+  grid-column: 3/-2;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 10px 0px;
+}
+
+.cityInput {
+  border-radius: 16px;
+  border: 2px solid #9caf88;
+  width: 1012px;
+  height: 40px;
+  background-color: rgba(223, 230, 218, 1);
+  color: #000;
+  font-size: 20px;
+  font-weight: 400;
+  padding: 10px;
 }
 
 .content {
+  grid-column: 3/-2;
+  grid-row: 3/-1;
+  padding: 20px;
+}
+
+.property {
+  display: flex;
+  flex-flow: column nowrap;
+  background: rgba(223, 230, 218, 0.3);
+  box-shadow: 0px 4px 4px 5px rgba(0, 0, 0, 0.1);
+  width: 340px;
+  height: auto;
   background-color: rgba(223, 230, 218, 0.3);
+}
+
+.property img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+.propertyInfo {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: left;
+  padding: 10px;
+  gap: 10px;
+}
+
+.price {
+  font-size: 30px;
+}
+
+.address {
+  font-size: 16px;
+  font-style: italic;
+  padding-left: 40px;
+}
+
+.propertyName,
+.numbeds {
+  font-size: 20px;
+  padding-left: 15px;
 }
