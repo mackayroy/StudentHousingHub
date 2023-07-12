@@ -56,6 +56,7 @@ function AuthMiddleware(req, res, next) {
 //     console.log(result);
 // });
 
+
 // users
 app.post('/users', function(req, res) {
   const newUser = new model.User({
@@ -108,6 +109,27 @@ app.put("/users/:usersId", function(req, res) {
       }
   })
 });
+
+
+// property
+app.post('/properties', function(req, res) {
+  const newProperty = new model.Property({
+    college: req.body.college,
+    propertyName: req.body.college,
+    address: req.body.address,
+    rent: req.body.rent,
+    rooms: req.body.rooms,
+    bathrooms: req.body.bathrooms,
+    private: req.body.private,
+    wifi: req.body.wifi,
+    washerDryer: req.body.washerDryer,
+    parking: req.body.parking,
+    amenities: req.body.amenities
+  })
+  newProperty.save().then(function() {
+    res.status(201).send('Property listed.')
+  })
+})
 
 
 

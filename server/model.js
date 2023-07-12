@@ -51,9 +51,9 @@ const PropertySchema = new mongoose.Schema ({
   propertyName: {
     type: String
   },
-  adress: {
+  address: {
     type: String,
-    required: [true, 'Property must have an adress']
+    required: [true, 'Property must have an address']
   },
   rent:{
     type: String,
@@ -71,7 +71,20 @@ const PropertySchema = new mongoose.Schema ({
     type: Boolean,
     required: [true, 'Must be set to true or false.']
   },
-  amenities: [String]
+  wifi: {
+    type: Boolean,
+    required: [true, 'Must be set to true or false.']
+  },
+  washerDryer: {
+    type: Boolean,
+    required: [true, 'Must be set to true or false.']
+  },
+  parking: {
+    type: String,
+    required: [true, 'Property must have parking listed.']
+  },
+  amenities: [String],
+
 })
 
 UserSchema.methods.setPassword = function(plainPassword) {
@@ -97,7 +110,8 @@ UserSchema.methods.verifyPassword = function(plainPassword) {
 
 const Photo = mongoose.model("Photo", PhotoSchema);
 const User  = mongoose.model("User", UserSchema);
-const RedactedUser = mongoose.model("RedactedUser", UserSchema)
+const RedactedUser = mongoose.model("RedactedUser", UserSchema);
+const Property = mongoose.model("Property", PropertySchema);
 
 
 User.createCollection();
@@ -116,5 +130,6 @@ RedactedUser.createCollection({
 module.exports = {
   Photo: Photo,
   User: User,
-  RedactedUser: RedactedUser
+  RedactedUser: RedactedUser,
+  Property: Property
 };
