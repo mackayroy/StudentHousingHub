@@ -5,35 +5,33 @@ Vue.createApp({
       search: "",
     };
   },
-  methods: {},
+  methods: {
+    map: function () {
+      function addMarker(coords) {
+        var marker = new google.maps.Marker({
+          position: coords,
+          map: map,
+        });
+      }
+
+      let map;
+      async function initMap() {
+        //@ts-ignore
+        const { Map } = await google.maps.importLibrary("maps");
+        const { AdvancedMarkerElement } = await google.maps.importLibrary(
+          "marker"
+        );
+        map = new Map(document.getElementById("map"), {
+          zoom: 8,
+          center: { lat: 37.10365039754121, lng: -113.56533764727399 },
+        });
+        addMarker({ lat: 37.10365039754121, lng: -113.56533764727399 });
+        addMarker({ lat: 38.10365039754121, lng: -113.56533764727399 });
+      }
+      initMap();
+    },
+  },
   created: function () {
-    let map;
-
-    async function initMap() {
-      // The location of Uluru
-      const position = { lat: -25.344, lng: 131.031 };
-      // Request needed libraries.
-      //@ts-ignore
-      const { Map } = await google.maps.importLibrary("maps");
-      const { AdvancedMarkerElement } = await google.maps.importLibrary(
-        "marker"
-      );
-
-      // The map, centered at Uluru
-      map = new Map(document.getElementById("map"), {
-        zoom: 4,
-        center: position,
-        mapId: "DEMO_MAP_ID",
-      });
-
-      // The marker, positioned at Uluru
-      const marker = new AdvancedMarkerElement({
-        map: map,
-        position: position,
-        title: "Uluru",
-      });
-    }
-
-    initMap();
+    this.map();
   },
 }).mount("#app");
