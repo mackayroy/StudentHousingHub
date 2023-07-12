@@ -12,10 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
-    />
+
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
 
@@ -33,15 +30,11 @@
           </div>
         </div>
       </nav>
-      <div class="mainConatiner">
-        <div class="mainImgs">
-          <img
-            class="photo"
-            src="Screen-Shot-2022-02-04-at-2.28.40-PM.webp"
-            alt=""
-          />
-        </div>
 
+      <div class="mainConatiner">
+        <div class="photo">
+          <img src="download (1).jpeg" alt="" />
+        </div>
         <div class="bottomContainer">
           <div class="PropertyOverview">
             <div class="propertyDetails">
@@ -85,11 +78,7 @@
           </div>
           <div class="mapSection">
             <p>Distance</p>
-            <img
-              class="googleMaps"
-              src="05BN3njlO8GzG0L7AvjC5Od-5.fit_lim.size_1200x630.v1611688960.jpg"
-              alt=""
-            />
+            <div id="map"></div>
           </div>
         </div>
       </div>
@@ -98,7 +87,43 @@
         <!-- The footer provides a clear separation between the main content and the bottom of the page. -->
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+      ((g) => {
+        var h,
+          a,
+          k,
+          p = "The Google Maps JavaScript API",
+          c = "google",
+          l = "importLibrary",
+          q = "__ib__",
+          m = document,
+          b = window;
+        b = b[c] || (b[c] = {});
+        var d = b.maps || (b.maps = {}),
+          r = new Set(),
+          e = new URLSearchParams(),
+          u = () =>
+            h ||
+            (h = new Promise(async (f, n) => {
+              await (a = m.createElement("script"));
+              e.set("libraries", [...r] + "");
+              for (k in g)
+                e.set(
+                  k.replace(/[A-Z]/g, (t) => "_" + t[0].toLowerCase()),
+                  g[k]
+                );
+              e.set("callback", c + ".maps." + q);
+              a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+              d[q] = f;
+              a.onerror = () => (h = n(Error(p + " could not load.")));
+              a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+              m.head.append(a);
+            }));
+        d[l]
+          ? console.warn(p + " only loads once. Ignoring:", g)
+          : (d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)));
+      })({ key: "AIzaSyCqxIxZcHaBCF5z_I73rdc53GkkmF3KHOw", v: "beta" });
+    </script>
     <script src="properties.js"></script>
   </body>
 </html>

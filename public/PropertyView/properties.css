@@ -15,10 +15,16 @@
   --font-color: rgb(45, 45, 45);
 }
 .mainConatiner {
-  display: grid;
+  display: flex;
   flex-flow: column nowrap;
-  gap: 10px;
+  justify-content: center;
+  align-items: center;
   margin: 10px 10px;
+}
+.photo img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 nav {
   background-color: var(--dark-green);
@@ -42,10 +48,6 @@ nav .navRefs {
   gap: 12px;
   text-decoration: none;
   margin-right: 10%;
-}
-.photo {
-  max-width: 100%;
-  min-height: auto;
 }
 
 .bottomContainer {
@@ -161,8 +163,7 @@ nav .navRefs {
   font-size: 2em;
 }
 
-.googleMaps {
-  width: 100%;
+#map {
   height: 100%;
 }
 .footer {
