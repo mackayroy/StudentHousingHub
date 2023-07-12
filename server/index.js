@@ -15,6 +15,24 @@ app.use(session({
   resave: false
 }));
 
+// middleware
+function AuthMiddleware(req, res, next) {
+  if (req.session && req.session.userId) {
+      model.User.findOne({'_id': req.session.userId}).then(user => {
+          if (user) {
+              req.user = user;
+              next(); // proceed to next process
+          }
+          else {
+              res.status(401).send('Unauthenticated') // user doesnt exist
+          }
+      })
+  }
+  else {
+      res.status(401).send('Unauthenticated') // no session to authorize
+  }
+}
+
 // // photos ***Not finished with photos section gonna come back to it later***
 // app.get('/photos/:key', function(req, res) {
 //   console.log(req.params);
@@ -48,6 +66,42 @@ app.post('/users', function(req, res) {
       res.status(422).send('Failed to create user.')
     });
   });
+});
+
+app.get('/users', function(req, res) {
+  model.User.find().then(function(users) {
+    res.send(users)
+  })
+})
+
+app.get('/users/:usersId', function(req, res) {
+  model.User.findOne({'_id': req.params.usersId}).then(function(user) {
+    if (user){
+      res.send(user)
+    }
+    else {
+      res.status(404).send('User not found.')
+    }
+  })
+})
+
+app.put("/users/:usersId", function(req, res) {
+  var usersId = req.params.usersId;
+  model.User.findOne({'_id': usersId}).then(user => {
+      if (user){
+        user.name = req.body.name,
+        
+        user.save().then(function() {
+          res.status(200).send('Updated user.')
+        }).catch(errors => {
+          console.log(errors);
+          res.status(422).send('Error updating user.')
+        })
+      }
+      else {
+        res.status(404).send('User not found.')
+      }
+  })
 });
 
 

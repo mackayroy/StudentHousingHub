@@ -43,8 +43,10 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.methods.setPassword = function(plainPassword) {
   var promise = new Promise((resolve, reject) => {
-    bcrypt.hash(plainPassword, 12, function(err, hashedPassword) {
+    bcrypt.hash(plainPassword, 12).then(hashedPassword => {
+      console.log(hashedPassword)
       this.password = hashedPassword;
+      console.log(this.password)
       resolve();
     })
   });
@@ -62,9 +64,24 @@ UserSchema.methods.verifyPassword = function(plainPassword) {
 
 const Photo = mongoose.model("Photo", PhotoSchema);
 const User  = mongoose.model("User", UserSchema);
+const RedactedUser = mongoose.model("RedactedUser", UserSchema)
+
+
+User.createCollection();
+RedactedUser.createCollection({
+    viewOn: 'users',
+    pipeline: [{
+        $set: {
+            name: '$name',
+            email: '$email',
+            passord: '***'
+        }
+    }]
+});
 
 
 module.exports = {
   Photo: Photo,
   User: User,
+  RedactedUser: RedactedUser
 };
