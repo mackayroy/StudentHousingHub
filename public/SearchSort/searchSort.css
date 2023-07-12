@@ -19,7 +19,7 @@
   background-color: var(--body-color);
   grid-template-columns: 10px 290px 1fr 1fr 10px;
   /* grid-template-columns: 10px minmax(1fr, 290px) 1fr 1fr 10px; */
-  grid-template-rows: 145px 60px auto;
+  grid-template-rows: auto 60px auto;
 }
 
 nav {
