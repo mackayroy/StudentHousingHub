@@ -118,7 +118,14 @@ nav .navRefs {
   margin-top: 2em;
   min-width: 10em;
   min-height: 2.5em;
+  cursor: pointer;
+  transition: 0.5s;
 }
+.contactBtn:hover {
+  background-color: var(--darkest-green);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
 .line {
   width: 80%;
   height: 1px;
@@ -132,6 +139,12 @@ nav .navRefs {
   margin-top: 3em;
   min-width: 9em;
   min-height: 2.5em;
+  cursor: pointer;
+  transition-duration: 0.5s;
+}
+.loginBtn:hover {
+  background-color: var(--middle-green);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
 }
 
 .mapSection {
