@@ -27,12 +27,14 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'User must have a name.']
   },
   phoneNumber: {
-    type: Number,
-    required: [true, 'User must have a phone number.']
+    type: String,
+    required: [true, 'User must have a phone number.'],
+    unique: true 
   },
   email: {
     type: String,
-    required: [true, 'User must have a email.']
+    required: [true, 'User must have a email.'],
+    unique: true
   },
   password: {
     type: String,
@@ -40,6 +42,37 @@ const UserSchema = new mongoose.Schema({
   },
 
 });
+
+const PropertySchema = new mongoose.Schema ({
+  college: {
+    type: String,
+    required: [true, 'Property must have a college.']
+  },
+  propertyName: {
+    type: String
+  },
+  adress: {
+    type: String,
+    required: [true, 'Property must have an adress']
+  },
+  rent:{
+    type: String,
+    required: [true, 'Property must have rent listed.']
+  },
+  rooms: {
+    type: Number,
+    required: [true, 'Property must have rooms listed.']
+  },
+  bathrooms: {
+    type: String,
+    required: [true, 'Property must have bathrooms listed.']
+  },
+  private: {
+    type: Boolean,
+    required: [true, 'Must be set to true or false.']
+  },
+  amenities: [String]
+})
 
 UserSchema.methods.setPassword = function(plainPassword) {
   var promise = new Promise((resolve, reject) => {

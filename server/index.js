@@ -8,7 +8,12 @@ const app = express();
 const port = 8080;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: function(origin, callback) {
+    callback(null, origin);
+  }
+}));
 app.use(session({
   secret: "kdbdfiebfuiwnufewifbkenfibeifniwbfhwrfierfbiefiefieqneifnwf9eqrifnwfnwqofeowqneufbwuoefwoefiwbfiwbfkbif",
   saveUninitialized: true,
