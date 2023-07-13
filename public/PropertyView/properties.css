@@ -14,21 +14,75 @@
   --white: rgb(255, 255, 255);
   --font-color: rgb(45, 45, 45);
 }
+
 .mainConatiner {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 20px;
+  padding: 20px 20px;
 }
-.photo {
+.carousel {
   width: 100%;
-  max-height: 600px;
+  min-height: 600px;
+  position: relative;
 }
-.photo img {
+
+.carousel > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: 200ms opacity ease-in-out;
+  transition-delay: 200ms;
+}
+
+.slide > img {
+  padding-bottom: 20px;
   width: 100%;
-  max-height: 600px;
+  height: 100%;
   object-fit: contain;
+  object-position: center;
+}
+
+.slide[data-active] {
+  opacity: 1;
+  z-index: 1;
+  transition-delay: 0ms;
+}
+
+.carousel-button {
+  position: absolute;
+  z-index: 2;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  border-radius: 0.25rem;
+  padding: 0 0.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.carousel-button:hover,
+.carousel-button:focus {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-button:focus {
+  outline: 1px solid black;
+}
+
+.carousel-button.prev {
+  left: 1rem;
+}
+
+.carousel-button.next {
+  right: 1rem;
 }
 nav {
   background-color: var(--dark-green);
@@ -178,6 +232,27 @@ nav .navRefs {
 }
 
 @media (max-width: 414px) {
+  .carousel {
+    width: 100%;
+    min-height: 300px;
+    position: relative;
+  }
+
+  .slide {
+    height: 300px;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: 200ms opacity ease-in-out;
+    transition-delay: 200ms;
+  }
+
+  .slide > img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+  }
   .contactSection p {
     padding: 10px 0px;
     font-size: 2em;

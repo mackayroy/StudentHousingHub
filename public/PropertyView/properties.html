@@ -14,6 +14,7 @@
     />
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="photo.js" defer></script>
   </head>
 
   <body>
@@ -32,9 +33,27 @@
       </nav>
 
       <div class="mainConatiner">
-        <div class="photo">
-          <img src="download (1).jpeg" alt="" />
-        </div>
+        <section aria-label="Newest Photos">
+          <div class="carousel" data-carousel>
+            <button class="carousel-button prev" data-carousel-button="prev">
+              &#8656;
+            </button>
+            <button class="carousel-button next" data-carousel-button="next">
+              &#8658;
+            </button>
+            <ul data-slides>
+              <li class="slide" data-active>
+                <img src="download (1).jpeg" alt="Nature Image #1" />
+              </li>
+              <li class="slide">
+                <img src="download (2).jpeg" alt="Nature Image #2" />
+              </li>
+              <li class="slide">
+                <img src="download.jpeg" alt="Nature Image #3" />
+              </li>
+            </ul>
+          </div>
+        </section>
         <div class="bottomContainer">
           <div class="PropertyOverview">
             <div class="propertyDetails">
