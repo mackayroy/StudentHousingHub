@@ -7,10 +7,6 @@
     <title>Search</title>
     <link href="searchSort.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
   </head>
 
   <body>
@@ -21,14 +17,13 @@
           <div class="navRefs">
             <div @click="">Create Listing</div>
             <div @click="">My Listings</div>
-            <div>
+            <!-- <div>
               <div @click="toggleSignOut" v-if="userSession">Sign Out</div>
               <div @click="toggleSignIn" v-else>Sign In</div>
-            </div>
+            </div> -->
           </div>
         </nav>
 
-        
         <div class="sort">
           <div class="preferences">
             <h3>Preferences</h3>
@@ -85,66 +80,107 @@
             <h3>Preferences</h3>
             <div class="preferencesList">
               <div class="preferenceItem">
-                <label>Price &gt;</label>
-                <input type="text" />
+                <label>Min Price</label>
+                <input type="number" v-model="minPrice" />
               </div>
               <div class="preferenceItem">
-                <label>Price &lt;</label>
-                <input type="text" />
+                <label>Max Price</label>
+                <input type="number" v-model="maxPrice" />
               </div>
               <div class="preferenceItem">
-                <label>Bedrooms &gt;</label>
-                <input type="text" />
+                <label>Min Bedrooms</label>
+                <input type="number" v-model="minBedrooms" />
               </div>
               <div class="preferenceItem">
-                <label>Bathrooms &gt;</label>
-                <input type="text" />
+                <label>Min Bathrooms</label>
+                <input type="number" v-model="minBathrooms" />
               </div>
             </div>
           </div>
-
-          <div class="ammenitys">
-            <h3>Amenities</h3>
-            <div class="amenitiesList">
-              <ul>
-                <li>
-                  <input type="checkbox" />
-                  <label>Pool</label>
-                </li>
-                <li>
-                  <input type="checkbox" />
-                  <label>WiFi</label>
-                </li>
-                <li>
-                  <input type="checkbox" />
-                  <label>Printer</label>
-                </li>
-                <li>
-                  <input type="checkbox" />
-                  <label>Kitchen</label>
-                </li>
-              </ul>
-            </div>
+          
+            <div class="amenities">
+              <h3>Amenities</h3>
+              <div class="amenitiesList">
+                <ul>
+                  <li>
+                    <input
+                      type="checkbox"
+                      v-model="poolCheckbox"
+                      id="poolCheckbox"
+                    />
+                    <label for="poolCheckbox">Pool</label>
+                  </li>
+                  <li>
+                    <input
+                      type="checkbox"
+                      v-model="wifiCheckbox"
+                      id="wifiCheckbox"
+                    />
+                    <label for="wifiCheckbox">WiFi</label>
+                  </li>
+                  <li>
+                    <input
+                      type="checkbox"
+                      v-model="printerCheckbox"
+                      id="printerCheckbox"
+                    />
+                    <label for="printerCheckbox">Printer</label>
+                  </li>
+                  <li>
+                    <input
+                      type="checkbox"
+                      v-model="kitchenCheckbox"
+                      id="kitchenCheckbox"
+                    />
+                    <label for="kitchenCheckbox">Kitchen</label>
+                  </li>
+                </ul>
+              
           </div>
+          <button @click="clearSearch()">Clear</button>
         </div>
+      </div>
 
-        <div class="searchCity">
-          <input
-            type="text"
-            placeholder="Search by City, College..."
-            class="cityInput"
-          />
-        </div>
+      <div class="searchCity">
+        <input
+          type="text"
+          placeholder="Search by City, College..."
+          class="cityInput"
+        />
+      </div>
 
-        <div class="contentBox">
-        <div class="content">
+      <div class="contentBox">
+        <div
+          v-if="active_search.length <= 0"
+          v-for="(pro, index) in properties"
+          class="content"
+        >
           <div class="property">
             <img src="pexels-vecislavas-popa-1571460.jpg" alt="property" />
             <div class="propertyInfo">
-              <h3 class="price">$430</h3>
-              <p class="propertyName">Crusty Crab</p>
-              <span class="address">123 Road, Atlantis, Ocean</span>
-              <p class="numbeds">1-3 Beds</p>
+              <h3 class="price">${{pro.price}}</h3>
+              <p class="propertyName">{{pro.name}}</p>
+              <span class="address">{{pro.location}}</span>
+              <p class="numbeds">{{pro.numBeds}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- filter content -->
+      <div class="contentBox">
+        <div
+          v-for="(pro, index) in sortedProperties"
+          class="content"
+          v-if="sortedProperties.length > 0"
+        >
+          <div class="property">
+            <img src="pexels-vecislavas-popa-1571460.jpg" alt="property" />
+            <div class="propertyInfo">
+              <h3 class="price">${{pro.price}}</h3>
+              <p class="propertyName">{{pro.name}}</p>
+              <span class="address">{{pro.location}}</span>
+              <p class="numbeds">{{pro.numBeds}}</p>
             </div>
           </div>
         </div>

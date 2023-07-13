@@ -303,6 +303,7 @@ nav .navRefs {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
   }
 
   .toggleham {
@@ -334,4 +335,7 @@ nav .navRefs {
 }
 
 @media (max-width: 600px) {
+  .contentBox {
+    flex-direction: column;
+  }
 }
