@@ -7,6 +7,7 @@ Vue.createApp({
       heroSearch: "",
       showNavModal: false,
       showProfileModal: false,
+      showContactModal: false,
       currentNavModal: "signin",
       navUser: {
         name: "",
@@ -55,6 +56,15 @@ Vue.createApp({
         this.showProfileModal = false;
       } else {
         this.showProfileModal = true;
+      }
+    },
+
+    // Contact Modal
+    toggleContactModal: function () {
+      if (this.showContactModal) {
+        this.showContactModal = false;
+      } else {
+        this.showContactModal = true;
       }
     },
 

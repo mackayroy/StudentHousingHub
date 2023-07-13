@@ -30,7 +30,7 @@
                 <span class="profileModalLine"></span>
                 <div>Saved Listings</div>
                 <span class="profileModalLine"></span>
-                <div>Contact Us</div>
+                <div @click="toggleContactModal()">Contact Us</div>
               </div>
             </div>
             <div @click="toggleNavModal()" v-else class="signIn">Sign In</div>
@@ -66,7 +66,8 @@
             <h2>Meet our Team!</h2>
             <h5>(Left to right) Jack, Gabriel, Josh, MacKay</h5>
             <p>
-              We all met through college or through codeschool where we learned to develop websites.
+              We all met through Utah Tech University or their CodeSchool program where we learned
+              to develop websites.
             </p>
             <p>We are ...</p>
           </div>
@@ -117,6 +118,22 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="contactModal" v-if="showContactModal">
+        <div class="contact">
+          <div class="contactTopText">
+            <h2 @click="toggleContactModal()" class="contactExit">X</h2>
+            <h2 class="contactUs">Contact Us</h2>
+          </div>
+          <div class="contactLongLine"></div>
+          <div class="contactEmail">Jack Snyder: jacksnyder@shh.com</div>
+          <div class="contactLine"></div>
+          <div class="contactEmail">Gabriel Puente: gabrielpuente@shh.com</div>
+          <div class="contactLine"></div>
+          <div class="contactEmail">MacKay Roy: mackayroy@shh.com</div>
+          <div class="contactLine"></div>
+          <div class="contactEmail">Josh Gilbert: joshgilbert@shh.com</div>
         </div>
       </div>
     </div>
