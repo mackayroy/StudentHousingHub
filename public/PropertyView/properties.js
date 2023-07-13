@@ -6,52 +6,51 @@ Vue.createApp({
       login: "false",
       lng: 0,
       lat: 0,
+      address: "669 S 700 E, Saint George, UT 84770",
     };
-    //
   },
   methods: {
-    coordinates: function () {
+    coordinates() {
       fetch(
-        "https://maps.googleapis.com/maps/api/geocode/json?address=1600 Amphitheatre Parkway, Mountain View, CA&key=AIzaSyCqxIxZcHaBCF5z_I73rdc53GkkmF3KHOw"
+        "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+          this.address +
+          "&key=AIzaSyCqxIxZcHaBCF5z_I73rdc53GkkmF3KHOw"
       )
         .then((response) => response.json())
         .then((data) => {
           this.lat = data.results[0].geometry.location.lat;
           this.lng = data.results[0].geometry.location.lng;
-          console.log(this.lat, this.lng);
+          this.map();
         });
     },
-
-    map: function () {
-      function addMarker(coords) {
+    map() {
+      const addMarker = (coords) => {
         var marker = new google.maps.Marker({
           position: coords,
           map: map,
         });
-      }
+      };
 
       let map;
       async function initMap() {
-        //@ts-ignore
         const { Map } = await google.maps.importLibrary("maps");
         const { AdvancedMarkerElement } = await google.maps.importLibrary(
           "marker"
         );
         map = new Map(document.getElementById("map"), {
-          zoom: 8,
+          zoom: 10,
           center: { lat: 37.10365039754121, lng: -113.56533764727399 },
         });
         addMarker({ lat: 37.10365039754121, lng: -113.56533764727399 });
         addMarker({ lat: this.lat, lng: this.lng });
       }
-      initMap();
+      initMap.call(this);
     },
-    loginBtn: function () {
+    loginBtn() {
       this.login = "true";
     },
   },
-  created: function () {
-    this.map();
+  created() {
     this.coordinates();
   },
 }).mount("#app");
