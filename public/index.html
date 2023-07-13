@@ -13,18 +13,32 @@
     <div id="app">
       <!-- Content goes here -->
       <nav>
-        <img src="logo.png" alt="logo" />
+        <div id="logo"></div>
         <div class="navRefs">
           <div @click="">Create Listing</div>
           <div @click="">My Listings</div>
           <div>
-            <div @click="" v-if="userSession">Profile</div>
-            <div @click="toggleModal()" v-else>Sign In</div>
+            <div class="profile" v-if="userSession">
+              <img
+                src="sample.jpg"
+                alt="profilePicture"
+                class="profilePreview"
+                @click="toggleProfileModal()"
+              />
+              <div class="profileModal">
+                <div>Profile Settings</div>
+                <span class="profileModalLine"></span>
+                <div>Saved Listings</div>
+                <span class="profileModalLine"></span>
+                <div>Contact Us</div>
+              </div>
+            </div>
+            <div @click="toggleNavModal()" v-else class="signIn">Sign In</div>
           </div>
         </div>
       </nav>
       <div class="hero">
-        <input type="text" placeholder="Search by City, College..." v-model="search" />
+        <input type="text" placeholder="Search by City, College..." v-model="heroSearch" />
       </div>
       <div class="svgHero"></div>
       <!-- What we do -->
@@ -50,7 +64,7 @@
           <img src="indexPage/MOT/MOT.jpg" alt="what we do" />
           <div class="sectionText">
             <h2>Meet our Team!</h2>
-            <h5>(Left to right) Jack, Gabrial, Josh, MacKay</h5>
+            <h5>(Left to right) Jack, Gabriel, Josh, MacKay</h5>
             <p>
               We all met through college or through codeschool where we learned to develop websites.
             </p>
@@ -65,40 +79,40 @@
       </footer>
 
       <div v-if="userSession" @click="signOut()"></div>
-      <div class="modal" v-if="showModal">
+      <div class="navModal" v-if="showNavModal">
         <div class="sisuModal">
-          <div class="si-modal" v-if="currentModal == 'signin'">
+          <div class="si-modal" v-if="currentNavModal == 'signin'">
             <div class="sisu-topText">
-              <h2 class="sisuExit" @click="toggleModal()">X</h2>
+              <h2 class="sisuExit" @click="toggleNavModal()">X</h2>
               <h2 class="sisuTitle">Sign In To Student Housing Hub</h2>
             </div>
             <div class="sisu-formCont">
               <div class="sisu-form">
-                <input type="text" placeholder="Email..." v-model="loginUser.email" />
-                <input type="text" placeholder="Password..." v-model="loginUser.password" />
+                <input type="text" placeholder="Email..." v-model="navLoginUser.email" />
+                <input type="text" placeholder="Password..." v-model="navLoginUser.password" />
               </div>
               <div class="sisu-line"></div>
               <div class="sisu-buttons">
                 <div @click="createSession()" class="mainButton">Log In</div>
-                <div @click="swapModal()" class="otherButton">Sign Up</div>
+                <div @click="swapNavModal()" class="otherButton">Sign Up</div>
               </div>
             </div>
           </div>
-          <div class="su-modal" v-if="currentModal == 'signup'">
+          <div class="su-modal" v-if="currentNavModal == 'signup'">
             <div class="sisu-topText">
-              <h2 class="sisuExit" @click="toggleModal()">X</h2>
+              <h2 class="sisuExit" @click="toggleNavModal()">X</h2>
               <h2 class="sisuTitle">Sign Up For Student Housing Hub</h2>
             </div>
             <div class="sisu-formCont">
               <div class="sisu-form">
-                <input type="text" placeholder="Name..." v-model="user.name" />
-                <input type="text" placeholder="Email..." v-model="user.email" />
-                <input type="text" placeholder="Phone..." v-model="user.phoneNumber" />
-                <input type="text" placeholder="Password..." v-model="user.password" />
+                <input type="text" placeholder="Name..." v-model="navUser.name" />
+                <input type="text" placeholder="Email..." v-model="navUser.email" />
+                <input type="text" placeholder="Phone..." v-model="navUser.phoneNumber" />
+                <input type="text" placeholder="Password..." v-model="navUser.password" />
               </div>
               <div class="sisu-line-long"></div>
               <div class="sisu-buttons">
-                <div @click="swapModal()" class="otherButton">Log In</div>
+                <div @click="swapNavModal()" class="otherButton">Log In</div>
                 <div @click="signUp()" class="mainButton">Sign Up</div>
               </div>
             </div>
