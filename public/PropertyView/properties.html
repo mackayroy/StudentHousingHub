@@ -89,10 +89,20 @@
             </div>
           </div>
           <div class="contactSection">
-            <p>Contact Owner</p>
-            <button class="contactBtn">Contact</button>
+            <h1 class="contactBtn">Contact</h1>
             <div class="line"></div>
-            <button class="loginBtn">Login</button>
+            <button
+              @click="loginBtn()"
+              class="loginBtn"
+              v-if="login === 'false'"
+            >
+              Login
+            </button>
+            <div v-if="login === 'true'" class="salersInfo">
+              <p>Name: Bob</p>
+              <p>Email: bob@go.com</p>
+              <p>Phone: 801-984-9876</p>
+            </div>
             <!-- The contact section and login button provide convenient options for users to interact with the website. -->
           </div>
           <div class="mapSection">
