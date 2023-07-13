@@ -95,7 +95,7 @@ Vue.createApp({
       fetch(URL + "session", options)
         .then((response) => response.json())
         .then((data) => {
-          if (data) {
+          if (data && data.cookie && data.userId) {
             console.log(data && data.cookie && data.userId);
             this.userSession = true;
           }
