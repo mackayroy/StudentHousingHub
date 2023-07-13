@@ -272,13 +272,23 @@ nav .navRefs {
     padding-top: calc(var(--hamburger-height) + var(--hamburger-margin) + 1rem);
     background-color: rgb(223, 230, 218, 1);
     color: var(--background);
-    max-width: 100vw;
+    max-width: auto;
     min-height: auto;
     color: #000;
+    height: 0;
+    overflow: hidden;
+    display: none;
   }
 
   .hamburger-menu:has(input:checked) + .sidebar {
     translate: 0;
+    height: auto;
+    overflow: visible;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
   #wrapper {
     display: flex;
