@@ -10,6 +10,7 @@
   --green: #9caf88;
   --light-green: #dfe6da;
   --dark-green: #819171;
+  --lighter-green: #dfe6da;
 }
 
 /* Nav and Modals */
@@ -24,11 +25,15 @@ nav {
   color: white;
   font-size: 20px;
   user-select: none;
-  cursor: pointer;
+  padding: 5px 0px;
 }
-nav img {
-  width: 100px;
-  height: 100px;
+#logo {
+  width: 75px;
+  height: 75px;
+  background-image: url("../logo.png");
+  background-size: 200%;
+  background-position: center;
+  background-repeat: no-repeat;
   margin-left: 10%;
 }
 nav .navRefs {
@@ -36,11 +41,21 @@ nav .navRefs {
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 75px;
   text-decoration: none;
   margin-right: 10%;
+  cursor: pointer;
 }
-.modal {
+nav .navRefs img {
+  margin-left: 0;
+}
+nav .navRefs .signIn {
+  background-color: white;
+  color: var(--green);
+  padding: 7px 10px;
+  border-radius: 5px;
+}
+.navModal {
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(3px);
   position: fixed;
@@ -128,10 +143,62 @@ nav .navRefs {
   background-color: white;
 }
 
+.profile {
+  position: relative;
+}
+.profilePreview {
+  width: 50px;
+  height: 50px;
+  background-color: var(--light-green);
+  border-radius: 100%;
+  padding: 3px;
+  margin-top: 5px;
+  object-fit: cover;
+}
+.profileModal {
+  position: absolute;
+  display: none;
+  background-color: white;
+  top: 60px;
+  right: 0;
+  border-radius: 3px;
+  padding: 15px;
+  box-shadow: 0 0 2px black;
+  color: black;
+  font-size: 15px;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+.profileModal:before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid white;
+}
+.profile:hover .profileModal {
+  display: flex;
+}
+.profileModal div {
+  cursor: pointer;
+}
+.profileModalLine {
+  width: 75px;
+  height: 1px;
+  margin: 10px 0px;
+  background-color: grey;
+}
+
 /* Hero */
 
 .hero {
-  background-image: url("hero.jpg");
+  background-image: url("images/hero.jpg");
   background-size: cover;
   height: 60vh;
   display: flex;
@@ -194,14 +261,14 @@ footer {
 /* SVG Stuff */
 
 .svgHero {
-  background-image: url("./heroSpacer.svg");
+  background-image: url("images/heroSpacer.svg");
   background-position: 0 0px;
   width: 100vw;
   height: 75px;
   margin-bottom: 50px;
 }
 .svgFooter {
-  background-image: url("./footerSpacer.svg");
+  background-image: url("images/footerSpacer.svg");
   background-position: 0 90px;
   width: 100vw;
   height: 75px;
@@ -250,5 +317,11 @@ footer {
   .WWDTop,
   .MOTTop {
     background-position: 0 155px;
+  }
+}
+
+@media (max-width: 900px) {
+  nav .navRefs {
+    gap: 25px;
   }
 }

@@ -4,38 +4,57 @@ Vue.createApp({
   data() {
     return {
       userSession: false,
-      search: "",
-      showModal: false,
-      currentModal: "signin",
-      user: {
+      heroSearch: "",
+      showNavModal: false,
+      showProfileModal: false,
+      currentNavModal: "signin",
+      navUser: {
         name: "",
         email: "",
         phoneNumber: "",
         password: "",
       },
-      loginUser: {
+      navLoginUser: {
         email: "",
         password: "",
       },
     };
   },
   methods: {
-    toggleModal: function () {
-      if (this.showModal) {
-        this.showModal = false;
+    // Sign In / Up Modal
+    toggleNavModal: function () {
+      this.navUser.name = "";
+      this.navUser.email = "";
+      this.navUser.phone = "";
+      this.navUser.password = "";
+      this.navLoginUser.email = "";
+      this.navLoginUser.password = "";
+      if (this.showNavModal) {
+        this.showNavModal = false;
       } else {
-        this.showModal = true;
+        this.showNavModal = true;
       }
     },
-    swapModal: function () {
-      this.name = "";
-      this.email = "";
-      this.phone = "";
-      this.password = "";
-      if (this.currentModal == "signin") {
-        this.currentModal = "signup";
+    swapNavModal: function () {
+      this.navUser.name = "";
+      this.navUser.email = "";
+      this.navUser.phone = "";
+      this.navUser.password = "";
+      this.navLoginUser.email = "";
+      this.navLoginUser.password = "";
+      if (this.currentNavModal == "signin") {
+        this.currentNavModal = "signup";
       } else {
-        this.currentModal = "signin";
+        this.currentNavModal = "signin";
+      }
+    },
+
+    // Profile Modal
+    toggleProfileModal: function () {
+      if (this.showProfileModal) {
+        this.showProfileModal = false;
+      } else {
+        this.showProfileModal = true;
       }
     },
 
@@ -48,7 +67,7 @@ Vue.createApp({
       var options = {
         method: "POST",
         headers: myHeaders,
-        body: JSON.stringify(this.user),
+        body: JSON.stringify(this.navUser),
       };
 
       fetch(URL + "users", options).then((response) => {
@@ -66,7 +85,7 @@ Vue.createApp({
       var options = {
         method: "POST",
         headers: myHeaders,
-        body: JSON.stringify(this.loginUser),
+        body: JSON.stringify(this.navLoginUser),
         credentials: "include",
       };
 
@@ -75,9 +94,9 @@ Vue.createApp({
           response.text().then((data) => {
             if (data) {
               data = JSON.parse(data);
-              this.user.name = data.name;
+              this.navUser.name = data.name;
               this.userSession = true;
-              this.toggleModal();
+              this.toggleNavModal();
             } else {
               alert("Can't log in.");
             }
@@ -107,7 +126,7 @@ Vue.createApp({
         credentials: "include",
       };
       fetch(URL + "session", options).then((response) => {
-        this.user.name = "";
+        this.navUser.name = "";
       });
     },
   },
