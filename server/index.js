@@ -2,7 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const model = require("./model");
 const session = require('express-session')
-// const { getFileStream, uploadFile } = require("./s3");
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/'})
+const { getFileStream, uploadFile } = require("./s3");
 
 const app = express();
 const port = 8080;
@@ -204,6 +206,18 @@ app.put('/properties/:propertiesId', AuthMiddleware, function(req, res) {
     }
   })
 });
+
+
+// images
+app.post('/images', upload.single('image'), async (req, res) =>{
+  const file = req.file;
+  console.log(file);
+  const result = await uploadFile(file);
+  console.log(result);
+  const description = req.body.description;
+  res.send('YAY')
+})
+
 
 
 // session
