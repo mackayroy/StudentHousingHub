@@ -16,6 +16,7 @@ app.use(cors({
 }));
 app.use(session({
   secret: "kdbdfiebfuiwnufewifbkenfibeifniwbfhwrfierfbiefiefieqneifnwf9eqrifnwfnwqofeowqneufbwuoefwoefiwbfiwbfkbif",
+  cookie: {secure: false, httpOnly: false, sameSite: 'lax'},
   saveUninitialized: true,
   resave: false
 }));
@@ -128,8 +129,19 @@ app.post('/properties', function(req, res) {
   })
   newProperty.save().then(function() {
     res.status(201).send('Property listed.')
+  }).catch(function(errors) {
+    console.log(errors);
+    res.status(422).send('Failed to list property.')
+  })
+});
+
+app.get('/properties', function(req, res) {
+  model.Property.find().then(function(properties) {
+    res.send(properties)
   })
 })
+
+app.get('')
 
 
 
