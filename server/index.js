@@ -7,6 +7,7 @@ const session = require('express-session')
 const app = express();
 const port = 8080;
 
+app.use(express.static('public'))
 app.use(express.json());
 app.use(cors({
   credentials: true,
@@ -173,7 +174,9 @@ app.post('/session', function(req, res) {
           // user doesnt exist
           res.status(401).send("Couldn't authenticate. Check email/password.")
       }
-  }).catch(errors => {})
+  }).catch(errors => {
+    console.log(errors)
+  })
 })
 
 app.delete('/session', function(req, res) {
