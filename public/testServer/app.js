@@ -1,51 +1,31 @@
-import { useState } from 'react'
-import axios from 'axios'
-
-import './App.css'
-
-async function postImage({image, description}) {
-  const formData = new FormData();
-  formData.append("image", image)
-  formData.append("description", description)
-
-  const result = await axios.post('/images', formData, { headers: {'Content-Type': 'multipart/form-data'}})
-  return result.data
-}
-
-
-function App() {
-
-  const [file, setFile] = useState()
-  const [description, setDescription] = useState("")
-  const [images, setImages] = useState([])
-
-  const submit = async event => {
-    event.preventDefault()
-    const result = await postImage({image: file, description})
-    setImages([result.image, ...images])
+Vue.createApp({
+  data() {
+      return {
+      }
+  },
+  methods : {
+    async postImage() {
+      const formData = new FormData();
+      formData.append("file", this.$refs.uploadImage.files[0]);
+      try {
+        const response = await fetch('http://localhost:8080/images', {
+          method: 'POST',
+          body: formData,
+        });
+      
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+      
+        const result = await response.json();
+        return result;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      } 
+    },
+  },
+  created : function() {
+    // this.postImage();
   }
-
-  const fileSelected = event => {
-    const file = event.target.files[0]
-    setFile(file)
-  }
-
-  return (
-    <div className="App">
-      <form onSubmit={submit}>
-        <input onChange={fileSelected} type="file" accept="image/*"></input>
-        <input value={description} onChange={e => setDescription(e.target.value)} type="text"></input>
-        <button type="submit">Submit</button>
-      </form>
-
-      { images.map( image => (
-        <div key={image}>
-          <img src={image}></img>
-        </div>
-      ))}
-
-    </div>
-  );
-}
-
-export default App;
+}).mount("#app");
