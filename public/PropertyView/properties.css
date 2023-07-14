@@ -18,18 +18,18 @@
 .mainConatiner {
   padding: 20px 20px;
 }
+
+/* All the css for the photo slider */
 .carousel {
   width: 100%;
   min-height: 600px;
   position: relative;
 }
-
 .carousel > ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-
 .slide {
   position: absolute;
   inset: 0;
@@ -37,7 +37,6 @@
   transition: 200ms opacity ease-in-out;
   transition-delay: 200ms;
 }
-
 .slide > img {
   padding-bottom: 20px;
   width: 100%;
@@ -45,13 +44,11 @@
   object-fit: contain;
   object-position: center;
 }
-
 .slide[data-active] {
   opacity: 1;
   z-index: 1;
   transition-delay: 0ms;
 }
-
 .carousel-button {
   position: absolute;
   z-index: 2;
@@ -66,24 +63,22 @@
   padding: 0 0.5rem;
   background-color: rgba(0, 0, 0, 0.1);
 }
-
 .carousel-button:hover,
 .carousel-button:focus {
   color: white;
   background-color: rgba(0, 0, 0, 0.2);
 }
-
 .carousel-button:focus {
   outline: 1px solid black;
 }
-
 .carousel-button.prev {
   left: 1rem;
 }
-
 .carousel-button.next {
   right: 1rem;
 }
+
+/* The css for the nav Bar */
 nav {
   background-color: var(--dark-green);
   display: flex;
@@ -108,6 +103,7 @@ nav .navRefs {
   margin-right: 10%;
 }
 
+/* Start of the bottom css */
 .bottomContainer {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
@@ -116,6 +112,7 @@ nav .navRefs {
   color: rgb(51, 54, 52);
 }
 
+/* Css for the property detail section */
 .PropertyOverview {
   background-color: var(--light-green);
   display: flex;
@@ -161,6 +158,7 @@ nav .navRefs {
   border-radius: 10px;
 }
 
+/* Css for the contact section */
 .contactSection {
   grid-column: 2/3;
   grid-row: 1/2;
@@ -183,7 +181,6 @@ nav .navRefs {
   font-size: 2em;
   margin-top: 10px;
 }
-
 .line {
   width: 80%;
   height: 1px;
@@ -215,6 +212,7 @@ nav .navRefs {
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
 }
 
+/* Css for the map section */
 .mapSection {
   background-color: var(--light-green);
   display: grid;
@@ -228,17 +226,18 @@ nav .navRefs {
   text-align: center;
   font-size: 2em;
 }
-
 #map {
   height: 300px;
   width: 300px;
 }
+/* Footer css */
 .footer {
   background-color: var(--dark-green);
   height: 100px;
   width: 100%;
 }
 
+/* Media querys */
 @media (max-width: 414px) {
   .carousel {
     width: 100%;

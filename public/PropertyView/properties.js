@@ -11,6 +11,7 @@ Vue.createApp({
     };
   },
   methods: {
+    // Function to calculate the distance between two coordinates in miles
     calculateDistance(lat1, lon1, lat2, lon2) {
       const earthRadiusKm = 6371; // Radius of the Earth in kilometers
 
@@ -39,6 +40,8 @@ Vue.createApp({
     degToRad(degrees) {
       return (degrees * Math.PI) / 180;
     },
+
+    // Function to get the coordinates of the address
     coordinates() {
       fetch(
         "https://maps.googleapis.com/maps/api/geocode/json?address=" +
@@ -66,6 +69,7 @@ Vue.createApp({
           );
         });
     },
+    // Function to display the map and create markers
     map() {
       const addMarker = (coords) => {
         var marker = new google.maps.Marker({
@@ -89,6 +93,7 @@ Vue.createApp({
       }
       initMap.call(this);
     },
+    // Function to display the login form
     loginBtn() {
       this.login = "true";
     },

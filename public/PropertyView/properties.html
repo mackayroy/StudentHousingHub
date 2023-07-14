@@ -20,11 +20,11 @@
 
   <body>
     <div id="app">
+      <!-- Header of the page -->
       <nav>
         <img src="../logo.png" alt="logo" />
         <div class="navRefs">
           <div @click="">Create Listing</div>
-          <!-- Great structure and organization of the navigation bar options! -->
           <div @click="">My Listings</div>
           <div>
             <div @click="toggleSignOut" v-if="userSession">Sign Out</div>
@@ -34,6 +34,7 @@
       </nav>
 
       <div class="mainConatiner">
+        <!-- Slide show for the phots up top -->
         <section aria-label="Newest Photos">
           <div class="carousel" data-carousel>
             <button class="carousel-button prev" data-carousel-button="prev">
@@ -56,6 +57,7 @@
           </div>
         </section>
         <div class="bottomContainer">
+          <!-- Property section of the pages shows all the details of the property -->
           <div class="PropertyOverview">
             <div class="propertyDetails">
               <h1 class="price">$450</h1>
@@ -89,6 +91,7 @@
               </div>
             </div>
           </div>
+          <!-- Contact section of the page with owners info -->
           <div class="contactSection">
             <h1 class="contactBtn">Contact</h1>
             <div class="line"></div>
@@ -104,8 +107,8 @@
               <p>Email: bob@go.com</p>
               <p>Phone: 801-984-9876</p>
             </div>
-            <!-- The contact section and login button provide convenient options for users to interact with the website. -->
           </div>
+          <!-- Map section of the page will display the map -->
           <div class="mapSection">
             <p>Distance</p>
             <p>{{distance}} miles</p>
@@ -113,11 +116,12 @@
           </div>
         </div>
       </div>
+      <!-- Footer of the page -->
       <div class="footer">
         <p>footer</p>
-        <!-- The footer provides a clear separation between the main content and the bottom of the page. -->
       </div>
     </div>
+    <!-- Google maps script -->
     <script>
       ((g) => {
         var h,
