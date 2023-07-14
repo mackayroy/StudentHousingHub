@@ -68,6 +68,7 @@ Vue.createApp({
       ],
       sortedProperties: [],
       active_search: [],
+      sort: false,
       minPrice: null,
       maxPrice: null,
       minBedrooms: null,
@@ -90,72 +91,51 @@ Vue.createApp({
   },
   methods: {
     clearSearch() {
-      this.active_search = [];
+      this.sortedProperties = [];
       let checkboxes = document.querySelectorAll('[id^="myCheckbox"]');
       checkboxes.forEach(function (checkbox) {
         checkbox.checked = false;
       });
-      // this.minPrice= null,
-      // this.maxPrice: null,
-      // this.minBedrooms: null,
-      // this.minBathrooms: null,
+      this.minPrice = null;
+      this.maxPrice = null;
+      this.minBedrooms = null;
+      this.minBathrooms = null;
+      this.poolCheckbox = false;
+      this.wifiCheckbox = false;
+      this.printerCheckbox = false;
+      this.kitchenCheckbox = false;
+      this.sort = false;
     },
+
     filterProperties() {
       this.sortedProperties = [];
-      console.log("plan list");
 
       for (let i = 0; i < this.properties.length; i++) {
         let property = this.properties[i];
+        let meetsCriteria = true;
+        this.sort = true;
 
-        if (this.minPrice && property.price < this.minPrice) {
-          if (!this.sortedProperties.includes(property)) {
-            this.sortedProperties.push(property);
-            console.log(this.sortedProperties);
-          }
-        }
-        if (this.maxPrice && property.price > this.maxPrice) {
-          if (!this.sortedProperties.includes(property)) {
-            this.sortedProperties.push(property);
-            console.log(this.sortedProperties);
-          }
-        }
-        if (this.minBedrooms && property.numBeds == this.minBedrooms) {
-          if (!this.sortedProperties.includes(property)) {
-            this.sortedProperties.push(property);
-            console.log(this.sortedProperties);
-          }
-        }
-        if (this.minBathrooms && property.numBaths == this.minBathrooms) {
-          if (!this.sortedProperties.includes(property)) {
-            this.sortedProperties.push(property);
-            console.log(this.sortedProperties);
-          }
-        }
-        if (this.poolCheckbox && property.Pool == true) {
-          if (!this.sortedProperties.includes(property)) {
-            this.sortedProperties.push(property);
-            console.log(this.sortedProperties);
-          }
-        }
-        if (this.wifiCheckbox && property.Wifi == true) {
-          if (!this.sortedProperties.includes(property)) {
-            this.sortedProperties.push(property);
-            console.log(this.sortedProperties);
-          }
-        }
-        if (this.printerCheckbox && property.Printer == true) {
-          if (!this.sortedProperties.includes(property)) {
-            this.sortedProperties.push(property);
-            console.log(this.sortedProperties);
-          }
-        }
-        if (this.kitchenCheckbox && property.Kitchen == true) {
-          if (!this.sortedProperties.includes(property)) {
-            this.sortedProperties.push(property);
-            console.log(this.sortedProperties);
-          }
+        if (this.minPrice && property.price < this.minPrice)
+          meetsCriteria = false;
+        if (this.maxPrice && property.price > this.maxPrice)
+          meetsCriteria = false;
+        if (this.minBedrooms && property.numBeds < this.minBedrooms)
+          meetsCriteria = false;
+        if (this.minBathrooms && property.numBaths < this.minBathrooms)
+          meetsCriteria = false;
+        if (this.poolCheckbox && property.Pool !== true) meetsCriteria = false;
+        if (this.wifiCheckbox && property.Wifi !== true) meetsCriteria = false;
+        if (this.printerCheckbox && property.Printer !== true)
+          meetsCriteria = false;
+        if (this.kitchenCheckbox && property.Kitchen !== true)
+          meetsCriteria = false;
+
+        if (meetsCriteria) {
+          this.sortedProperties.push(property);
         }
       }
+      console.log(this.sort);
+      console.log(this.sortedProperties);
     },
   },
 

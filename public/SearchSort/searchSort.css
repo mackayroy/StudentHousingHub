@@ -54,6 +54,8 @@ nav .navRefs {
   grid-row: 2/-1;
   background-color: var(--sort-color);
   align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .preferenceItem {
@@ -119,7 +121,18 @@ nav .navRefs {
 .contentBox {
   grid-column: 3/-2;
   grid-row: 3/-1;
+}
+
+.content {
   padding: 20px;
+}
+
+.contentBox {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
 }
 
 .property {

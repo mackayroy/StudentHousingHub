@@ -29,48 +29,65 @@
             <h3>Preferences</h3>
             <div class="preferencesList">
               <div class="preferenceItem">
-                <label>Price &gt;</label>
-                <input type="text" />
+                <label>Min Price</label>
+                <input type="number" v-model="minPrice" />
               </div>
               <div class="preferenceItem">
-                <label>Price &lt;</label>
-                <input type="text" />
+                <label>Max Price</label>
+                <input type="number" v-model="maxPrice" />
               </div>
               <div class="preferenceItem">
-                <label>Bedrooms &gt;</label>
-                <input type="text" />
+                <label>Min Bedrooms</label>
+                <input type="number" v-model="minBedrooms" />
               </div>
               <div class="preferenceItem">
-                <label>Bathrooms &gt;</label>
-                <input type="text" />
+                <label>Min Bathrooms</label>
+                <input type="number" v-model="minBathrooms" />
               </div>
             </div>
           </div>
-
-          <div class="ammenitys">
-            <h3>Amenities</h3>
-            <div class="amenitiesList">
-              <ul>
-                <li>
-                  <input type="checkbox" />
-                  <label>Pool</label>
-                </li>
-                <li>
-                  <input type="checkbox" />
-                  <label>WiFi</label>
-                </li>
-                <li>
-                  <input type="checkbox" />
-                  <label>Printer</label>
-                </li>
-                <li>
-                  <input type="checkbox" />
-                  <label>Kitchen</label>
-                </li>
-              </ul>
-            </div>
+          
+            <div class="ammenitys">
+              <h3>Amenities</h3>
+              <div class="amenitiesList">
+                <ul>
+                  <li>
+                    <input
+                      type="checkbox"
+                      v-model="poolCheckbox"
+                      id="poolCheckbox"
+                    />
+                    <label for="poolCheckbox">Pool</label>
+                  </li>
+                  <li>
+                    <input
+                      type="checkbox"
+                      v-model="wifiCheckbox"
+                      id="wifiCheckbox"
+                    />
+                    <label for="wifiCheckbox">WiFi</label>
+                  </li>
+                  <li>
+                    <input
+                      type="checkbox"
+                      v-model="printerCheckbox"
+                      id="printerCheckbox"
+                    />
+                    <label for="printerCheckbox">Printer</label>
+                  </li>
+                  <li>
+                    <input
+                      type="checkbox"
+                      v-model="kitchenCheckbox"
+                      id="kitchenCheckbox"
+                    />
+                    <label for="kitchenCheckbox">Kitchen</label>
+                  </li>
+                </ul>
           </div>
         </div>
+        <button @click="clearSearch()">Clear</button>
+      </div>
 
         <label class="hamburger-menu">
           <input type="checkbox" />
@@ -136,8 +153,9 @@
                   </li>
                 </ul>
           </div>
-          <button @click="clearSearch()">Clear</button>
+          
         </div>
+        <button @click="clearSearch()">Clear</button>
       </div>
 
       <div class="searchCity">
@@ -150,7 +168,7 @@
 
       <div class="contentBox">
         <div
-          v-if="active_search.length <= 0"
+          v-if="!sort"
           v-for="(pro, index) in properties"
           class="content"
         >
@@ -171,7 +189,7 @@
         <div
           v-for="(pro, index) in sortedProperties"
           class="content"
-          v-if="sortedProperties.length > 0"
+          v-if="sort"
         >
           <div class="property">
             <img src="pexels-vecislavas-popa-1571460.jpg" alt="property" />
