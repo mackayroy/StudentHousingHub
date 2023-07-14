@@ -1,9 +1,11 @@
+/* Resets the margin and padding, and sets the box sizing to border-box for all elements */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Sets CSS custom properties (variables) for ease of use throughout the CSS */
 :root {
   --nav-color: rgba(156, 175, 136, 1);
   --sort-color: rgba(223, 230, 218, 1);
@@ -12,16 +14,17 @@
   --search-color: rgba(156, 175, 136, 1);
 }
 
+/* Sets the layout for the wrapper element */
 #wrapper {
   width: 100%;
   height: 100%;
   display: grid;
   background-color: var(--body-color);
   grid-template-columns: 10px 290px 1fr 1fr 10px;
-  /* grid-template-columns: 10px minmax(1fr, 290px) 1fr 1fr 10px; */
   grid-template-rows: auto 60px auto;
 }
 
+/* Styles for navigation bar */
 nav {
   grid-column: 1/-1;
   grid-row: 1/2;
@@ -34,11 +37,14 @@ nav {
   font-size: 20px;
 }
 
+/* Styles for navigation bar's image */
 nav img {
   width: 100px;
   height: 100px;
   margin-left: 10%;
 }
+
+/* Styles for navigation links */
 nav .navRefs {
   display: flex;
   flex-flow: row nowrap;
@@ -49,6 +55,7 @@ nav .navRefs {
   margin-right: 10%;
 }
 
+/* Styles for sort section */
 .sort {
   grid-column: 2/3;
   grid-row: 2/-1;
@@ -58,6 +65,16 @@ nav .navRefs {
   flex-direction: column;
 }
 
+/* Styles for preference list */
+.preferencesList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 260px;
+  margin: 0 10px;
+}
+
+/* Styles for preference items */
 .preferenceItem {
   display: flex;
   flex-flow: row nowrap;
@@ -68,12 +85,21 @@ nav .navRefs {
   font-size: large;
 }
 
-.preferences,
-.ammenitys h3 {
+/* Styles for preference and amenities headers */
+.preferences h3,
+.amenities h3 {
   text-align: center;
   padding: 10px;
 }
 
+/* Styles for amenities section */
+.amenities {
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+/* Styles for amenities list */
 .amenitiesList {
   background-color: var(--white);
   display: flex;
@@ -81,20 +107,55 @@ nav .navRefs {
   align-items: center;
   padding: 10px 10px;
 }
-.amenitiesList ul {
-  columns: 2;
-  -webkit-columns: 2;
-  -moz-columns: 2;
-}
+
+/* Styles for amenities list's list items */
 .amenitiesList ul li {
   list-style: none;
   padding: 5px 0px;
   font-size: large;
 }
+
+/* Styles for amenities list's list */
+.amenitiesList ul {
+  columns: 2;
+}
+
+/* Styles for input in amenities list's list items */
 .amenitiesList ul li input {
   margin-right: 10px;
 }
 
+/* Styles for label in amenities list's list items */
+.amenitiesList li label {
+  font-size: 1em;
+  color: #333;
+}
+
+/* General styles for buttons */
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Styles for amenities list's list items */
+.amenitiesList li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Styles for checkbox in amenities list's list items */
+.amenitiesList li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Styles for city search section */
 .searchCity {
   grid-column: 3/-2;
   grid-row: 2;
@@ -105,6 +166,7 @@ nav .navRefs {
   margin: 10px 0px;
 }
 
+/* Styles for city input field */
 .cityInput {
   border-radius: 16px;
   border: 2px solid #9caf88;
@@ -117,16 +179,19 @@ nav .navRefs {
   padding: 10px;
 }
 
+/* Styles for content and contentBox */
 .content,
 .contentBox {
   grid-column: 3/-2;
   grid-row: 3/-1;
 }
 
+/* Styles for content */
 .content {
   padding: 20px;
 }
 
+/* Styles for content box */
 .contentBox {
   display: flex;
   flex-flow: row wrap;
@@ -135,6 +200,7 @@ nav .navRefs {
   gap: 20px;
 }
 
+/* Styles for property */
 .property {
   display: flex;
   flex-flow: column nowrap;
@@ -145,12 +211,14 @@ nav .navRefs {
   background-color: rgba(223, 230, 218, 0.3);
 }
 
+/* Styles for property image */
 .property img {
   width: 100%;
   height: 230px;
   object-fit: cover;
 }
 
+/* Styles for property info */
 .propertyInfo {
   display: flex;
   flex-flow: column nowrap;
@@ -160,26 +228,41 @@ nav .navRefs {
   gap: 10px;
 }
 
+/* Styles for preference item label */
+.preferenceItem label {
+  font-size: 1em;
+  color: #333;
+}
+
+/* Styles for preference item input */
+.preferenceItem input {
+  padding: 5px;
+  border: 1px solid var(--search-color);
+  border-radius: 3px;
+  font-size: 1rem;
+  width: 135px;
+}
+
+/* Styles for price */
 .price {
   font-size: 30px;
 }
 
+/* Styles for address */
 .address {
   font-size: 16px;
   font-style: italic;
   padding-left: 40px;
 }
 
+/* Styles for property name and number of beds */
 .propertyName,
 .numbeds {
   font-size: 20px;
   padding-left: 15px;
 }
 
-.toggleham {
-  display: none;
-}
-
+/* Default state for hamburger menu and sidebar (hidden) */
 .hamburger-menu {
   translate: -1000%;
 }
@@ -187,6 +270,7 @@ nav .navRefs {
 .sidebar {
   translate: -100000%;
 }
+
 @media (max-width: 900px) {
   *,
   *::after,
@@ -225,6 +309,13 @@ nav .navRefs {
     left: var(--hamburger-margin);
     z-index: 2;
     cursor: pointer;
+  }
+
+  .sidebarcontent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .hamburger-menu:has(input:checked) {
@@ -298,10 +389,12 @@ nav .navRefs {
     height: auto;
     overflow: visible;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 20px;
+    padding: 30px;
   }
   #wrapper {
     display: flex;
@@ -319,19 +412,14 @@ nav .navRefs {
     flex-wrap: wrap;
   }
 
-  .toggleham {
-    display: flex;
-    grid-column: 2;
-    grid-row: 2;
-    width: 50px;
-    height: 50px;
-    padding: 10px 0px;
-    align-items: center;
-    justify-content: center;
+  .preferencesList {
+    margin: 10px;
   }
-  .toggleham a.icon {
-    font-size: 30px;
-    color: var(--nav-color);
+
+  .amenitiesList ul {
+    list-style: none;
+    padding: 0;
+    columns: 1;
   }
 
   .searchCity {
@@ -349,6 +437,9 @@ nav .navRefs {
 
 @media (max-width: 600px) {
   .contentBox {
+    flex-direction: column;
+  }
+  .sidebarcontent {
     flex-direction: column;
   }
 }

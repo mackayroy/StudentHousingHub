@@ -12,11 +12,13 @@
   <body>
     <div id="app">
       <div id="wrapper">
+        <!-- Navigation bar -->
         <nav>
           <img src="../logo.png" alt="logo" />
           <div class="navRefs">
             <div @click="">Create Listing</div>
             <div @click="">My Listings</div>
+            <!-- Sign in/out buttons -->
             <!-- <div>
               <div @click="toggleSignOut" v-if="userSession">Sign Out</div>
               <div @click="toggleSignIn" v-else>Sign In</div>
@@ -24,7 +26,9 @@
           </div>
         </nav>
 
+        <!-- Sorting and filtering section -->
         <div class="sort">
+          <!-- Preferences -->
           <div class="preferences">
             <h3>Preferences</h3>
             <div class="preferencesList">
@@ -37,84 +41,100 @@
                 <input type="number" v-model="maxPrice" />
               </div>
               <div class="preferenceItem">
-                <label>Min Bedrooms</label>
+                <label>Bedrooms</label>
                 <input type="number" v-model="minBedrooms" />
               </div>
               <div class="preferenceItem">
-                <label>Min Bathrooms</label>
+                <label>Bathrooms</label>
                 <input type="number" v-model="minBathrooms" />
               </div>
             </div>
           </div>
-          
-            <div class="ammenitys">
-              <h3>Amenities</h3>
-              <div class="amenitiesList">
-                <ul>
-                  <li>
-                    <input
-                      type="checkbox"
-                      v-model="poolCheckbox"
-                      id="poolCheckbox"
-                    />
-                    <label for="poolCheckbox">Pool</label>
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      v-model="wifiCheckbox"
-                      id="wifiCheckbox"
-                    />
-                    <label for="wifiCheckbox">WiFi</label>
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      v-model="printerCheckbox"
-                      id="printerCheckbox"
-                    />
-                    <label for="printerCheckbox">Printer</label>
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      v-model="kitchenCheckbox"
-                      id="kitchenCheckbox"
-                    />
-                    <label for="kitchenCheckbox">Kitchen</label>
-                  </li>
-                </ul>
-          </div>
-        </div>
-        <button @click="clearSearch()">Clear</button>
-      </div>
 
+          <!-- Amenities -->
+          <div class="amenities">
+            <h3>Amenities</h3>
+            <div class="amenitiesList">
+              <ul>
+                <li>
+                  <input
+                    type="checkbox"
+                    v-model="poolCheckbox"
+                    id="poolCheckbox"
+                  />
+                  <label for="poolCheckbox">Pool</label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    v-model="wifiCheckbox"
+                    id="wifiCheckbox"
+                  />
+                  <label for="wifiCheckbox">WiFi</label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    v-model="printerCheckbox"
+                    id="printerCheckbox"
+                  />
+                  <label for="printerCheckbox">Printer</label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    v-model="kitchenCheckbox"
+                    id="kitchenCheckbox"
+                  />
+                  <label for="kitchenCheckbox">Kitchen</label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    v-model="privetRoomCheckbox"
+                    id="privetRoomCheckbox"
+                  />
+                  <label for="privetRoomCheckbox">Private Room</label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Clear button -->
+          <button @click="clearSearch()">Clear</button>
+        </div>
+
+        <!-- Hamburger menu -->
         <label class="hamburger-menu">
           <input type="checkbox" />
         </label>
+
+        <!-- Sidebar -->
         <div class="sidebar">
-          <div class="preferences">
-            <h3>Preferences</h3>
-            <div class="preferencesList">
-              <div class="preferenceItem">
-                <label>Min Price</label>
-                <input type="number" v-model="minPrice" />
-              </div>
-              <div class="preferenceItem">
-                <label>Max Price</label>
-                <input type="number" v-model="maxPrice" />
-              </div>
-              <div class="preferenceItem">
-                <label>Min Bedrooms</label>
-                <input type="number" v-model="minBedrooms" />
-              </div>
-              <div class="preferenceItem">
-                <label>Min Bathrooms</label>
-                <input type="number" v-model="minBathrooms" />
+          <div class="sidebarcontent">
+            <!-- Preferences (in sidebar) -->
+            <div class="preferences">
+              <h3>Preferences</h3>
+              <div class="preferencesList">
+                <div class="preferenceItem">
+                  <label>Min Price</label>
+                  <input type="number" v-model="minPrice" />
+                </div>
+                <div class="preferenceItem">
+                  <label>Max Price</label>
+                  <input type="number" v-model="maxPrice" />
+                </div>
+                <div class="preferenceItem">
+                  <label>Bedrooms</label>
+                  <input type="number" v-model="minBedrooms" />
+                </div>
+                <div class="preferenceItem">
+                  <label>Bathrooms</label>
+                  <input type="number" v-model="minBathrooms" />
+                </div>
               </div>
             </div>
-          </div>
-          
+
+            <!-- Amenities (in sidebar) -->
             <div class="amenities">
               <h3>Amenities</h3>
               <div class="amenitiesList">
@@ -151,53 +171,62 @@
                     />
                     <label for="kitchenCheckbox">Kitchen</label>
                   </li>
+                  <li>
+                    <input
+                      type="checkbox"
+                      v-model="privetRoomCheckbox"
+                      id="privetRoomCheckbox"
+                    />
+                    <label for="privetRoomCheckbox">Private Room</label>
+                  </li>
                 </ul>
+              </div>
+            </div>
           </div>
-          
+          <!-- Clear button in sidebar -->
+          <button @click="clearSearch()">Clear</button>
         </div>
-        <button @click="clearSearch()">Clear</button>
-      </div>
 
-      <div class="searchCity">
-        <input
-          type="text"
-          placeholder="Search by City, College..."
-          class="cityInput"
-        />
-      </div>
+        <!-- Search by city section -->
+        <div class="searchCity">
+          <input
+            type="text"
+            placeholder="Search by City, College..."
+            class="cityInput"
+          />
+        </div>
 
-      <div class="contentBox">
-        <div
-          v-if="!sort"
-          v-for="(pro, index) in properties"
-          class="content"
-        >
-          <div class="property">
-            <img src="pexels-vecislavas-popa-1571460.jpg" alt="property" />
-            <div class="propertyInfo">
-              <h3 class="price">${{pro.price}}</h3>
-              <p class="propertyName">{{pro.name}}</p>
-              <span class="address">{{pro.location}}</span>
-              <p class="numbeds">{{pro.numBeds}}</p>
+        <!-- Content box -->
+        <div class="contentBox">
+          <!-- Properties (without sorting) -->
+          <div v-if="!sort" v-for="(pro, index) in properties" class="content">
+            <div class="property">
+              <img src="pexels-vecislavas-popa-1571460.jpg" alt="property" />
+              <div class="propertyInfo">
+                <h3 class="price">${{pro.price}}</h3>
+                <p class="propertyName">{{pro.name}}</p>
+                <span class="address">{{pro.location}}</span>
+                <p class="numbeds">Beds Available: {{pro.numBeds}}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- filter content -->
-      <div class="contentBox">
-        <div
-          v-for="(pro, index) in sortedProperties"
-          class="content"
-          v-if="sort"
-        >
-          <div class="property">
-            <img src="pexels-vecislavas-popa-1571460.jpg" alt="property" />
-            <div class="propertyInfo">
-              <h3 class="price">${{pro.price}}</h3>
-              <p class="propertyName">{{pro.name}}</p>
-              <span class="address">{{pro.location}}</span>
-              <p class="numbeds">{{pro.numBeds}}</p>
+        <!-- Filtered content -->
+        <div class="contentBox">
+          <div
+            v-for="(pro, index) in sortedProperties"
+            class="content"
+            v-if="sort"
+          >
+            <div class="property">
+              <img src="pexels-vecislavas-popa-1571460.jpg" alt="property" />
+              <div class="propertyInfo">
+                <h3 class="price">${{pro.price}}</h3>
+                <p class="propertyName">{{pro.name}}</p>
+                <span class="address">{{pro.location}}</span>
+                <p class="numbeds">Beds Available: {{pro.numBeds}}</p>
+              </div>
             </div>
           </div>
         </div>

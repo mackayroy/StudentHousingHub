@@ -14,6 +14,7 @@ Vue.createApp({
           Wifi: true,
           Printer: false,
           Kitchen: false,
+          privetRoom: false,
         },
         {
           price: 300,
@@ -24,6 +25,7 @@ Vue.createApp({
           Wifi: false,
           Printer: false,
           Kitchen: false,
+          privetRoom: true,
         },
         {
           price: 200,
@@ -34,6 +36,7 @@ Vue.createApp({
           Wifi: false,
           Printer: false,
           Kitchen: false,
+          privetRoom: false,
         },
         {
           price: 150,
@@ -44,6 +47,7 @@ Vue.createApp({
           Wifi: false,
           Printer: false,
           Kitchen: false,
+          privetRoom: false,
         },
         {
           price: 500,
@@ -54,6 +58,7 @@ Vue.createApp({
           Wifi: false,
           Printer: false,
           Kitchen: false,
+          privetRoom: false,
         },
         {
           price: 400,
@@ -64,6 +69,7 @@ Vue.createApp({
           Wifi: true,
           Printer: true,
           Kitchen: false,
+          privetRoom: true,
         },
       ],
       sortedProperties: [],
@@ -77,6 +83,7 @@ Vue.createApp({
       wifiCheckbox: false,
       printerCheckbox: false,
       kitchenCheckbox: false,
+      privetRoomCheckbox: false,
     };
   },
   watch: {
@@ -88,6 +95,7 @@ Vue.createApp({
     wifiCheckbox: "filterProperties",
     printerCheckbox: "filterProperties",
     kitchenCheckbox: "filterProperties",
+    privetRoomCheckbox: "filterProperties",
   },
   methods: {
     clearSearch() {
@@ -104,6 +112,7 @@ Vue.createApp({
       this.wifiCheckbox = false;
       this.printerCheckbox = false;
       this.kitchenCheckbox = false;
+      this.privetRoomCheckbox = false;
       this.sort = false;
     },
 
@@ -128,6 +137,8 @@ Vue.createApp({
         if (this.printerCheckbox && property.Printer !== true)
           meetsCriteria = false;
         if (this.kitchenCheckbox && property.Kitchen !== true)
+          meetsCriteria = false;
+        if (this.privetRoomCheckbox && property.privetRoom !== true)
           meetsCriteria = false;
 
         if (meetsCriteria) {
