@@ -38,7 +38,13 @@
         </div>
       </nav>
       <div class="hero">
-        <input type="text" placeholder="Search by City, College..." v-model="heroSearch" />
+        <input
+          type="text"
+          placeholder="Search by City, College..."
+          id="autocomplete_search"
+          name="autocomplete_search"
+          class="form-control"
+        />
       </div>
       <div class="svgHero"></div>
       <!-- What we do -->
@@ -138,5 +144,28 @@
       </div>
     </div>
     <script src="./indexPage/app.js"></script>
+    <script
+      type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfajG_u7o0iR0ZXoZLbh4As_TvpfkgK3Q&libraries=places"
+    ></script>
+    <script>
+      google.maps.event.addDomListener(window, "load", initialize);
+
+      function initialize() {
+        var input = document.getElementById("autocomplete_search");
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.addListener("place_changed", function () {
+          var place = autocomplete.getPlace();
+
+          // place variable will have all the information you are looking for.
+
+          $("#lat").val(place.geometry["location"].lat());
+
+          $("#long").val(place.geometry["location"].lng());
+        });
+      }
+    </script>
   </body>
 </html>
