@@ -118,6 +118,9 @@ nav .navRefs {
 /* Styles for amenities list's list */
 .amenitiesList ul {
   columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  gap: 0px;
 }
 
 /* Styles for input in amenities list's list items */
@@ -197,7 +200,7 @@ button {
   flex-flow: row wrap;
   justify-content: space-evenly;
   align-items: center;
-  gap: 20px;
+  gap: 0px;
 }
 
 /* Styles for property */
