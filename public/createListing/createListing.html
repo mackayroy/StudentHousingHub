@@ -4,15 +4,89 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vue App</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <title>Student Housing Hub</title>
+    <link rel="icon" href="../MODERN HOME.png" />
+
+    <link href="createListing.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
 
   <body>
     <div id="app">
-      <!-- Content goes here -->
+      <!-- Header of the page -->
+      <nav>
+        <img src="../logo.png" alt="logo" />
+        <div class="navRefs">
+          <div @click="">Create Listing</div>
+          <div @click="">My Listings</div>
+          <div>
+            <div @click="toggleSignOut" v-if="userSession">Sign Out</div>
+            <div @click="toggleSignIn" v-else>Sign In</div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="mainContainer">
+        <h1 class="title">Create Listing</h1>
+        <form class="info">
+          <label>Property Name: </label>
+          <input type="text" name="name" /> <br />
+          <label>Address: </label>
+          <input type="text" name="address" /> <br />
+          <label>Price:</label>
+          <input type="number" name="price" /> <br />
+          <label>Beds: </label>
+          <input type="number" name="beds" /> <br />
+          <label>Baths: </label>
+          <input type="number" name="baths" /> <br />
+        </form>
+
+        <div class="amenitiesSection">
+          <h2>Amenities</h2>
+          <div class="mainforms">
+            <div class="amenitiesList">
+              <ul>
+                <li>
+                  <input type="checkbox" />
+                  <label>Wifi</label>
+                </li>
+                <li>
+                  <input type="checkbox" />
+                  <label>Washer/Dryer</label>
+                </li>
+                <li>
+                  <input type="checkbox" />
+                  <label>Parking</label>
+                </li>
+                <li>
+                  <input type="checkbox" />
+                  <label>Private Room</label>
+                </li>
+              </ul>
+            </div>
+
+            <form class="other">
+              <label>Others</label>
+              <input type="text" />
+            </form>
+          </div>
+        </div>
+
+        <div class="uploadImageSection">
+          <h2>Upload Images</h2>
+          <div class="upload">
+            <input
+              @click="photos()"
+              type="file"
+              id="files"
+              accept="images/*"
+              multiple="multiple"
+            />
+            <output id="result"></output>
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="app.js"></script>
+    <script src="createListing.js"></script>
   </body>
 </html>
