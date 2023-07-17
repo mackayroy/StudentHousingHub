@@ -84,7 +84,7 @@ app.put("/users/:usersId", function(req, res) {
   var usersId = req.params.usersId;
   model.User.findOne({'_id': usersId}).then(user => {
       if (user){
-        user.verifyPassword(req.body.verifyPassword).then(result => {
+        user.verifyPassword(req.body.verifyPassword).then(function() {
           if(req.body.name){
             user.name = req.body.name
           }
