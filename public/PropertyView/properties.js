@@ -6,7 +6,7 @@ Vue.createApp({
       login: "false",
       lng: 0,
       lat: 0,
-      address: "798 E St George Blvd, St. George, UT 84770",
+      address: "432 S Tech Ridge Dr, St. George, UT 84770",
       distance: 0,
     };
   },
@@ -33,7 +33,7 @@ Vue.createApp({
       const distanceKm = earthRadiusKm * c;
 
       // Convert distance from kilometers to miles
-      const distanceMiles = (distanceKm * 0.621371).toFixed(2);
+      const distanceMiles = (distanceKm * 0.621371).toFixed(1);
 
       return distanceMiles;
     },
