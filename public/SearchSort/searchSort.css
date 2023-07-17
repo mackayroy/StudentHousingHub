@@ -7,7 +7,7 @@
 
 /* Sets CSS custom properties (variables) for ease of use throughout the CSS */
 :root {
-  --nav-color: rgba(156, 175, 136, 1);
+  --nav-color: rgb(156, 175, 136);
   --sort-color: rgba(223, 230, 218, 1);
   --body-color: rgba(255, 255, 255, 1);
   --content-color: rgba(223, 230, 218, 0.3);
@@ -172,7 +172,7 @@ button {
 /* Styles for city input field */
 .cityInput {
   border-radius: 16px;
-  border: 2px solid #9caf88;
+  border: 2px solid rgb(156, 175, 136);
   width: 1012px;
   height: 40px;
   background-color: rgba(223, 230, 218, 1);
@@ -263,6 +263,25 @@ button {
 .numbeds {
   font-size: 20px;
   padding-left: 15px;
+}
+
+/* Styles for BookMark Icon when not Saved */
+.bookMarkIcon {
+  position: relative;
+  top: -21px;
+  left: 287px;
+  font-size: 33px;
+  color: rgb(156, 175, 136);
+  font-weight: unset !important;
+}
+/* Styles for BookMark Icon when Saved */
+.bookMarkIconSaved {
+  position: relative;
+  top: -21px;
+  left: 287px;
+  color: rgb(156, 175, 136);
+  font-size: 33px;
+  font-weight: 900 !important;
 }
 
 /* Default state for hamburger menu and sidebar (hidden) */

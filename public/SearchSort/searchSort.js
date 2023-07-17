@@ -148,6 +148,24 @@ Vue.createApp({
       console.log(this.sort);
       console.log(this.sortedProperties);
     },
+    bookMark: function (index) {
+      console.log(this.properties[index].bookMark);
+      if (!this.properties[index].bookMark) {
+        this.properties[index].bookMark = true;
+      } else {
+        this.properties[index].bookMark = !this.properties[index].bookMark;
+      }
+      // var element = document.querySelectorAll(".bookMarkIcon");
+      // element = element[index];
+      // if (element.classList.contains("bookMarkIcon")) {
+      //   element.classList.remove("bookMarkIcon");
+      //   element.classList.add("bookMarkIconSaved");
+      // } else {
+      //   element.classList.remove("bookMarkIconSaved");
+      //   element.classList.add("bookMarkIcon");
+      // }
+      console.log("bookMark");
+    },
   },
 
   created: function () {},
