@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Housing Hub</title>
     <link rel="icon" href="../MODERN HOME.png" />
-
+    <link rel="stylesheet" href="./icofont.min.css" />
     <link href="createListing.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
@@ -115,6 +115,9 @@
         <!-- Submit btn -->
         <div class="btn">
           <button @click="submitForm()" class="uploadbtn">Upload</button>
+          <button @click="boost()" class="boost">
+            Boost Listing<i class="icofont-crown"></i>
+          </button>
         </div>
       </div>
 
