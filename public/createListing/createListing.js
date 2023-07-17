@@ -3,6 +3,17 @@ Vue.createApp({
     return {
       userSession: false,
       search: "",
+      propertyInfo: {
+        name: "",
+        address: "",
+        price: 0,
+        beds: 0,
+        baths: 0,
+      },
+
+      amenities: [],
+      otherAmenities: [],
+      description: "",
     };
   },
   methods: {
@@ -33,6 +44,44 @@ Vue.createApp({
           alert("The File APIs are not fully supported in this browser.");
         }
       });
+    },
+    submitForm: function () {
+      if (
+        this.propertyInfo.name == "" ||
+        this.propertyInfo.address == "" ||
+        this.propertyInfo.price == 0 ||
+        this.propertyInfo.beds == 0 ||
+        this.propertyInfo.baths == 0
+      ) {
+        alert("Please fill out all required fields");
+        return;
+      } else {
+        let wifiCheckbox = document.querySelector("#wifi");
+        let washerCheckbox = document.querySelector("#washer");
+        let parkingCheckbox = document.querySelector("#parking");
+        let privateCheckbox = document.querySelector("#private");
+        if (wifiCheckbox.checked) {
+          this.amenities.push("Wifi");
+        }
+        if (washerCheckbox.checked) {
+          this.amenities.push("Washer");
+        }
+        if (parkingCheckbox.checked) {
+          this.amenities.push("Parking");
+        }
+        if (privateCheckbox.checked) {
+          this.amenities.push("Private");
+        }
+        for (let i = 0; i < this.otherAmenities.length; i++) {
+          if (this.otherAmenities[i].text != "") {
+            this.amenities.push(this.otherAmenities[i].text);
+          }
+        }
+        console.log(this.amenities);
+      }
+    },
+    addAmenity: function () {
+      this.otherAmenities.push({ text: "" });
     },
   },
   created: function () {},

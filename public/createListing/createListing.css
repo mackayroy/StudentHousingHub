@@ -39,6 +39,7 @@ nav .navRefs {
   text-decoration: none;
   margin-right: 10%;
 }
+/* Main Container of the info */
 .mainContainer {
   background-color: var(--background-color);
   border-radius: 10px;
@@ -55,6 +56,7 @@ nav .navRefs {
   margin: 20px 0;
 }
 
+/* Info Section for the page */
 .info label {
   font-size: 2em;
   width: 300px;
@@ -68,7 +70,6 @@ nav .navRefs {
   font-size: 1.5em;
   width: 400px;
 }
-
 .mainforms {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -97,14 +98,32 @@ nav .navRefs {
   grid-column: 2/3;
   justify-content: center;
   align-items: center;
+  color: var(--font-color);
 }
 .other label {
   font-size: 2em;
 }
 .other input {
-  min-height: 200px;
-  width: 100%;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1em;
+  margin-top: 3px;
+  gap: 20px;
+  width: 70%;
 }
+.addAnother {
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: var(--dark-green);
+  color: var(--font-color);
+  min-width: 50%;
+  height: 35px;
+  margin-top: 10px;
+}
+
+/* Upload Image Section */
 .uploadImageSection {
   margin-top: 20px;
 }
@@ -115,7 +134,7 @@ nav .navRefs {
   background-color: var(--light-green);
   border-radius: 10px;
   padding: 20px 20px;
-  min-height: 200px;
+  min-height: 300px;
   width: 80vw;
 }
 #result {
@@ -130,6 +149,61 @@ nav .navRefs {
   object-fit: contain;
 }
 
+/* Description Section */
+.descriptionSection {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--light-green);
+  border-radius: 10px;
+  padding: 20px 20px;
+  min-height: 300px;
+  width: 80vw;
+}
+.descriptionTextArea {
+  width: 100%;
+  min-height: 300px;
+  padding: 10px 10px;
+}
+
+/* Button Section */
+.btn {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 17%;
+}
+.uploadbtn {
+  color: var(--white);
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 2px;
+  width: 300px;
+  height: 50px;
+  background-color: var(--dark-green);
+  cursor: pointer;
+  transition: 0.5s;
+}
+.uploadbtn:hover {
+  background-color: var(--middle-green);
+  box-shadow: 0px 0px 10px 0px var(--middleGreen-opacity);
+  cursor: pointer;
+}
+
+/* Footer css */
+.footer {
+  background-color: var(--dark-green);
+  height: 100px;
+  width: 100%;
+}
+
+/* Media Queries */
 @media (max-width: 820px) {
   .info {
     display: flex;
@@ -173,14 +247,19 @@ nav .navRefs {
     justify-content: center;
     align-items: center;
   }
-  .other input {
-    min-height: 200px;
-    width: 100%;
-  }
+
   #result {
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
     padding: 10px 0;
+  }
+  .btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
   }
 }
