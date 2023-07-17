@@ -241,6 +241,13 @@
                 <span class="address">{{pro.location}}</span>
                 <p class="numbeds">Beds Available: {{pro.numBeds}}</p>
               </div>
+              <div class="bookMark">
+                <i
+                  class="fa-solid fa-bookmark bookMarkIcon"
+                  v-bind:class="{bookMarkIconSaved: pro.bookMark}"
+                  @click="bookMark(index, 'sorted')"
+                ></i>
+              </div>
             </div>
           </div>
         </div>

@@ -128,9 +128,16 @@ Vue.createApp({
           meetsCriteria = false;
         if (this.maxPrice && property.price > this.maxPrice)
           meetsCriteria = false;
-        if (this.minBedrooms && property.numBeds < this.minBedrooms)
+        if (
+          this.minBedrooms &&
+          parseInt(property.numBeds) !== this.minBedrooms
+        ) {
           meetsCriteria = false;
-        if (this.minBathrooms && property.numBaths < this.minBathrooms)
+        }
+        if (
+          this.minBathrooms &&
+          parseInt(property.numBaths) !== this.minBathrooms
+        )
           meetsCriteria = false;
         if (this.poolCheckbox && property.Pool !== true) meetsCriteria = false;
         if (this.wifiCheckbox && property.Wifi !== true) meetsCriteria = false;
@@ -148,23 +155,23 @@ Vue.createApp({
       console.log(this.sort);
       console.log(this.sortedProperties);
     },
-    bookMark: function (index) {
+    bookMark: function (index, type = "unsorted") {
       console.log(this.properties[index].bookMark);
-      if (!this.properties[index].bookMark) {
-        this.properties[index].bookMark = true;
+      if (type === "sorted") {
+        if (!this.sortedProperties[index].bookMark) {
+          this.sortedProperties[index].bookMark = true;
+        } else {
+          this.sortedProperties[index].bookMark =
+            !this.sortedProperties[index].bookMark;
+        }
+        console.log("bookMark sorted");
       } else {
-        this.properties[index].bookMark = !this.properties[index].bookMark;
+        if (!this.properties[index].bookMark) {
+          this.properties[index].bookMark = true;
+        } else {
+          this.properties[index].bookMark = !this.properties[index].bookMark;
+        }
       }
-      // var element = document.querySelectorAll(".bookMarkIcon");
-      // element = element[index];
-      // if (element.classList.contains("bookMarkIcon")) {
-      //   element.classList.remove("bookMarkIcon");
-      //   element.classList.add("bookMarkIconSaved");
-      // } else {
-      //   element.classList.remove("bookMarkIconSaved");
-      //   element.classList.add("bookMarkIcon");
-      // }
-      console.log("bookMark");
     },
   },
 
