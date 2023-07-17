@@ -84,20 +84,25 @@ app.put("/users/:usersId", function(req, res) {
   var usersId = req.params.usersId;
   model.User.findOne({'_id': usersId}).then(user => {
       if (user){
-        if(req.body.name){
-          user.name = req.body.name
-        }
-        if(req.body.phoneNumber){
-          user.phoneNumber = req.body.phoneNumber
-        }
-        if(req.body.email){
-          user.email = req.body.email
-        }
-        user.save().then(function() {
-          res.status(200).send('Updated user.');
-        }).catch(errors => {
-          console.log(errors);
-          res.status(422).send('Error updating user.');
+        user.verifyPassword(req.body.verifyPassword).then(result => {
+          if(req.body.name){
+            user.name = req.body.name
+          }
+          if(req.body.phoneNumber){
+            user.phoneNumber = req.body.phoneNumber
+          }
+          if(req.body.email){
+            user.email = req.body.email
+          }
+          if(req.body.password){
+            user.password = req.body.password
+          }
+          user.save().then(function() {
+            res.status(200).send('Updated user.');
+          }).catch(errors => {
+            console.log(errors);
+            res.status(422).send('Error updating user.');
+          })
         })
       }
       else {
