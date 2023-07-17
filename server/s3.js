@@ -15,24 +15,24 @@ const s3 = new S3({
 
 // uploads a file to s3
 function uploadFile(file){
-    const fileStream = fs.createdReadStream(file.path)
+    const fileStream = fs.createReadStream(file.path)
 
     const uploadParams = {
-        bucket: bucketName,
-        body: fileStream,
-        key: file.filename
+        Bucket: bucketName,
+        Body: fileStream,
+        Key: file.filename
     }
 
     return s3.upload(uploadParams).promise()
 }
 exports.uploadFile = uploadFile
 
-// // downloads a file from s3
-// function getFileStream(fileKey){
-//     const downloadParams = {
-//         key: fileKey,
-//         bucket: bucketName
-//     }
-//     return s3.getObject(downloadParams).createReadStream()
-// }
-// exports.getFileStream = getFileStream
+// downloads a file from s3
+function getFileStream(fileKey){
+    const downloadParams = {
+        key: fileKey,
+        bucket: bucketName
+    }
+    return s3.getObject(downloadParams).createReadStream()
+}
+exports.getFileStream = getFileStream

@@ -3,38 +3,38 @@
     padding: 0;
     box-sizing: border-box;
 }
-body {
+#app {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
     font-family: Arial, sans-serif;
-    margin: 20px;
-}
-
-h1 {
+  }
+  
+  h1 {
     text-align: center;
-}
-
-form {
-    text-align: center;
-    margin-top: 20px;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-label {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #337ab7;
-    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  input[type="file"] {
+    margin-top: 10px;
+  }
+  
+  input[type="submit"] {
+    margin-top: 10px;
+  }
+  
+  img {
+    display: block;
+    margin: 0 auto;
     cursor: pointer;
-}
-
-#preview {
-    text-align: center;
-    margin-top: 20px;
-}
-
-#preview img {
-    max-width: 400px;
-    max-height: 400px;
-}
+    width: 100px;
+  }

@@ -85,6 +85,7 @@ const PropertySchema = new mongoose.Schema ({
     required: [true, 'Property must have parking listed.']
   },
   amenities: [String],
+  photos: PhotoSchema
 
 })
 

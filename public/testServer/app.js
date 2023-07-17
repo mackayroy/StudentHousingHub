@@ -24,8 +24,11 @@ Vue.createApp({
         throw error;
       } 
     },
+    downloadImage() {
+      const displayImage = Key
+      return displayImage
+    }
   },
   created : function() {
-    // this.postImage();
   }
 }).mount("#app");

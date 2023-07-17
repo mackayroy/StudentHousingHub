@@ -5,6 +5,9 @@ const session = require('express-session')
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/'})
 const { getFileStream, uploadFile } = require("./s3");
+const fs = require('fs');
+const util = require('util');
+const unlinkFile = util.promisify(fs.unlink)
 
 const app = express();
 const port = 8080;
@@ -117,7 +120,8 @@ app.post('/properties', AuthMiddleware,function(req, res) {
     wifi: req.body.wifi,
     washerDryer: req.body.washerDryer,
     parking: req.body.parking,
-    amenities: req.body.amenities
+    amenities: req.body.amenities,
+    photos: req.body.photos
   })
   newProperty.save().then(function() {
     res.status(201).send('Property listed.');
@@ -209,15 +213,20 @@ app.put('/properties/:propertiesId', AuthMiddleware, function(req, res) {
 
 
 // images
-app.post('/images', upload.single('image'), async (req, res) =>{
+app.post('/images', upload.single('file'), async (req, res) =>{
   const file = req.file;
-  console.log(file);
   const result = await uploadFile(file);
-  console.log(result);
-  const description = req.body.description;
-  res.send('YAY')
-})
+  await unlinkFile(file.path);
+  console.log(result);  
+  res.send({imagePath: `/images/${result.key}`});
+});
 
+app.get('images/:key', (req, res) => {
+  const key = req.params.key;
+  const readStream = getFileStream(key);
+
+  readStream.pipe(res);
+})
 
 
 // session
