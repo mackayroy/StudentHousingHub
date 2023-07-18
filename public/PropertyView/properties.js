@@ -7,6 +7,9 @@ Vue.createApp({
       lng: 0,
       lat: 0,
       address: "432 S Tech Ridge Dr, St. George, UT 84770",
+      collegeAddress: "Utah Tech University",
+      collegeLat: 0,
+      collegeLng: 0,
       distance: 0,
     };
   },
@@ -42,33 +45,40 @@ Vue.createApp({
     },
 
     // Function to get the coordinates of the address
-    coordinates() {
-      fetch(
-        "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-          this.address +
-          "&key=AIzaSyCqxIxZcHaBCF5z_I73rdc53GkkmF3KHOw"
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          this.lat = data.results[0].geometry.location.lat;
-          this.lng = data.results[0].geometry.location.lng;
-          this.map();
-          const point1 = {
-            lat: 37.10365039754121,
-            lng: -113.56533764727399,
-          };
-          const point2 = {
-            lat: this.lat,
-            lng: this.lng,
-          };
-          this.distance = this.calculateDistance(
-            point1.lat,
-            point1.lng,
-            point2.lat,
-            point2.lng
-          );
-        });
+    async fetchCoordinates() {
+      try {
+        const collegeResponse = await fetch(
+          "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+            this.collegeAddress +
+            "&key=AIzaSyCqxIxZcHaBCF5z_I73rdc53GkkmF3KHOw"
+        );
+        const collegeData = await collegeResponse.json();
+        this.collegeLat = collegeData.results[0].geometry.location.lat;
+        this.collegeLng = collegeData.results[0].geometry.location.lng;
+
+        const propertyResponse = await fetch(
+          "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+            this.address +
+            "&key=AIzaSyCqxIxZcHaBCF5z_I73rdc53GkkmF3KHOw"
+        );
+        const propertyData = await propertyResponse.json();
+        this.lat = propertyData.results[0].geometry.location.lat;
+        this.lng = propertyData.results[0].geometry.location.lng;
+
+        this.distance = this.calculateDistance(
+          this.collegeLat,
+          this.collegeLng,
+          this.lat,
+          this.lng
+        );
+
+        // Call the map function here after coordinates are fetched
+        this.map();
+      } catch (error) {
+        console.error("Error fetching coordinates:", error);
+      }
     },
+
     // Function to display the map and create markers
     map() {
       const addMarker = (coords) => {
@@ -86,19 +96,20 @@ Vue.createApp({
         );
         map = new Map(document.getElementById("map"), {
           zoom: 10,
-          center: { lat: 37.10365039754121, lng: -113.56533764727399 },
+          center: { lat: this.collegeLat, lng: this.collegeLng },
         });
-        addMarker({ lat: 37.10365039754121, lng: -113.56533764727399 });
+        addMarker({ lat: this.collegeLat, lng: this.collegeLng });
         addMarker({ lat: this.lat, lng: this.lng });
       }
       initMap.call(this);
     },
+
     // Function to display the login form
     loginBtn() {
       this.login = "true";
     },
   },
   created() {
-    this.coordinates();
+    this.fetchCoordinates();
   },
 }).mount("#app");
