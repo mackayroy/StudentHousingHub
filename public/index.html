@@ -7,6 +7,13 @@
     <title>Vue App</title>
     <link href="./indexPage/style.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <body>
@@ -15,8 +22,8 @@
       <nav>
         <div id="logo"></div>
         <div class="navRefs">
-          <div @click="">Create Listing</div>
-          <div @click="">My Listings</div>
+          <div @click="" class="navLinks">Create Listing</div>
+          <div @click="" class="navLinks">My Listings</div>
           <div>
             <div class="profile" v-if="userSession">
               <img
@@ -26,7 +33,9 @@
                 @click="toggleProfileModal()"
               />
               <div class="profileModal">
-                <div>Profile Settings</div>
+                <h4>{{user.name}}</h4>
+                <span class="profileModalLine"></span>
+                <div @click="toggleSettingsModal()">Profile Settings</div>
                 <span class="profileModalLine"></span>
                 <div>Saved Listings</div>
                 <span class="profileModalLine"></span>
@@ -40,7 +49,7 @@
       <div class="hero">
         <input
           type="text"
-          placeholder="Search by City, College..."
+          placeholder="Search by City, College, Address..."
           id="autocomplete_search"
           name="autocomplete_search"
           class="form-control"
@@ -140,6 +149,89 @@
           <div class="contactEmail">MacKay Roy: mackayroy@shh.com</div>
           <div class="contactLine"></div>
           <div class="contactEmail">Josh Gilbert: joshgilbert@shh.com</div>
+        </div>
+      </div>
+      <div class="settingsModal" v-if="showSettingsModal">
+        <div class="settings">
+          <div class="settingsTopText">
+            <h2 class="settingsTitle">Profile Settings</h2>
+          </div>
+          <div class="settingsLongLine"></div>
+          <div class="settingsProfilePic">
+            <div class="settingsFileInput" v-if="settingsUser.changePhoto">
+              <input type="file" />
+            </div>
+            <img src="./sample.jpg" alt="profilePicture" class="settingsPP" v-else />
+            <img
+              src="./indexPage/icons/edit.png"
+              alt="edit button"
+              class="settingsEdit"
+              @click="togglePhoto()"
+            />
+          </div>
+          <div class="settingsLine"></div>
+          <div class="settingsInputs">
+            <div class="settingsInput">
+              <span>Name:</span>
+              <input type="text" v-model="settingsUser.name" v-if="settingsUser.changeName" />
+              <p v-else>{{user.name}}</p>
+              <img
+                src="./indexPage/icons/edit.png"
+                alt="edit button"
+                class="settingsEdit"
+                @click="toggleName"
+              />
+            </div>
+            <div class="settingsInput">
+              <span>Email:</span>
+              <input type="text" v-model="settingsUser.email" v-if="settingsUser.changeEmail" />
+              <p v-else>{{user.email}}</p>
+              <img
+                src="./indexPage/icons/edit.png"
+                alt="edit button"
+                class="settingsEdit"
+                @click="toggleEmail"
+              />
+            </div>
+            <div class="settingsInput">
+              <span>Phone:</span>
+              <input
+                type="text"
+                v-model="settingsUser.phoneNumber"
+                v-if="settingsUser.changePhoneNumber"
+              />
+              <p v-else>{{user.phoneNumber}}</p>
+              <img
+                src="./indexPage/icons/edit.png"
+                alt="edit button"
+                class="settingsEdit"
+                @click="togglePhoneNumber"
+              />
+            </div>
+            <div class="settingsInput">
+              <span>Current Password:</span>
+              <input type="text" v-model="settingsUser.verifyPassword" />
+            </div>
+            <div class="settingsInput">
+              <span>New Password:</span>
+              <input
+                type="text"
+                v-model="settingsUser.password"
+                v-if="settingsUser.changePassword"
+              />
+              <p v-else>********</p>
+              <img
+                src="./indexPage/icons/edit.png"
+                alt="edit button"
+                class="settingsEdit"
+                @click="togglePassword"
+              />
+            </div>
+          </div>
+          <div class="settingsButtons">
+            <button @click="toggleSettingsModal()" class="otherButton">Cancel</button>
+            <button @click="updateProfile()" class="mainButton">Save</button>
+          </div>
         </div>
       </div>
     </div>

@@ -44,10 +44,12 @@ nav .navRefs {
   gap: 75px;
   text-decoration: none;
   margin-right: 10%;
-  cursor: pointer;
 }
 nav .navRefs img {
   margin-left: 0;
+}
+.navLinks {
+  cursor: pointer;
 }
 nav .navRefs .signIn {
   background-color: white;
@@ -251,6 +253,131 @@ nav .navRefs .signIn {
   padding: 0 15px;
 }
 
+.settingsModal {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(3px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.settingsTopText {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-end;
+}
+
+.settings {
+  background-color: var(--light-green);
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+.settingsLongLine {
+  height: 1px;
+  width: 85%;
+  background-color: black;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+.settingsLine {
+  height: 1px;
+  width: 65%;
+  background-color: black;
+  margin: 15px 0px;
+}
+.settingsProfilePic {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-end;
+  justify-content: center;
+}
+.settingsFileInput {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 25px;
+}
+.settingsPP {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  margin-left: 25px;
+  object-fit: cover;
+  justify-self: center;
+}
+.settingsEdit {
+  width: 25px;
+  height: 25px;
+  justify-self: flex-end;
+}
+.settingsInputs {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.settingsInput {
+  width: 400px;
+  margin: 10px 0px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.settingsInput input {
+  width: 150px;
+  height: 25px;
+  margin-left: 17px;
+  margin-right: 25px;
+  border: 1px solid var(--dark-green);
+  border-radius: 3px;
+  padding-left: 5px;
+}
+.settingsInput span {
+  width: 95px;
+}
+.settingsInput p {
+  width: 150px;
+  width: 150px;
+  margin-left: 17px;
+  margin-right: 25px;
+  padding-left: 5px;
+  background-color: var(--lighter-green);
+  border-bottom: 1px solid var(--dark-green);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.settingsButtons {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+.settingsButtons button {
+  border: none;
+  text-align: center;
+  width: 125px;
+  padding: 10px 0px;
+  border-radius: 50px;
+  box-shadow: 0 5px 4px rgba(0, 0, 0, 0.15);
+  margin: 7px auto;
+  user-select: none;
+  cursor: pointer;
+}
+
 /* Hero */
 
 .hero {
@@ -267,11 +394,22 @@ nav .navRefs .signIn {
   background-color: var(--light-green);
   border-radius: 10px;
   height: 75px;
-  width: 80%;
+  width: 87%;
   padding-left: 15px;
+  padding-right: 15px;
   font-size: 25px;
   border: none;
   box-shadow: 0 0 10px black;
+}
+.pac-container {
+  background-color: #f5fbf1;
+  box-shadow: 0 0 5px black;
+}
+.pac-item {
+  border-bottom: 1px solid black;
+}
+.pac-item:hover {
+  background-color: var(--green);
 }
 
 /* Main */

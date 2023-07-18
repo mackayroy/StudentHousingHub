@@ -8,6 +8,7 @@ Vue.createApp({
       showNavModal: false,
       showProfileModal: false,
       showContactModal: false,
+      showSettingsModal: false,
       currentNavModal: "signin",
       navUser: {
         name: "",
@@ -19,6 +20,25 @@ Vue.createApp({
         email: "",
         password: "",
       },
+      settingsUser: {
+        changePhoto: false,
+        name: "",
+        changeName: false,
+        email: "",
+        changeEmail: false,
+        phoneNumber: "",
+        verifyPassword: "",
+        changePhoneNumber: false,
+        password: "",
+        changePassword: false,
+      },
+      user: {
+        name: "",
+        email: "",
+        phoneNumber: "",
+        password: "",
+      },
+      userId: "",
     };
   },
   methods: {
@@ -68,6 +88,93 @@ Vue.createApp({
       }
     },
 
+    // Settings Modal
+    toggleSettingsModal: function () {
+      if (this.showSettingsModal) {
+        this.showSettingsModal = false;
+      } else {
+        this.showSettingsModal = true;
+      }
+    },
+    updateProfile: function () {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      if (!this.settingsUser.name) {
+        this.settingsUser.name = this.user.name;
+      }
+      if (!this.settingsUser.email) {
+        this.settingsUser.email = this.user.email;
+      }
+      if (!this.settingsUser.phoneNumber) {
+        this.settingsUser.phoneNumber = this.user.phoneNumber;
+      }
+      if (!this.settingsUser.password) {
+        this.settingsUser.password = this.user.password;
+      }
+
+      let updateUser = {
+        name: this.settingsUser.name,
+        email: this.settingsUser.email,
+        phoneNumber: this.settingsUser.phoneNumber,
+        password: this.settingsUser.password,
+        verifyPassword: this.settingsUser.verifyPassword,
+      };
+
+      var options = {
+        method: "PUT",
+        headers: myHeaders,
+        body: JSON.stringify(this.updateUser),
+        credentials: "include",
+      };
+
+      fetch(URL + "users/" + this.userId, options).then((response) => {
+        if (response.status == 200) {
+        } else {
+          alert("Unable to create user.");
+        }
+      });
+    },
+
+    togglePhoto: function () {
+      if (this.settingsUser.changePhoto) {
+        this.settingsUser.changePhoto = false;
+      } else {
+        this.settingsUser.changePhoto = true;
+      }
+    },
+    toggleName: function () {
+      if (this.settingsUser.changeName) {
+        this.settingsUser.changeName = false;
+        this.settingsUser.name = "";
+      } else {
+        this.settingsUser.changeName = true;
+      }
+    },
+    toggleEmail: function () {
+      if (this.settingsUser.changeEmail) {
+        this.settingsUser.changeEmail = false;
+        this.settingsUser.email = "";
+      } else {
+        this.settingsUser.changeEmail = true;
+      }
+    },
+    togglePhoneNumber: function () {
+      if (this.settingsUser.changePhoneNumber) {
+        this.settingsUser.changePhoneNumber = false;
+        this.settingsUser.phoneNumber = "";
+      } else {
+        this.settingsUser.changePhoneNumber = true;
+      }
+    },
+    togglePassword: function () {
+      if (this.settingsUser.changePassword) {
+        this.settingsUser.changePassword = false;
+        this.settingsUser.password = "";
+      } else {
+        this.settingsUser.changePassword = true;
+      }
+    },
+
     // Sessions and users
 
     signUp: function () {
@@ -104,7 +211,8 @@ Vue.createApp({
           response.text().then((data) => {
             if (data) {
               data = JSON.parse(data);
-              this.navUser.name = data.name;
+              this.userId = data.userId;
+              this.setUser();
               this.userSession = true;
               this.toggleNavModal();
             } else {
@@ -127,6 +235,10 @@ Vue.createApp({
           if (data && data.cookie && data.userId) {
             console.log(data && data.cookie && data.userId);
             this.userSession = true;
+            this.userId = data.userId;
+            this.setUser();
+            console.log(this.user);
+            console.log(this.settingsUser);
           }
         });
     },
@@ -138,6 +250,16 @@ Vue.createApp({
       fetch(URL + "session", options).then((response) => {
         this.navUser.name = "";
       });
+    },
+    setUser: function () {
+      fetch(URL + "users/" + this.userId)
+        .then((response) => response.json())
+        .then((data) => {
+          this.user.name = data.name;
+          this.user.email = data.email;
+          this.user.phoneNumber = data.phoneNumber;
+          this.user.password = data.password;
+        });
     },
   },
   created: function () {
