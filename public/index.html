@@ -162,12 +162,7 @@
               <input type="file" />
             </div>
             <img src="./sample.jpg" alt="profilePicture" class="settingsPP" v-else />
-            <img
-              src="./indexPage/icons/edit.png"
-              alt="edit button"
-              class="settingsEdit"
-              @click="togglePhoto()"
-            />
+            <i class="fa-regular fa-pen-to-square" class="settingsEdit" @click="togglePhoto()"></i>
           </div>
           <div class="settingsLine"></div>
           <div class="settingsInputs">
@@ -175,23 +170,17 @@
               <span>Name:</span>
               <input type="text" v-model="settingsUser.name" v-if="settingsUser.changeName" />
               <p v-else>{{user.name}}</p>
-              <img
-                src="./indexPage/icons/edit.png"
-                alt="edit button"
-                class="settingsEdit"
-                @click="toggleName"
-              />
+              <i class="fa-regular fa-pen-to-square" class="settingsEdit" @click="toggleName()"></i>
             </div>
             <div class="settingsInput">
               <span>Email:</span>
               <input type="text" v-model="settingsUser.email" v-if="settingsUser.changeEmail" />
               <p v-else>{{user.email}}</p>
-              <img
-                src="./indexPage/icons/edit.png"
-                alt="edit button"
+              <i
+                class="fa-regular fa-pen-to-square"
                 class="settingsEdit"
-                @click="toggleEmail"
-              />
+                @click="toggleEmail()"
+              ></i>
             </div>
             <div class="settingsInput">
               <span>Phone:</span>
@@ -201,12 +190,11 @@
                 v-if="settingsUser.changePhoneNumber"
               />
               <p v-else>{{user.phoneNumber}}</p>
-              <img
-                src="./indexPage/icons/edit.png"
-                alt="edit button"
+              <i
+                class="fa-regular fa-pen-to-square"
                 class="settingsEdit"
-                @click="togglePhoneNumber"
-              />
+                @click="togglePhoneNumber()"
+              ></i>
             </div>
             <div class="settingsInput">
               <span>Current Password:</span>
@@ -220,12 +208,11 @@
                 v-if="settingsUser.changePassword"
               />
               <p v-else>********</p>
-              <img
-                src="./indexPage/icons/edit.png"
-                alt="edit button"
+              <i
+                class="fa-regular fa-pen-to-square"
                 class="settingsEdit"
-                @click="togglePassword"
-              />
+                @click="togglePassword()"
+              ></i>
             </div>
           </div>
           <div class="settingsButtons">

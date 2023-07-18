@@ -39,6 +39,7 @@ Vue.createApp({
         password: "",
       },
       userId: "",
+      updateUser: {},
     };
   },
   methods: {
@@ -97,8 +98,6 @@ Vue.createApp({
       }
     },
     updateProfile: function () {
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
       if (!this.settingsUser.name) {
         this.settingsUser.name = this.user.name;
       }
@@ -108,17 +107,26 @@ Vue.createApp({
       if (!this.settingsUser.phoneNumber) {
         this.settingsUser.phoneNumber = this.user.phoneNumber;
       }
-      if (!this.settingsUser.password) {
-        this.settingsUser.password = this.user.password;
-      }
 
-      let updateUser = {
-        name: this.settingsUser.name,
-        email: this.settingsUser.email,
-        phoneNumber: this.settingsUser.phoneNumber,
-        password: this.settingsUser.password,
-        verifyPassword: this.settingsUser.verifyPassword,
-      };
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      if (!this.settingsUser.password) {
+        this.updateUser = {
+          name: this.settingsUser.name,
+          email: this.settingsUser.email,
+          phoneNumber: this.settingsUser.phoneNumber,
+          verifyPassword: this.settingsUser.verifyPassword,
+        };
+      } else {
+        this.updateUser = {
+          name: this.settingsUser.name,
+          email: this.settingsUser.email,
+          phoneNumber: this.settingsUser.phoneNumber,
+          password: this.settingsUser.password,
+          verifyPassword: this.settingsUser.verifyPassword,
+        };
+      }
 
       var options = {
         method: "PUT",
@@ -129,8 +137,13 @@ Vue.createApp({
 
       fetch(URL + "users/" + this.userId, options).then((response) => {
         if (response.status == 200) {
+          this.user.name = this.settingsUser.name;
+          this.user.email = this.settingsUser.email;
+          this.user.phoneNumber = this.settingsUser.phoneNumber;
+          this.user.password = this.settingsUser.password;
+          this.toggleSettingsModal();
         } else {
-          alert("Unable to create user.");
+          alert("Unable to update user.");
         }
       });
     },
@@ -189,6 +202,8 @@ Vue.createApp({
 
       fetch(URL + "users", options).then((response) => {
         if (response.status == 201) {
+          this.navLoginUser.email = this.navUser.email;
+          this.navLoginUser.password = this.navUser.password;
           this.createSession();
         } else {
           alert("Unable to create user.");
