@@ -1,3 +1,4 @@
+const URL = "http://localhost:8080/";
 Vue.createApp({
   data() {
     return {
@@ -78,22 +79,27 @@ Vue.createApp({
         }
       }
       console.log(this.propertyInfo);
-      this.propertyInfo = {
-        college: "",
-        propertyName: "",
-        address: "",
-        rent: 0,
-        rooms: 0,
-        bathrooms: 0,
-        private: false,
-        wifi: false,
-        washerDryer: false,
-        parking: false,
-        amenities: [],
-        description: "",
-      };
-      alert("Property has been added!");
+      this.pushListing();
     },
+
+    pushListing: function () {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      var options = {
+        method: "POST",
+        credentials: "include",
+        headers: myHeaders,
+        body: JSON.stringify(this.propertyInfo),
+      };
+      fetch(URL + "properties", options).then((response) => {
+        if (response.status === 201) {
+          alert("Property added successfully!");
+        } else {
+          alert("Something went wrong, please try again");
+        }
+      });
+    },
+
     addAmenity: function () {
       this.propertyInfo.amenities.push({ text: "" });
     },

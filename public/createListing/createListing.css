@@ -167,6 +167,7 @@ nav .navRefs {
 .descriptionTextArea {
   border: none;
   border-radius: 5px;
+  font-size: 1.5em;
   width: 100%;
   min-height: 300px;
   padding: 10px 10px;
@@ -276,6 +277,8 @@ nav .navRefs {
     gap: 10px;
     padding: 10px 0;
   }
+}
+@media (max-width: 550px) {
   .btn {
     display: flex;
     flex-flow: column nowrap;
@@ -284,5 +287,19 @@ nav .navRefs {
     align-items: center;
     margin: 0;
     padding: 0;
+  }
+  .mainforms {
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: var(--light-green);
+    border-radius: 10px;
+    padding: 20px 20px;
+    width: 80vw;
+  }
+  .amenitiesList {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
   }
 }
