@@ -196,29 +196,30 @@
 
         <!-- Search by city section -->
         <div class="searchCity">
-          <!-- <div class="searchBar"> -->
-          <input
-            type="text"
-            placeholder="Search by City, College..."
-            class="cityInput"
-          />
-          <div class="dropdown">
-            <h2 class="drop">Sort By</h2>
-            <i class="fa-solid fa-sort sortIcon"></i>
-            <div class="dropdown-content">
-              <span
-                @click="sortByLowestPrice()"
-                :class="{ 'active-sort': activeSort === 'low' }"
-                >Price High too Low</span
-              >
-              <span
-                @click="sortByHighestPrice()"
-                :class="{ 'active-sort': activeSort === 'high' }"
-                >Price Low too High</span
-              >
+          <div class="searchBar">
+            <input
+              type="text"
+              placeholder="Search by City, College..."
+              class="cityInput"
+              v-model="search"
+            />
+            <div class="dropdown">
+              <h2 class="drop">Sort By</h2>
+              <i class="fa-solid fa-sort sortIcon"></i>
+              <div class="dropdown-content">
+                <span
+                  @click="sortByLowestPrice()"
+                  :class="{ 'active-sort': activeSort === 'low' }"
+                  >Price High too Low</span
+                >
+                <span
+                  @click="sortByHighestPrice()"
+                  :class="{ 'active-sort': activeSort === 'high' }"
+                  >Price Low too High</span
+                >
+              </div>
             </div>
           </div>
-          <!-- </div> -->
         </div>
 
         <!-- Content box -->

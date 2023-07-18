@@ -101,12 +101,14 @@ Vue.createApp({
   methods: {
     sortByLowestPrice: function () {
       this.properties.sort((a, b) => a.price - b.price);
+      this.sortedProperties.sort((a, b) => a.price - b.price);
       console.log("low");
       this.activeSort = "low";
     },
 
     sortByHighestPrice: function () {
       this.properties.sort((a, b) => b.price - a.price);
+      this.sortedProperties.sort((a, b) => b.price - a.price);
       console.log("high");
       this.activeSort = "high";
     },
@@ -193,5 +195,7 @@ Vue.createApp({
     },
   },
 
-  created: function () {},
+  created: function () {
+    this.search = sessionStorage.getItem("search");
+  },
 }).mount("#app");
