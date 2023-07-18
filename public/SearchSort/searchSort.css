@@ -185,13 +185,14 @@ button {
   position: relative;
   top: 11px;
   left: 1px;
+  color: #000000a3;
 }
 
 .drop {
-  color: #000;
+  color: #000000a3;
   padding: 10px;
   font-size: 16px;
-  border-left: 1px solid rgb(0, 0, 0);
+  border-left: 2px solid rgb(156, 175, 136);
   cursor: pointer;
 }
 
@@ -220,8 +221,9 @@ button {
   display: block;
 }
 
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
+.dropdown-content span:hover {
+  /* background-color: rgba(223, 230, 218, 0.429); */
+  cursor: pointer;
 }
 
 .dropdown:hover .dropdown-content {
@@ -233,15 +235,19 @@ button {
 }
 
 .active-sort {
-  background-color: #f8f9fa;
+  background-color: var(--search-color);
   color: #212529;
+}
+
+.cityInput::placeholder {
+  color: #000000a3;
 }
 
 /* Styles for city input field */
 .cityInput {
   border-radius: 16px;
   border: 2px solid rgb(156, 175, 136);
-  width: 1012px;
+  width: 100%;
   height: 40px;
   background-color: rgba(223, 230, 218, 1);
   color: #000;
@@ -523,6 +529,19 @@ button {
   .cityInput {
     margin: 0px 20px;
   }
+
+  .dropdown {
+    position: relative;
+    top: 0px;
+    left: -125px;
+    width: 137px;
+  }
+
+  /* .sortIcon {
+    position: relative;
+    top: 0px;
+    left: 0px;
+  } */
 }
 
 @media (max-width: 600px) {
@@ -531,5 +550,25 @@ button {
   }
   .sidebarcontent {
     flex-direction: column;
+  }
+  .searchCity {
+    flex-direction: column;
+  }
+  .dropdown {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    border: 2px solid rgb(156, 175, 136);
+    border-radius: 5px;
+    background-color: rgba(223, 230, 218, 1);
+    margin: 10px 0px;
+  }
+  .drop {
+    border: none;
+  }
+  .dropdown-content {
+    top: 71px;
+    left: -37px;
   }
 }
