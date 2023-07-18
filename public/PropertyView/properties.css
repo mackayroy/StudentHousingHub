@@ -244,6 +244,16 @@ nav .navRefs {
   height: 100px;
   width: 100%;
 }
+.groupemails {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.groupemails a {
+  color: var(--font-color);
+  text-decoration: none;
+}
 
 /* Media querys */
 @media (max-width: 414px) {

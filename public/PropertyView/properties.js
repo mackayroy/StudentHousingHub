@@ -9,13 +9,15 @@ Vue.createApp({
       collegeLat: 0,
       collegeLng: 0,
       distance: 0,
+
       userInfo: {
         name: "Bob Smith",
         phoneNumber: "801-555-5555",
         email: "bobsmith@gmail.com",
       },
+
       propertyInfo: {
-        college: "Utah Tech University",
+        college: "UVU",
         propertyName: "Campus View Apartments",
         address: "432 S Tech Ridge Dr, St. George, UT 84770",
         rent: 450,
