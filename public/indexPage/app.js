@@ -93,6 +93,12 @@ Vue.createApp({
     toggleSettingsModal: function () {
       if (this.showSettingsModal) {
         this.showSettingsModal = false;
+
+        this.settingsUser.changePhoto = false;
+        this.settingsUser.changeName = false;
+        this.settingsUser.changeEmail = false;
+        this.settingsUser.changePhoneNumber = false;
+        this.settingsUser.changePassword = false;
       } else {
         this.showSettingsModal = true;
       }
@@ -248,12 +254,9 @@ Vue.createApp({
         .then((response) => response.json())
         .then((data) => {
           if (data && data.cookie && data.userId) {
-            console.log(data && data.cookie && data.userId);
             this.userSession = true;
             this.userId = data.userId;
             this.setUser();
-            console.log(this.user);
-            console.log(this.settingsUser);
           }
         });
     },
@@ -275,6 +278,13 @@ Vue.createApp({
           this.user.phoneNumber = data.phoneNumber;
           this.user.password = data.password;
         });
+    },
+
+    // Search Bar
+    searchAndSend: function () {
+      sessionStorage.setItem("search", String(this.heroSearch));
+      console.log(sessionStorage.getItem("search"));
+      window.location.href = "SearchSort/searchSort.html";
     },
   },
   created: function () {
