@@ -28,10 +28,10 @@ function uploadFile(file){
 exports.uploadFile = uploadFile
 
 // downloads a file from s3
-function getFileStream(fileKey){
+function getFileStream(fileKey, bucketName){
     const downloadParams = {
-        key: fileKey,
-        bucket: bucketName
+        Key: fileKey,
+        Bucket: bucketName
     }
     return s3.getObject(downloadParams).createReadStream()
 }

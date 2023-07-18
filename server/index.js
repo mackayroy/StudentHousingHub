@@ -84,25 +84,29 @@ app.put("/users/:usersId", function(req, res) {
   var usersId = req.params.usersId;
   model.User.findOne({'_id': usersId}).then(user => {
       if (user){
-        user.verifyPassword(req.body.verifyPassword).then(function() {
-          if(req.body.name){
-            user.name = req.body.name
+        user.verifyPassword(req.body.verifyPassword).then(result => {
+          if (result) {
+            if(req.body.name){
+              user.name = req.body.name
+            }
+            if(req.body.phoneNumber){
+              user.phoneNumber = req.body.phoneNumber
+            }
+            if(req.body.email){
+              user.email = req.body.email
+            }
+            if(req.body.password){
+              user.password = req.body.password
+            }
+            user.save().then(function() {
+              res.status(200).send('Updated user.');
+            }).catch(errors => {
+              console.log(errors);
+              res.status(422).send('Error updating user.');
+            })
+          } else {
+            console.log('password wrong');
           }
-          if(req.body.phoneNumber){
-            user.phoneNumber = req.body.phoneNumber
-          }
-          if(req.body.email){
-            user.email = req.body.email
-          }
-          if(req.body.password){
-            user.password = req.body.password
-          }
-          user.save().then(function() {
-            res.status(200).send('Updated user.');
-          }).catch(errors => {
-            console.log(errors);
-            res.status(422).send('Error updating user.');
-          })
         })
       }
       else {
@@ -221,15 +225,15 @@ app.put('/properties/:propertiesId', AuthMiddleware, function(req, res) {
 app.post('/images', upload.single('file'), async (req, res) =>{
   const file = req.file;
   const result = await uploadFile(file);
-  await unlinkFile(file.path);
   console.log(result);  
+  await unlinkFile("uploads/" + result.key);
   res.send({imagePath: `/images/${result.key}`});
 });
 
-app.get('images/:key', (req, res) => {
-  const key = req.params.key;
-  const readStream = getFileStream(key);
-
+app.get('/images', (req, res) => {
+  // get key and bucket name from database for that property
+  // const key = propertyimage.key;
+  const readStream = getFileStream("29e0df61504970629bd242bd5a18bb9c", "student-housing-hub");
   readStream.pipe(res);
 })
 

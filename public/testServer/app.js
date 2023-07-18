@@ -1,6 +1,7 @@
 Vue.createApp({
   data() {
       return {
+        displayImageSrc: ""
       }
   },
   methods : {
@@ -25,10 +26,14 @@ Vue.createApp({
       } 
     },
     downloadImage() {
-      const displayImage = Key
-      return displayImage
+      fetch("http://localhost:8080/images").then(response => response.text())
+      .then(data => {
+        console.log(data);
+        this.displayImageSrc = data;
+      });
     }
   },
   created : function() {
+    this.downloadImage();
   }
 }).mount("#app");

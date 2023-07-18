@@ -82,6 +82,11 @@ const PropertySchema = new mongoose.Schema({
     required: [true, "Property must have parking listed."],
   },
   amenities: [String],
+<<<<<<< HEAD
+=======
+  photos: PhotoSchema,
+  description: [String]
+>>>>>>> 470da24 (updated server code)
 
 UserSchema.methods.setPassword = function (plainPassword) {
   var promise = new Promise((resolve, reject) => {
