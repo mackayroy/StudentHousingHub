@@ -146,10 +146,12 @@
           <h2>Upload Images</h2>
           <div class="upload">
             <input
-              @click="photos()"
+              enctype="multipart/form-data"
+              @submit.prevent="postImage()"
               type="file"
-              id="files"
+              id="imageUpload"
               accept="images/*"
+              ref="imageUpload"
               multiple="multiple"
             />
             <output id="result"></output>
