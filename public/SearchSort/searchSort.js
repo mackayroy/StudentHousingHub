@@ -84,6 +84,7 @@ Vue.createApp({
       printerCheckbox: false,
       kitchenCheckbox: false,
       privetRoomCheckbox: false,
+      activeSort: "",
     };
   },
   watch: {
@@ -98,6 +99,23 @@ Vue.createApp({
     privetRoomCheckbox: "filterProperties",
   },
   methods: {
+    sortByLowestPrice: function () {
+      this.properties.sort((a, b) => a.price - b.price);
+      console.log("low");
+      this.activeSort = "low";
+    },
+
+    sortByHighestPrice: function () {
+      this.properties.sort((a, b) => b.price - a.price);
+      console.log("high");
+      this.activeSort = "high";
+    },
+
+    toggleDropdown: function () {
+      var dropdownContent =
+        document.getElementsByClassName("dropdown-content")[0];
+      dropdownContent.classList.toggle("show");
+    },
     clearSearch() {
       this.sortedProperties = [];
       let checkboxes = document.querySelectorAll('[id^="myCheckbox"]');

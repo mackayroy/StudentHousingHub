@@ -169,6 +169,74 @@ button {
   margin: 10px 0px;
 }
 
+.dropdown {
+  position: relative;
+  display: flex;
+  top: 0px;
+  left: -111px;
+  text-align: center;
+  width: 137px;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+
+.sortIcon {
+  position: relative;
+  top: 11px;
+  left: 1px;
+}
+
+.drop {
+  color: #000;
+  padding: 10px;
+  font-size: 16px;
+  border-left: 1px solid rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  position: relative;
+  top: 67px;
+  left: -30px;
+  margin: -28px -83px;
+}
+
+.dropdown-content span {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  margin: 3px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.show {
+  display: block;
+}
+
+.active-sort {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
 /* Styles for city input field */
 .cityInput {
   border-radius: 16px;
