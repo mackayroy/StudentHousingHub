@@ -6,11 +6,28 @@ Vue.createApp({
       login: "false",
       lng: 0,
       lat: 0,
-      address: "432 S Tech Ridge Dr, St. George, UT 84770",
-      collegeAddress: "Utah Tech University",
       collegeLat: 0,
       collegeLng: 0,
       distance: 0,
+      userInfo: {
+        name: "Bob Smith",
+        phoneNumber: "801-555-5555",
+        email: "bobsmith@gmail.com",
+      },
+      propertyInfo: {
+        college: "Utah Tech University",
+        propertyName: "Campus View Apartments",
+        address: "432 S Tech Ridge Dr, St. George, UT 84770",
+        rent: 450,
+        rooms: 2,
+        bathrooms: 2,
+        private: true,
+        wifi: true,
+        washerDryer: false,
+        parking: false,
+        amenities: ["Pool", "Kitchen", "Gym", "Hot Tub", "Tennis Court", "BBQ"],
+        description: "Weloome to Campus View Apartments! ",
+      },
     };
   },
   methods: {
@@ -43,13 +60,12 @@ Vue.createApp({
     degToRad(degrees) {
       return (degrees * Math.PI) / 180;
     },
-
     // Function to get the coordinates of the address
     async fetchCoordinates() {
       try {
         const collegeResponse = await fetch(
           "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-            this.collegeAddress +
+            this.propertyInfo.college +
             "&key=AIzaSyCqxIxZcHaBCF5z_I73rdc53GkkmF3KHOw"
         );
         const collegeData = await collegeResponse.json();
@@ -58,7 +74,7 @@ Vue.createApp({
 
         const propertyResponse = await fetch(
           "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-            this.address +
+            this.propertyInfo.address +
             "&key=AIzaSyCqxIxZcHaBCF5z_I73rdc53GkkmF3KHOw"
         );
         const propertyData = await propertyResponse.json();
@@ -78,7 +94,6 @@ Vue.createApp({
         console.error("Error fetching coordinates:", error);
       }
     },
-
     // Function to display the map and create markers
     map() {
       const addMarker = (coords) => {
@@ -107,6 +122,22 @@ Vue.createApp({
     // Function to display the login form
     loginBtn() {
       this.login = "true";
+    },
+
+    // Function to display the get the property information
+    getProperty: function () {
+      fetch(URL + "properties")
+        .then((response) => response.json())
+        .then((data) => {
+          this.propertyInfo = data;
+        });
+    },
+    getUserInfo: function () {
+      fetch(URL + "users")
+        .then((response) => response.json())
+        .then((data) => {
+          this.userInfo = data;
+        });
     },
   },
   created() {

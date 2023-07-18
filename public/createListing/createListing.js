@@ -93,9 +93,9 @@ Vue.createApp({
       };
       fetch(URL + "properties", options).then((response) => {
         if (response.status === 201) {
-          alert("Property added successfully!");
+          alert("Property Listed!");
         } else {
-          alert("Something went wrong, please try again");
+          alert("Property not Listed, please try again.");
         }
       });
     },

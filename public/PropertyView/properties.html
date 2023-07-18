@@ -60,34 +60,28 @@
           <!-- Property section of the pages shows all the details of the property -->
           <div class="PropertyOverview">
             <div class="propertyDetails">
-              <h1 class="price">$450</h1>
-              <h3 class="name">Campus View</h3>
-              <h5 class="address">123 Road, St George, UT 84770</h5>
-              <h2 class="beds">1-3 Bed</h2>
+              <h1 class="price">${{propertyInfo.rent}}</h1>
+              <h3 class="name">{{propertyInfo.propertyName}}</h3>
+              <h5 class="address">{{propertyInfo.address}}</h5>
+              <h2 class="beds">Beds: {{propertyInfo.rooms}}</h2>
+              <h2 class="baths">Baths: {{propertyInfo.bathrooms}}</h2>
             </div>
             <div class="amenities">
               <h3>Amenities</h3>
               <div class="amenitiesList">
                 <ul>
-                  <li>Pool</li>
-                  <li>WiFi</li>
-                  <li>Printer</li>
-                  <li>Kitchen</li>
+                  <li v-if="propertyInfo.private">Private</li>
+                  <li v-if="propertyInfo.wifi">WiFi</li>
+                  <li v-if="propertyInfo.washerDryer">Washer/Dryer</li>
+                  <li v-if="propertyInfo.parking">Parking</li>
+                  <li v-for="amenity in propertyInfo.amenities">{{amenity}}</li>
                 </ul>
               </div>
             </div>
             <div class="overview">
               <h3>Overview</h3>
               <div class="overviewDescription">
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged.
-                </p>
+                <p>{{propertyInfo.description}}</p>
               </div>
             </div>
           </div>
@@ -103,9 +97,9 @@
               Login
             </button>
             <div v-if="login === 'true'" class="salersInfo">
-              <p>Name: Bob</p>
-              <p>Email: bob@go.com</p>
-              <p>Phone: 801-984-9876</p>
+              <p>Name: {{userInfo.name}}</p>
+              <p class="email">Email: {{userInfo.email}}</p>
+              <p>Phone: {{userInfo.phoneNumber}}</p>
             </div>
           </div>
           <!-- Map section of the page will display the map -->

@@ -111,6 +111,10 @@ nav .navRefs {
   gap: 20px;
   color: rgb(51, 54, 52);
 }
+.beds,
+.baths {
+  font-size: 1.5em;
+}
 
 /* Css for the property detail section */
 .PropertyOverview {
@@ -142,7 +146,7 @@ nav .navRefs {
   padding: 10px 10px;
 }
 .amenitiesList li {
-  padding: 0 20px;
+  padding: 0 10px;
 }
 .amenitiesList ul {
   columns: 2;
@@ -200,12 +204,16 @@ nav .navRefs {
 }
 .salersInfo {
   margin-top: 20px;
+  padding: 0 10px;
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: center;
   gap: 20px;
   font-size: 1em;
+}
+.email {
+  text-align: center;
 }
 .loginBtn:hover {
   background-color: var(--middle-green);
@@ -264,10 +272,7 @@ nav .navRefs {
     padding: 10px 0px;
     font-size: 2em;
   }
-  .bottomContainer {
-    display: flex;
-    flex-flow: column nowrap;
-  }
+
   .loginBtn {
     margin-bottom: 2em;
   }
@@ -275,11 +280,29 @@ nav .navRefs {
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: column wrap;
     justify-content: center;
     align-items: center;
     gap: 20px;
     font-size: 0.75em;
+  }
+  .amenitiesList ul {
+    columns: 1;
+    -webkit-columns: 1;
+    -moz-columns: 1;
+  }
+  .amenitiesList li {
+    font-size: 1.5em;
+    padding: 0 10px;
+  }
+}
+@media (max-width: 550px) {
+  .bottomContainer {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+  .contactSection {
+    padding: 10px 0;
   }
 }
 
