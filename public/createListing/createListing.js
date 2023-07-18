@@ -4,16 +4,19 @@ Vue.createApp({
       userSession: false,
       search: "",
       propertyInfo: {
-        name: "",
+        college: "",
+        propertyName: "",
         address: "",
-        price: 0,
-        beds: 0,
-        baths: 0,
+        rent: 0,
+        rooms: 0,
+        bathrooms: 0,
+        private: false,
+        wifi: false,
+        washerDryer: false,
+        parking: false,
+        amenities: [],
+        description: "",
       },
-
-      amenities: [],
-      otherAmenities: [],
-      description: "",
     };
   },
   methods: {
@@ -47,11 +50,12 @@ Vue.createApp({
     },
     submitForm: function () {
       if (
-        this.propertyInfo.name == "" ||
+        this.propertyInfo.college == "" ||
+        this.propertyInfo.propertyName == "" ||
         this.propertyInfo.address == "" ||
-        this.propertyInfo.price == 0 ||
-        this.propertyInfo.beds == 0 ||
-        this.propertyInfo.baths == 0
+        this.propertyInfo.rent == 0 ||
+        this.propertyInfo.rooms == 0 ||
+        this.propertyInfo.bathrooms == 0
       ) {
         alert("Please fill out all required fields");
         return;
@@ -60,28 +64,38 @@ Vue.createApp({
         let washerCheckbox = document.querySelector("#washer");
         let parkingCheckbox = document.querySelector("#parking");
         let privateCheckbox = document.querySelector("#private");
+        if (privateCheckbox.checked) {
+          this.propertyInfo.private = true;
+        }
         if (wifiCheckbox.checked) {
-          this.amenities.push("Wifi");
+          this.propertyInfo.wifi = true;
         }
         if (washerCheckbox.checked) {
-          this.amenities.push("Washer");
+          this.propertyInfo.washerDryer = true;
         }
         if (parkingCheckbox.checked) {
-          this.amenities.push("Parking");
+          this.propertyInfo.parking = true;
         }
-        if (privateCheckbox.checked) {
-          this.amenities.push("Private");
-        }
-        for (let i = 0; i < this.otherAmenities.length; i++) {
-          if (this.otherAmenities[i].text != "") {
-            this.amenities.push(this.otherAmenities[i].text);
-          }
-        }
-        console.log(this.amenities);
       }
+      console.log(this.propertyInfo);
+      this.propertyInfo = {
+        college: "",
+        propertyName: "",
+        address: "",
+        rent: 0,
+        rooms: 0,
+        bathrooms: 0,
+        private: false,
+        wifi: false,
+        washerDryer: false,
+        parking: false,
+        amenities: [],
+        description: "",
+      };
+      alert("Property has been added!");
     },
     addAmenity: function () {
-      this.otherAmenities.push({ text: "" });
+      this.propertyInfo.amenities.push({ text: "" });
     },
   },
   created: function () {},

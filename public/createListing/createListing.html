@@ -30,18 +30,23 @@
         <h1 class="title">Create Listing</h1>
         <!-- Basic info about the property -->
         <form class="info">
+          <label>College: </label>
+          <input type="text" name="college" v-model="propertyInfo.college" />
+          <br />
           <label>Property Name: </label>
-          <input type="text" name="name" v-model="propertyInfo.name" /> <br />
+          <input type="text" name="name" v-model="propertyInfo.propertyName" />
+          <br />
           <label>Address: </label>
           <input type="text" name="address" v-model="propertyInfo.address" />
           <br />
           <label>Price:</label>
-          <input type="number" name="price" v-model="propertyInfo.price" />
+          <input type="number" name="price" v-model="propertyInfo.rent" />
           <br />
           <label>Beds: </label>
-          <input type="number" name="beds" v-model="propertyInfo.beds" /> <br />
+          <input type="number" name="beds" v-model="propertyInfo.rooms" />
+          <br />
           <label>Baths: </label>
-          <input type="number" name="baths" v-model="propertyInfo.baths" />
+          <input type="number" name="baths" v-model="propertyInfo.bathrooms" />
           <br />
         </form>
 
@@ -52,20 +57,36 @@
             <div class="amenitiesList">
               <ul>
                 <li>
-                  <input type="checkbox" id="wifi" />
+                  <input
+                    type="checkbox"
+                    id="private"
+                    v-model="propertyInfo.private"
+                  />
+                  <label>Private Room</label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    id="wifi"
+                    v-model="propertyInfo.wifi"
+                  />
                   <label>Wifi</label>
                 </li>
                 <li>
-                  <input type="checkbox" id="washer" />
+                  <input
+                    type="checkbox"
+                    id="washer"
+                    v-model="propertyInfo.washerDryer"
+                  />
                   <label>Washer/Dryer</label>
                 </li>
                 <li>
-                  <input type="checkbox" id="parking" />
+                  <input
+                    type="checkbox"
+                    id="parking"
+                    v-model="propertyInfo.parking"
+                  />
                   <label>Parking</label>
-                </li>
-                <li>
-                  <input type="checkbox" id="private" />
-                  <label>Private Room</label>
                 </li>
               </ul>
             </div>
@@ -75,8 +96,8 @@
               <input
                 type="text"
                 name="other"
-                v-model="amenties.text"
-                v-for="amenties in otherAmenities"
+                v-model="item.text"
+                v-for="item in propertyInfo.amenities"
               />
               <button class="addAnother" @click="addAmenity()">
                 Add Another
@@ -107,7 +128,7 @@
             <textarea
               class="descriptionTextArea"
               placeholder="Description..."
-              v-model="description"
+              v-model="propertyInfo.description"
             ></textarea>
           </div>
         </div>
