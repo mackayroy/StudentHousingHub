@@ -59,15 +59,16 @@
         <div class="bottomContainer">
           <!-- Property section of the pages shows all the details of the property -->
           <div class="PropertyOverview">
+            <h2>Property Info</h2>
             <div class="propertyDetails">
-              <h1 class="price">${{propertyInfo.rent}}</h1>
-              <h3 class="name">{{propertyInfo.propertyName}}</h3>
-              <h5 class="address">{{propertyInfo.address}}</h5>
-              <h2 class="beds">Beds: {{propertyInfo.rooms}}</h2>
-              <h2 class="baths">Baths: {{propertyInfo.bathrooms}}</h2>
+              <p class="price">${{propertyInfo.rent}}</p>
+              <p class="name">{{propertyInfo.propertyName}}</p>
+              <p class="address">{{propertyInfo.address}}</p>
+              <p class="beds">Beds: {{propertyInfo.rooms}}</p>
+              <p class="baths">Baths: {{propertyInfo.bathrooms}}</p>
             </div>
             <div class="amenities">
-              <h3>Amenities</h3>
+              <h2>Amenities</h2>
               <div class="amenitiesList">
                 <ul>
                   <li v-if="propertyInfo.private">Private</li>
@@ -79,7 +80,7 @@
               </div>
             </div>
             <div class="overview">
-              <h3>Overview</h3>
+              <h2>Overview</h2>
               <div class="overviewDescription">
                 <p>{{propertyInfo.description}}</p>
               </div>
@@ -87,7 +88,7 @@
           </div>
           <!-- Contact section of the page with owners info -->
           <div class="contactSection">
-            <h1 class="contactBtn">Contact</h1>
+            <h2 class="contactBtn">Contact</h2>
             <div class="line"></div>
             <button
               @click="loginBtn()"
