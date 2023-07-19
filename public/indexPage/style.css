@@ -436,6 +436,7 @@ nav .navRefs .signIn {
   justify-content: center;
   text-align: center;
   gap: 15px;
+  margin: 10%;
 }
 .section img {
   width: 45%;
