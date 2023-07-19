@@ -1,3 +1,4 @@
+const URL = "http://localhost:8080/";
 Vue.createApp({
   data() {
     return {
@@ -17,18 +18,18 @@ Vue.createApp({
       },
 
       propertyInfo: {
-        college: "UVU",
-        propertyName: "Campus View Apartments",
-        address: "432 S Tech Ridge Dr, St. George, UT 84770",
-        rent: 450,
-        rooms: 2,
-        bathrooms: 2,
-        private: true,
-        wifi: true,
+        college: "",
+        propertyName: "",
+        address: "",
+        rent: 0,
+        rooms: 0,
+        bathrooms: 0,
+        private: false,
+        wifi: false,
         washerDryer: false,
         parking: false,
-        amenities: ["Pool", "Kitchen", "Gym", "Hot Tub", "Tennis Court", "BBQ"],
-        description: "Weloome to Campus View Apartments! ",
+        amenities: [],
+        description: "",
       },
     };
   },
@@ -92,9 +93,7 @@ Vue.createApp({
 
         // Call the map function here after coordinates are fetched
         this.map();
-      } catch (error) {
-        console.error("Error fetching coordinates:", error);
-      }
+      } catch (error) {}
     },
     // Function to display the map and create markers
     map() {
@@ -128,12 +127,13 @@ Vue.createApp({
 
     // Function to display the get the property information
     getProperty: function () {
-      fetch(URL + "properties")
+      fetch(URL + "properties/64b81f41961879dcacb5d706")
         .then((response) => response.json())
         .then((data) => {
           this.propertyInfo = data;
         });
     },
+
     getUserInfo: function () {
       fetch(URL + "users")
         .then((response) => response.json())
@@ -143,6 +143,7 @@ Vue.createApp({
     },
   },
   created() {
+    this.getProperty();
     this.fetchCoordinates();
   },
 }).mount("#app");

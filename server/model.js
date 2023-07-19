@@ -19,7 +19,6 @@ const PhotoSchema = new mongoose.Schema({
   },
 });
 
-
 const PropertySchema = new mongoose.Schema({
   college: {
     type: String,
@@ -61,10 +60,9 @@ const PropertySchema = new mongoose.Schema({
     required: [true, "Property must have parking listed."],
   },
   amenities: [String],
-  photos: PhotoSchema,
-  description: [String]
-})
-
+  // photos: PhotoSchema,
+  description: [String],
+});
 
 const UserSchema = new mongoose.Schema({
   name: {

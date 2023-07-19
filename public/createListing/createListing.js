@@ -4,6 +4,7 @@ Vue.createApp({
     return {
       userSession: false,
       search: "",
+      ammenitylist: [],
       propertyInfo: {
         college: "",
         propertyName: "",
@@ -17,7 +18,6 @@ Vue.createApp({
         parking: false,
         amenities: [],
         description: "",
-        photos: "",
       },
     };
   },
@@ -80,7 +80,13 @@ Vue.createApp({
         }
       }
       console.log(this.propertyInfo);
+      this.moveAmmenties();
       this.pushListing();
+    },
+    moveAmmenties: function () {
+      for (let i = 0; i < this.ammenitylist.length; i++) {
+        this.propertyInfo.amenities.push(this.ammenitylist[i].text);
+      }
     },
 
     pushListing: function () {
@@ -95,14 +101,28 @@ Vue.createApp({
       fetch(URL + "properties", options).then((response) => {
         if (response.status === 201) {
           alert("Property Listed!");
+          this.propertyInfo = {
+            college: "",
+            propertyName: "",
+            address: "",
+            rent: 0,
+            rooms: 0,
+            bathrooms: 0,
+            private: false,
+            wifi: false,
+            washerDryer: false,
+            parking: false,
+            amenities: [],
+            description: "",
+          };
         } else {
-          alert("Property not Listed, please try again.");
+          alert("Error listing property");
         }
       });
     },
 
     addAmenity: function () {
-      this.propertyInfo.amenities.push({ text: "" });
+      this.ammenitylist.push({ text: "" });
     },
     async postImage() {
       const formData = new FormData();
