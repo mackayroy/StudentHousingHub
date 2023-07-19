@@ -22,8 +22,12 @@
       <nav>
         <div id="logo"></div>
         <div class="navRefs">
-          <div @click="" class="navLinks" v-if="userSession">Create Listing</div>
-          <div @click="toggleNavModal()" class="navLinks" v-else>Create Listing</div>
+          <div @click="" class="navLinks" v-if="userSession">
+            Create Listing
+          </div>
+          <div @click="toggleNavModal()" class="navLinks" v-else>
+            Create Listing
+          </div>
           <div @click="" class="navLinks">My Listings</div>
           <div>
             <div class="profile" v-if="userSession">
@@ -64,14 +68,21 @@
       <div class="sectionCont">
         <div class="section">
           <div class="sectionText">
-            <h2>What do we do???</h2>
-            <h5>We do cool things for cool people</h5>
+            <h2>Student Housing Hub</h2>
+            <h5>For College Students</h5>
             <p>
-              Student housing hub provides students with an easy way to buy and sell leases to
-              acquire housing for college.
+              Student Housing Hub is the ultimate online marketplace for college
+              students to buy and sell leases. Our user-friendly platform
+              simplifies the process of finding and securing ideal housing
+              options, tailored specifically to student needs. Join our
+              community today and make your college housing search a breeze.
             </p>
           </div>
-          <img src="indexPage/WWD/WWD.jpg" alt="what we do" />
+          <img
+            src="indexPage/WWD/WWD.jpg"
+            alt="what we do"
+            class="sectionImg"
+          />
         </div>
       </div>
       <div class="WWDBottom"></div>
@@ -79,21 +90,30 @@
       <div class="MOTTop"></div>
       <div class="sectionCont">
         <div class="section">
-          <img src="indexPage/MOT/MOT.jpg" alt="what we do" />
+          <img
+            src="indexPage/MOT/MOT.jpg"
+            alt="what we do"
+            class="sectionImg"
+          />
           <div class="sectionText">
             <h2>Meet our Team!</h2>
-            <h5>(Left to right) Jack, Gabriel, Josh, MacKay</h5>
+            <h5 class="TeamText">
+              (Left to right) Jack, Gabriel, Josh, MacKay
+            </h5>
             <p>
-              We all met through Utah Tech University or their CodeSchool program where we learned
-              to develop websites.
+              We all have a strong background in website development through
+              Utah Tech University and their CodeSchool program. At [Your
+              Company Name], we combine our expertise and passion to deliver
+              outstanding web solutions tailored to your needs. Experience the
+              difference of working with a skilled and dedicated team committed
+              to bringing your visions to life.
             </p>
-            <p>We are ...</p>
           </div>
         </div>
       </div>
       <div class="MOTBottom"></div>
       <div class="svgFooter"></div>
-      <footer>
+      <footer id="footer">
         <p>Don't steal our stuff</p>
       </footer>
 
@@ -107,8 +127,16 @@
             </div>
             <div class="sisu-formCont">
               <div class="sisu-form">
-                <input type="text" placeholder="Email..." v-model="navLoginUser.email" />
-                <input type="text" placeholder="Password..." v-model="navLoginUser.password" />
+                <input
+                  type="text"
+                  placeholder="Email..."
+                  v-model="navLoginUser.email"
+                />
+                <input
+                  type="text"
+                  placeholder="Password..."
+                  v-model="navLoginUser.password"
+                />
               </div>
               <div class="sisu-line"></div>
               <div class="sisu-buttons">
@@ -124,10 +152,26 @@
             </div>
             <div class="sisu-formCont">
               <div class="sisu-form">
-                <input type="text" placeholder="Name..." v-model="navUser.name" />
-                <input type="text" placeholder="Email..." v-model="navUser.email" />
-                <input type="text" placeholder="Phone..." v-model="navUser.phoneNumber" />
-                <input type="text" placeholder="Password..." v-model="navUser.password" />
+                <input
+                  type="text"
+                  placeholder="Name..."
+                  v-model="navUser.name"
+                />
+                <input
+                  type="text"
+                  placeholder="Email..."
+                  v-model="navUser.email"
+                />
+                <input
+                  type="text"
+                  placeholder="Phone..."
+                  v-model="navUser.phoneNumber"
+                />
+                <input
+                  type="text"
+                  placeholder="Password..."
+                  v-model="navUser.password"
+                />
               </div>
               <div class="sisu-line-long"></div>
               <div class="sisu-buttons">
@@ -164,20 +208,41 @@
             <div class="settingsFileInput" v-if="settingsUser.changePhoto">
               <input type="file" />
             </div>
-            <img src="./sample.jpg" alt="profilePicture" class="settingsPP" v-else />
-            <i class="fa-regular fa-pen-to-square" class="settingsEdit" @click="togglePhoto()"></i>
+            <img
+              src="./sample.jpg"
+              alt="profilePicture"
+              class="settingsPP"
+              v-else
+            />
+            <i
+              class="fa-regular fa-pen-to-square"
+              class="settingsEdit"
+              @click="togglePhoto()"
+            ></i>
           </div>
           <div class="settingsLine"></div>
           <div class="settingsInputs">
             <div class="settingsInput">
               <span>Name:</span>
-              <input type="text" v-model="settingsUser.name" v-if="settingsUser.changeName" />
+              <input
+                type="text"
+                v-model="settingsUser.name"
+                v-if="settingsUser.changeName"
+              />
               <p v-else>{{user.name}}</p>
-              <i class="fa-regular fa-pen-to-square" class="settingsEdit" @click="toggleName()"></i>
+              <i
+                class="fa-regular fa-pen-to-square"
+                class="settingsEdit"
+                @click="toggleName()"
+              ></i>
             </div>
             <div class="settingsInput">
               <span>Email:</span>
-              <input type="text" v-model="settingsUser.email" v-if="settingsUser.changeEmail" />
+              <input
+                type="text"
+                v-model="settingsUser.email"
+                v-if="settingsUser.changeEmail"
+              />
               <p v-else>{{user.email}}</p>
               <i
                 class="fa-regular fa-pen-to-square"
@@ -220,7 +285,9 @@
             </div>
           </div>
           <div class="settingsButtons">
-            <button @click="toggleSettingsModal()" class="otherButton">Cancel</button>
+            <button @click="toggleSettingsModal()" class="otherButton">
+              Cancel
+            </button>
             <button @click="updateProfile()" class="mainButton">Save</button>
           </div>
         </div>
