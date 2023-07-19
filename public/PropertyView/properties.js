@@ -18,9 +18,9 @@ Vue.createApp({
       },
 
       propertyInfo: {
-        college: "",
+        college: "Utah Tech",
         propertyName: "",
-        address: "",
+        address: "669 S 700 E Apt 1, St. George, UT 84770",
         rent: 0,
         rooms: 0,
         bathrooms: 0,
