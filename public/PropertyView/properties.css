@@ -111,10 +111,6 @@ nav .navRefs {
   gap: 20px;
   color: rgb(51, 54, 52);
 }
-.beds,
-.baths {
-  font-size: 1.5em;
-}
 
 /* Css for the property detail section */
 .PropertyOverview {
@@ -122,43 +118,50 @@ nav .navRefs {
   display: flex;
   flex-flow: column nowrap;
   grid-row: 1/3;
+  padding: 20px 20px;
   border-radius: 10px;
-  padding: 10px 10px;
   gap: 10px;
+}
+.PropertyOverview h2 {
+  font-size: 2em;
 }
 .propertyDetails {
   display: flex;
   flex-flow: column nowrap;
+  background-color: var(--white);
+  padding: 15px 15px;
+  gap: 10px;
+  border-radius: 10px;
+  font-size: 2em;
 }
+
 .address {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 .amenitiesList {
   background-color: var(--white);
   display: flex;
-  flex-flow: column nowrap;
   justify-content: center;
-  align-items: center;
   border-radius: 10px;
-  padding: 10px 10px;
-}
-.amenitiesList li {
-  padding: 0 10px;
+  padding: 15px;
 }
 .amenitiesList ul {
   columns: 2;
   -webkit-columns: 2;
   -moz-columns: 2;
+  column-gap: 0;
 }
+
 .overviewDescription {
   background-color: var(--white);
   display: flex;
   flex-flow: column wrap;
   justify-content: flex-start;
-  padding: 10px 10px;
+  padding: 15px;
+  font-size: 2em;
   border-radius: 10px;
 }
 
@@ -168,12 +171,15 @@ nav .navRefs {
   grid-row: 1/2;
   display: flex;
   flex-flow: column nowrap;
+  justify-content: center;
   align-items: center;
   background-color: var(--light-green);
   border-radius: 10px;
 }
+.contactSection h2 {
+  font-size: 2em;
+}
 .contactSection p {
-  padding: 10px 0px;
   font-size: 1.5em;
   display: flex;
   flex-flow: row nowrap;
@@ -187,18 +193,18 @@ nav .navRefs {
 }
 .line {
   width: 80%;
-  height: 1px;
+  height: 2px;
   background-color: black;
   margin-top: 20px;
 }
 .loginBtn {
   background-color: var(--middleGreen-opacity);
-  border-radius: 1em;
+  border-radius: 10px;
   border: none;
-  margin-top: 3em;
   min-width: 9em;
   min-height: 2.5em;
   cursor: pointer;
+  margin-top: 20px;
   transition-duration: 0.5s;
   color: rgb(51, 54, 52);
 }
@@ -262,7 +268,6 @@ nav .navRefs {
     min-height: 300px;
     position: relative;
   }
-
   .slide {
     height: 300px;
     position: absolute;
@@ -271,39 +276,26 @@ nav .navRefs {
     transition: 200ms opacity ease-in-out;
     transition-delay: 200ms;
   }
-
   .slide > img {
     width: 100%;
     height: auto;
     object-fit: contain;
     object-position: center;
   }
-  .contactSection p {
-    padding: 10px 0px;
-    font-size: 2em;
+  .loginBtn,
+  .line {
+    margin-top: 10px;
   }
-
-  .loginBtn {
-    margin-bottom: 2em;
-  }
-  .salersInfo {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    font-size: 0.75em;
+  .overviewDescription,
+  .propertyDetails,
+  .amenitiesList {
+    font-size: 1.5em;
   }
   .amenitiesList ul {
-    columns: 1;
-    -webkit-columns: 1;
-    -moz-columns: 1;
-  }
-  .amenitiesList li {
-    font-size: 1.5em;
-    padding: 0 10px;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    column-gap: 0;
   }
 }
 @media (max-width: 550px) {
@@ -315,109 +307,24 @@ nav .navRefs {
     padding: 10px 0;
   }
 }
-
 @media (max-width: 670px) {
   #map {
     height: 150px;
     width: 150px;
   }
-} /* For the Description section and padding/margin/gap */
+}
 @media (min-width: 800px) {
   .mainConatiner {
     display: grid;
     flex-flow: column nowrap;
   }
 
-  .bottomContainer {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 40px;
-  }
-
-  .PropertyOverview {
-    background-color: var(--light-green);
-    display: flex;
-    flex-flow: column nowrap;
-    grid-row: 1/3;
-    border-radius: 10px;
-    padding: 30px 30px;
-    gap: 40px;
-  }
-  .propertyDetails {
-    display: flex;
-    flex-flow: column nowrap;
-    font-size: 1.5em;
-    padding: 0 1em;
-    gap: 20px;
-  }
-  .address {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-left: 3em;
-  }
-  .amenities h3 {
-    font-size: 2em;
-  }
-  .amenitiesList {
-    background-color: var(--white);
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    border-radius: 10px;
-    padding: 10px 10px;
-    font-size: 2em;
-  }
-  .overviewDescription {
-    background-color: var(--white);
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: flex-start;
-    padding: 30px 30px;
-    border-radius: 10px;
-    font-size: 2em;
-  }
-  .overview h3 {
-    font-size: 2em;
-  }
-}
-/* For Contact section */
-@media (min-width: 800px) {
-  .contactSection {
-    grid-column: 2/3;
-    grid-row: 1/2;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--light-green);
-    border-radius: 10px;
-  }
-  .contactSection p {
-    padding: 10px 0px;
-    font-size: 2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .contactBtn {
-    font-size: 3em;
-  }
-  .line {
-    width: 80%;
-    height: 2px;
-    background-color: black;
-  }
   .loginBtn {
-    background-color: var(--middleGreen-opacity);
-    border-radius: 1em;
-    border: none;
     min-width: 60%;
     min-height: 4em;
     font-size: 1em;
   }
-  .mapSection p {
+  .amenitiesList {
     font-size: 2em;
   }
 }
