@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
 /* Resets the margin and padding, and sets the box sizing to border-box for all elements */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
 
 /* Sets CSS custom properties (variables) for ease of use throughout the CSS */
@@ -246,12 +249,12 @@ button {
   color: #212529;
 }
 
-.cityInput::placeholder {
+.form-control::placeholder {
   color: #000000a3;
 }
 
 /* Styles for city input field */
-.cityInput {
+.form-control {
   border-radius: 16px 0px 0px 16px;
   border: 2px solid rgb(156, 175, 136);
   width: 100%;
@@ -261,6 +264,18 @@ button {
   font-size: 20px;
   font-weight: 400;
   padding: 10px;
+}
+
+/* Google API Styling */
+.pac-container {
+  background-color: #f5fbf1;
+  box-shadow: 0 0 5px black;
+}
+.pac-item {
+  border-bottom: 1px solid black;
+}
+.pac-item:hover {
+  background-color: var(--green);
 }
 
 /* Styles for content and contentBox */
@@ -330,6 +345,7 @@ button {
 /* Styles for price */
 .price {
   font-size: 30px;
+  font-family: none;
 }
 
 /* Styles for address */
