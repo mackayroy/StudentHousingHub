@@ -397,3 +397,11 @@ footer {
     font-size: 1.3em;
   }
 }
+@media (min-width: 1000px) {
+  .carousel-button.prev {
+    left: 8rem;
+  }
+  .carousel-button.next {
+    right: 8rem;
+  }
+}
