@@ -143,6 +143,7 @@
                 name="other"
                 v-model="item.text"
                 v-for="item in ammenitylist"
+                @keyup.enter="addAmenity()"
               />
               <button class="addAnother" @click="addAmenity()">
                 Add Another
