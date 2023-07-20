@@ -127,7 +127,7 @@ Vue.createApp({
 
     // Function to display the get the property information
     getProperty: function () {
-      fetch(URL + "properties/64b81f41961879dcacb5d706")
+      fetch(URL + "properties/")
         .then((response) => response.json())
         .then((data) => {
           this.propertyInfo = data;

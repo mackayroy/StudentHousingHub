@@ -198,7 +198,6 @@ nav .navRefs {
   cursor: pointer;
   transform: scale(1.05);
 }
-
 .boost {
   color: var(--font-color);
   font-size: 1.5em;
@@ -220,10 +219,75 @@ nav .navRefs {
 }
 
 /* Footer css */
-.footer {
+footer {
   background-color: var(--dark-green);
-  height: 100px;
+}
+.footerContainer {
   width: 100%;
+  padding: 70px 30px 20px;
+}
+.socialIcons {
+  display: flex;
+  justify-content: center;
+}
+.socialIcons a {
+  text-decoration: none;
+  padding: 10px;
+  background-color: white;
+  margin: 10px;
+  border-radius: 50%;
+}
+.socialIcons a i {
+  font-size: 2em;
+  color: var(--dark-green);
+  opacity: 0.9;
+}
+.socialIcons a i:hover {
+  color: white;
+  transition: 0.8s;
+}
+.socialIcons a:hover {
+  background-color: var(--dark-green);
+  transition: 0.8s;
+}
+.socialIcons a:hover {
+  color: white;
+  transition: 0.8s;
+}
+.footerNav {
+  margin: 30px 0;
+}
+.footerNav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+.footerNav ul li a {
+  color: white;
+  margin: 20px;
+  text-decoration: none;
+  font-size: 1em;
+  opacity: 0.7;
+  transition: 0.5s;
+}
+.footerNav ul li a:hover {
+  opacity: 1;
+  font-size: 1.3em;
+}
+.footerBottom {
+  padding: 20px;
+  text-align: center;
+  cursor: default;
+}
+.footerBottom p {
+  color: white;
+}
+.Designer {
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin: 0px 5px;
 }
 /* Test comment */
 /* Media Queries */
@@ -246,6 +310,19 @@ nav .navRefs {
     padding: 5px 10px;
     font-size: 1.5em;
     width: auto;
+  }
+  .footerNav ul {
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+  }
+  .footerNav ul li {
+    width: 100%;
+    text-align: center;
+    margin: 10px;
+  }
+  .footerNav ul li a:hover {
+    font-size: 1.3em;
   }
 }
 @media (max-width: 414px) {
