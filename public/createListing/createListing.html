@@ -33,6 +33,7 @@
         <form class="info" name="info">
           <label for="college">College: </label>
           <input
+            placeholder="Enter a College"
             type="text"
             name="college"
             id="college"
@@ -41,17 +42,19 @@
           <br />
           <label for="propertyName">Property Name: </label>
           <input
+            placeholder="Enter Property Name"
             type="text"
             name="propertyName"
             id="propertyName"
             v-model="propertyInfo.propertyName"
           />
           <br />
-          <label for="address">Address: </label>
+          <label id="addres">Address: </label>
           <input
+            placeholder="Enter Address"
             type="text"
-            name="address"
-            id="address"
+            name="autocomplete"
+            id="autocomplete"
             v-model="propertyInfo.address"
           />
           <br />
@@ -132,7 +135,7 @@
                 type="text"
                 name="other"
                 v-model="item.text"
-                v-for="item in propertyInfo.amenities"
+                v-for="item in ammenitylist"
               />
               <button class="addAnother" @click="addAmenity()">
                 Add Another
@@ -184,6 +187,8 @@
         <p>footer</p>
       </div>
     </div>
+
     <script src="createListing.js"></script>
   </body>
 </html>
+s

@@ -144,15 +144,18 @@ nav .navRefs {
 .amenitiesList {
   background-color: var(--white);
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   border-radius: 10px;
+  gap: 10px;
   padding: 15px;
+  font-size: 2em;
 }
 .amenitiesList ul {
   columns: 2;
   -webkit-columns: 2;
   -moz-columns: 2;
-  column-gap: 0;
+  padding: 0 10px;
+  column-gap: 30px;
 }
 
 .overviewDescription {
@@ -287,15 +290,8 @@ nav .navRefs {
     margin-top: 10px;
   }
   .overviewDescription,
-  .propertyDetails,
-  .amenitiesList {
+  .propertyDetails {
     font-size: 1.5em;
-  }
-  .amenitiesList ul {
-    columns: 2;
-    -webkit-columns: 2;
-    -moz-columns: 2;
-    column-gap: 0;
   }
 }
 @media (max-width: 550px) {
@@ -326,5 +322,8 @@ nav .navRefs {
   }
   .amenitiesList {
     font-size: 2em;
+  }
+  .amenitiesList ul {
+    column-gap: 4em;
   }
 }
