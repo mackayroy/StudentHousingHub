@@ -123,7 +123,6 @@ nav .navRefs .signIn {
   background-color: black;
   margin: 0 25px;
 }
-
 .sisu-buttons {
   display: flex;
   flex-flow: column nowrap;
@@ -144,7 +143,6 @@ nav .navRefs .signIn {
 .otherButton {
   background-color: white;
 }
-
 .profile {
   position: relative;
 }
@@ -196,7 +194,6 @@ nav .navRefs .signIn {
   margin: 10px 0px;
   background-color: grey;
 }
-
 .contactModal {
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(3px);
@@ -252,7 +249,6 @@ nav .navRefs .signIn {
 .contactEmail {
   padding: 0 15px;
 }
-
 .settingsModal {
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(3px);
@@ -271,7 +267,6 @@ nav .navRefs .signIn {
   flex-flow: column nowrap;
   align-items: flex-end;
 }
-
 .settings {
   background-color: var(--light-green);
   border-radius: 10px;
@@ -427,6 +422,7 @@ nav .navRefs .signIn {
   align-items: center;
   gap: 20px;
   background-color: var(--light-green);
+  margin: 2rem 0px;
 }
 .sectionText {
   width: 100%;
@@ -437,20 +433,108 @@ nav .navRefs .signIn {
   text-align: center;
   gap: 15px;
   margin: 10%;
+  color: #000000c9;
 }
-.section img {
-  width: 45%;
+
+.sectionImg {
+  width: 35%;
+  height: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: -2px 3px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* Footer */
 
 footer {
   background-color: var(--dark-green);
-  height: 50px;
+  /* height: 50px;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: center; */
+}
+
+.footerContainer {
+  width: 100%;
+  padding: 70px 30px 20px;
+}
+
+.socialIcons {
+  display: flex;
   justify-content: center;
+}
+
+.socialIcons a {
+  text-decoration: none;
+  padding: 10px;
+  background-color: white;
+  margin: 10px;
+  border-radius: 50%;
+}
+
+.socialIcons a i {
+  font-size: 2em;
+  color: var(--dark-green);
+  opacity: 0.9;
+}
+
+.socialIcons a i:hover {
+  color: white;
+  transition: 0.8s;
+}
+
+.socialIcons a:hover {
+  background-color: var(--dark-green);
+  transition: 0.8s;
+}
+
+.socialIcons a:hover {
+  color: white;
+  transition: 0.8s;
+}
+
+.footerNav {
+  margin: 30px 0;
+}
+
+.footerNav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.footerNav ul li a {
+  color: white;
+  margin: 20px;
+  text-decoration: none;
+  font-size: 1em;
+  opacity: 0.7;
+  transition: 0.5s;
+}
+
+.footerNav ul li a:hover {
+  opacity: 1;
+  font-size: 1.3em;
+}
+
+.footerBottom {
+  padding: 20px;
+  text-align: center;
+  cursor: default;
+}
+
+.footerBottom p {
+  color: white;
+}
+
+.Designer {
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin: 0px 5px;
 }
 
 /* SVG Stuff */
@@ -458,13 +542,15 @@ footer {
 .svgHero {
   background-image: url("images/heroSpacer.svg");
   background-position: 0 0px;
-  width: 100vw;
+  background-repeat: no-repeat;
   height: 75px;
-  margin-bottom: 50px;
+  margin-bottom: 5px;
+  background-size: cover;
 }
 .svgFooter {
   background-image: url("images/footerSpacer.svg");
   background-position: 0 80px;
+  background-size: cover;
   width: 100vw;
   height: 75px;
   margin-top: 5px;
@@ -472,33 +558,37 @@ footer {
 .WWDTop {
   background-image: url("./WWD/WWDTop.svg");
   background-position: 0 90px;
-  width: 100vw;
+  transform: scale(2);
   height: 75px;
   margin-top: 50px;
+  display: none;
 }
 .WWDBottom {
   background-image: url("./WWD/WWDBottom.svg");
   background-position: 0 -15px;
-  width: 100vw;
+  transform: scale(2);
   height: 75px;
   margin-bottom: 50px;
+  display: none;
 }
 .MOTTop {
   background-image: url("./MOT/MOTTop.svg");
   background-position: 0 90px;
-  width: 100vw;
+  transform: scale(2);
   height: 75px;
   margin-top: 50px;
+  display: none;
 }
 .MOTBottom {
   background-image: url("./MOT/MOTBottom.svg");
   background-position: 0 -15px;
-  width: 100vw;
+  transform: scale(2);
   height: 75px;
   margin-bottom: 50px;
+  display: none;
 }
 
-@media (min-width: 900px) {
+@media (max-width: 900px) {
   .svgHero,
   .svgFooter,
   .WWDTop,
@@ -506,17 +596,70 @@ footer {
   .MOTTop,
   .MOTBottom {
     background-size: 150%;
-    height: 150px;
+    /* height: 150px; */
   }
-  .svgFooter,
+  /* .svgFooter,
   .WWDTop,
   .MOTTop {
-    background-position: 0 155px;
+     background-position: 0 155px; 
+  } */
+
+  .WWDTop,
+  .WWDBottom,
+  .MOTTop,
+  .MOTBottom {
+    display: none;
+  }
+  .sectionText {
+    margin: 6%;
+  }
+  .sectionImg {
+    width: 300px;
+  }
+  .footerNav ul li a:hover {
+    font-size: 1em;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 700px) {
   nav .navRefs {
     gap: 25px;
+  }
+
+  .sectionImg {
+    display: none;
+  }
+
+  nav .navRefs {
+    margin-right: 5%;
+  }
+
+  #logo {
+    margin-left: 5%;
+  }
+
+  .hero input {
+    font-size: 20px;
+  }
+
+  .TeamText {
+    display: none;
+  }
+
+  .hero {
+    height: 40vh;
+  }
+  .footerNav ul {
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+  }
+  .footerNav ul li {
+    width: 100%;
+    text-align: center;
+    margin: 10px;
+  }
+  .footerNav ul li a:hover {
+    font-size: 1.3em;
   }
 }
