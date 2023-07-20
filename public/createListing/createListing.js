@@ -51,6 +51,7 @@ Vue.createApp({
       });
     },
     submitForm: function () {
+      console.log(this.propertyInfo);
       if (
         this.propertyInfo.college == "" ||
         this.propertyInfo.propertyName == "" ||
@@ -79,9 +80,8 @@ Vue.createApp({
           this.propertyInfo.parking = true;
         }
       }
-      console.log(this.propertyInfo);
-      this.moveAmmenties();
-      this.pushListing();
+      // this.moveAmmenties();
+      // this.pushListing();
     },
     moveAmmenties: function () {
       for (let i = 0; i < this.ammenitylist.length; i++) {
