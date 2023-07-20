@@ -471,16 +471,28 @@ footer {
   padding: 10px;
   background-color: white;
   margin: 10px;
+  border-radius: 50%;
+}
+
+.socialIcons a i {
+  font-size: 2em;
+  color: var(--dark-green);
+  opacity: 0.9;
+}
+
+.socialIcons a i:hover {
+  color: white;
+  transition: 0.8s;
 }
 
 .socialIcons a:hover {
-  background-color: bisque;
-  transition: 0.5s;
+  background-color: var(--dark-green);
+  transition: 0.8s;
 }
 
 .socialIcons a:hover {
   color: white;
-  transition: 0.5s;
+  transition: 0.8s;
 }
 
 .footerNav {
@@ -493,17 +505,36 @@ footer {
   list-style: none;
 }
 
-.footerNav ul li a:hover {
+.footerNav ul li a {
   color: white;
   margin: 20px;
   text-decoration: none;
-  font-size: 1.3em;
+  font-size: 1em;
   opacity: 0.7;
   transition: 0.5s;
 }
 
 .footerNav ul li a:hover {
   opacity: 1;
+  font-size: 1.3em;
+}
+
+.footerBottom {
+  padding: 20px;
+  text-align: center;
+  cursor: default;
+}
+
+.footerBottom p {
+  color: white;
+}
+
+.Designer {
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin: 0px 5px;
 }
 
 /* SVG Stuff */
@@ -511,13 +542,15 @@ footer {
 .svgHero {
   background-image: url("images/heroSpacer.svg");
   background-position: 0 0px;
-  transform: scale(2);
+  background-repeat: no-repeat;
   height: 75px;
-  margin-bottom: 50px;
+  margin-bottom: 5px;
+  background-size: cover;
 }
 .svgFooter {
   background-image: url("images/footerSpacer.svg");
   background-position: 0 80px;
+  background-size: cover;
   width: 100vw;
   height: 75px;
   margin-top: 5px;
@@ -565,11 +598,11 @@ footer {
     background-size: 150%;
     /* height: 150px; */
   }
-  .svgFooter,
+  /* .svgFooter,
   .WWDTop,
   .MOTTop {
-    /* background-position: 0 155px; */
-  }
+     background-position: 0 155px; 
+  } */
 
   .WWDTop,
   .WWDBottom,
@@ -582,6 +615,9 @@ footer {
   }
   .sectionImg {
     width: 300px;
+  }
+  .footerNav ul li a:hover {
+    font-size: 1em;
   }
 }
 
@@ -610,11 +646,20 @@ footer {
     display: none;
   }
 
-  .svgHero {
-    height: 55px;
-  }
-
   .hero {
     height: 40vh;
+  }
+  .footerNav ul {
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+  }
+  .footerNav ul li {
+    width: 100%;
+    text-align: center;
+    margin: 10px;
+  }
+  .footerNav ul li a:hover {
+    font-size: 1.3em;
   }
 }
