@@ -166,7 +166,9 @@ app.get("/properties", function (req, res) {
 });
 
 app.get("/properties/:propertiesId", function (req, res) {
-  model.Property.findOne({ "_id": req.params.propertiesId }).then(function (property) {
+  model.Property.findOne({ "_id": req.params.propertiesId }).then(function (
+    property
+  ) {
     if (property) {
       res.send(property);
     } else {
@@ -190,55 +192,57 @@ app.delete("/properties/:propertiesId", AuthMiddleware, function (req, res) {
 });
 
 app.put("/properties/:propertiesId", AuthMiddleware, function (req, res) {
-  model.Property.findOne({ "_id": req.params.propertiesId }).then((property) => {
-    if (property) {
-      if (req.body.college) {
-        property.college = req.body.college;
-      }
-      if (req.body.propertyName) {
-        property.propertyName = req.body.propertyName;
-      }
-      if (req.body.address) {
-        property.address = req.body.address;
-      }
-      if (req.body.rent) {
-        property.rent = req.body.rent;
-      }
-      if (req.body.rooms) {
-        property.rooms = req.body.rooms;
-      }
-      if (req.body.bathrooms) {
-        property.bathrooms = req.body.bathrooms;
-      }
-      if (req.body.private) {
-        property.private = req.body.private;
-      }
-      if (req.body.wifi) {
-        property.wifi = req.body.wifi;
-      }
-      if (req.body.washerDryer) {
-        property.washerDryer = req.body.washerDryer;
-      }
-      if (req.body.parking) {
-        property.parking = req.body.parking;
-      }
-      if (req.body.amenities) {
-        property.amenities = req.body.amenities;
-      }
+  model.Property.findOne({ "_id": req.params.propertiesId }).then(
+    (property) => {
+      if (property) {
+        if (req.body.college) {
+          property.college = req.body.college;
+        }
+        if (req.body.propertyName) {
+          property.propertyName = req.body.propertyName;
+        }
+        if (req.body.address) {
+          property.address = req.body.address;
+        }
+        if (req.body.rent) {
+          property.rent = req.body.rent;
+        }
+        if (req.body.rooms) {
+          property.rooms = req.body.rooms;
+        }
+        if (req.body.bathrooms) {
+          property.bathrooms = req.body.bathrooms;
+        }
+        if (req.body.private) {
+          property.private = req.body.private;
+        }
+        if (req.body.wifi) {
+          property.wifi = req.body.wifi;
+        }
+        if (req.body.washerDryer) {
+          property.washerDryer = req.body.washerDryer;
+        }
+        if (req.body.parking) {
+          property.parking = req.body.parking;
+        }
+        if (req.body.amenities) {
+          property.amenities = req.body.amenities;
+        }
 
-      property
-        .save()
-        .then(function () {
-          res.status(200).send("Property updated");
-        })
-        .catch((errors) => {
-          console.log(errors);
-          res.status(422).send("Error updating property.");
-        });
-    } else {
-      res.status(404).send("Property not found.");
+        property
+          .save()
+          .then(function () {
+            res.status(200).send("Property updated");
+          })
+          .catch((errors) => {
+            console.log(errors);
+            res.status(422).send("Error updating property.");
+          });
+      } else {
+        res.status(404).send("Property not found.");
+      }
     }
-  });
+  );
 });
 
 // images
@@ -253,7 +257,10 @@ app.post("/images", upload.single("file"), async (req, res) => {
 app.get("/images", (req, res) => {
   // get key and bucket name from database for that property
   // const key = propertyimage.key;
-  const readStream = getFileStream("29e0df61504970629bd242bd5a18bb9c", "student-housing-hub");
+  const readStream = getFileStream(
+    "29e0df61504970629bd242bd5a18bb9c",
+    "student-housing-hub"
+  );
   readStream.pipe(res);
 });
 
@@ -276,7 +283,9 @@ app.post("/session", function (req, res) {
             res.status(201).send(req.session);
           } else {
             // password doesnt match
-            res.status(401).send("Couldn't authenticate. Check email/password.");
+            res
+              .status(401)
+              .send("Couldn't authenticate. Check email/password.");
           }
         });
       } else {

@@ -19,7 +19,6 @@ const PhotoSchema = new mongoose.Schema({
   },
 });
 
-
 const PropertySchema = new mongoose.Schema({
   college: {
     type: String,
@@ -62,9 +61,8 @@ const PropertySchema = new mongoose.Schema({
   },
   amenities: [String],
   photos: PhotoSchema,
-  description: [String]
-})
-
+  description: [String],
+});
 
 const UserSchema = new mongoose.Schema({
   name: {

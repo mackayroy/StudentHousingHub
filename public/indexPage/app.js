@@ -99,6 +99,7 @@ Vue.createApp({
         this.settingsUser.changeEmail = false;
         this.settingsUser.changePhoneNumber = false;
         this.settingsUser.changePassword = false;
+        this.settingsUser.verifyPassword = "";
       } else {
         this.showSettingsModal = true;
       }
@@ -282,6 +283,7 @@ Vue.createApp({
 
     // Search Bar
     searchAndSend: function () {
+      console.log(this.heroSearch);
       sessionStorage.setItem("search", String(this.heroSearch));
       console.log(sessionStorage.getItem("search"));
       window.location.href = "SearchSort/searchSort.html";

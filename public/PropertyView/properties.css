@@ -144,15 +144,18 @@ nav .navRefs {
 .amenitiesList {
   background-color: var(--white);
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   border-radius: 10px;
+  gap: 10px;
   padding: 15px;
+  font-size: 2em;
 }
 .amenitiesList ul {
   columns: 2;
   -webkit-columns: 2;
   -moz-columns: 2;
-  column-gap: 0;
+  padding: 0 10px;
+  column-gap: 30px;
 }
 
 .overviewDescription {
@@ -245,20 +248,75 @@ nav .navRefs {
   width: 300px;
 }
 /* Footer css */
-.footer {
+footer {
   background-color: var(--dark-green);
-  height: 100px;
+}
+.footerContainer {
   width: 100%;
+  padding: 70px 30px 20px;
 }
-.groupemails {
+.socialIcons {
   display: flex;
-  flex-flow: column nowrap;
   justify-content: center;
-  align-items: center;
 }
-.groupemails a {
-  color: var(--font-color);
+.socialIcons a {
   text-decoration: none;
+  padding: 10px;
+  background-color: white;
+  margin: 10px;
+  border-radius: 50%;
+}
+.socialIcons a i {
+  font-size: 2em;
+  color: var(--dark-green);
+  opacity: 0.9;
+}
+.socialIcons a i:hover {
+  color: white;
+  transition: 0.8s;
+}
+.socialIcons a:hover {
+  background-color: var(--dark-green);
+  transition: 0.8s;
+}
+.socialIcons a:hover {
+  color: white;
+  transition: 0.8s;
+}
+.footerNav {
+  margin: 30px 0;
+}
+.footerNav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+.footerNav ul li a {
+  color: white;
+  margin: 20px;
+  text-decoration: none;
+  font-size: 1em;
+  opacity: 0.7;
+  transition: 0.5s;
+}
+.footerNav ul li a:hover {
+  opacity: 1;
+  font-size: 1.3em;
+}
+.footerBottom {
+  padding: 20px;
+  text-align: center;
+  cursor: default;
+}
+.footerBottom p {
+  color: white;
+}
+.Designer {
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin: 0px 5px;
 }
 
 /* Media querys */
@@ -287,15 +345,8 @@ nav .navRefs {
     margin-top: 10px;
   }
   .overviewDescription,
-  .propertyDetails,
-  .amenitiesList {
+  .propertyDetails {
     font-size: 1.5em;
-  }
-  .amenitiesList ul {
-    columns: 2;
-    -webkit-columns: 2;
-    -moz-columns: 2;
-    column-gap: 0;
   }
 }
 @media (max-width: 550px) {
@@ -326,5 +377,23 @@ nav .navRefs {
   }
   .amenitiesList {
     font-size: 2em;
+  }
+  .amenitiesList ul {
+    column-gap: 4em;
+  }
+}
+@media (max-width: 850px) {
+  .footerNav ul {
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+  }
+  .footerNav ul li {
+    width: 100%;
+    text-align: center;
+    margin: 10px;
+  }
+  .footerNav ul li a:hover {
+    font-size: 1.3em;
   }
 }

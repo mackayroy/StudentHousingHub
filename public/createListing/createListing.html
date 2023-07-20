@@ -8,6 +8,13 @@
     <link rel="icon" href="../MODERN HOME.png" />
     <link rel="stylesheet" href="./icofont.min.css" />
     <link href="createListing.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
 
@@ -33,6 +40,7 @@
         <form class="info" name="info">
           <label for="college">College: </label>
           <input
+            placeholder="Enter a College"
             type="text"
             name="college"
             id="college"
@@ -41,17 +49,19 @@
           <br />
           <label for="propertyName">Property Name: </label>
           <input
+            placeholder="Enter Property Name"
             type="text"
             name="propertyName"
             id="propertyName"
             v-model="propertyInfo.propertyName"
           />
           <br />
-          <label for="address">Address: </label>
+          <label id="addres">Address: </label>
           <input
+            placeholder="Enter Address"
             type="text"
-            name="address"
-            id="address"
+            name="autocomplete"
+            id="autocomplete"
             v-model="propertyInfo.address"
           />
           <br />
@@ -132,7 +142,7 @@
                 type="text"
                 name="other"
                 v-model="item.text"
-                v-for="item in propertyInfo.amenities"
+                v-for="item in ammenitylist"
               />
               <button class="addAnother" @click="addAmenity()">
                 Add Another
@@ -180,10 +190,34 @@
       </div>
 
       <!-- footer -->
-      <div class="footer">
-        <p>footer</p>
-      </div>
+      <footer>
+        <div class="footerContainer">
+          <div class="socialIcons">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-google-plus"></i></a>
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+          </div>
+          <div class="footerNav">
+            <ul>
+              <li><a href="">Home</a></li>
+              <li><a href="">About Us</a></li>
+              <li><a href="">Contact Us</a></li>
+              <li><a href="">Terms of Service</a></li>
+              <li><a href="">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="footerBottom">
+            <p>
+              Copyright &copy;2022; Designed by
+              <span class="Designer">Goblins</span>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
+
     <script src="createListing.js"></script>
   </body>
 </html>

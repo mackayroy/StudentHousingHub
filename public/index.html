@@ -54,7 +54,7 @@
       <div class="hero">
         <input
           type="text"
-          placeholder="Search by City, College, Address..."
+          placeholder="Search by Name, College, Address..."
           id="autocomplete_search"
           name="autocomplete_search"
           class="form-control"
@@ -331,6 +331,13 @@
 
         autocomplete.addListener("place_changed", function () {
           var place = autocomplete.getPlace();
+          if (place.formatted_address) {
+            sessionStorage.setItem("search", place.formatted_address);
+            window.location.href = "SearchSort/searchSort.html";
+          } else {
+            sessionStorage.setItem("search", place.name);
+            window.location.href = "SearchSort/searchSort.html";
+          }
 
           // place variable will have all the information you are looking for.
 
