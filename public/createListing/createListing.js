@@ -9,9 +9,9 @@ Vue.createApp({
         college: "",
         propertyName: "",
         address: "",
-        rent: 0,
-        rooms: 0,
-        bathrooms: 0,
+        rent: null,
+        rooms: null,
+        bathrooms: null,
         private: false,
         wifi: false,
         washerDryer: false,
@@ -56,9 +56,9 @@ Vue.createApp({
         this.propertyInfo.college == "" ||
         this.propertyInfo.propertyName == "" ||
         this.propertyInfo.address == "" ||
-        this.propertyInfo.rent == 0 ||
-        this.propertyInfo.rooms == 0 ||
-        this.propertyInfo.bathrooms == 0
+        this.propertyInfo.rent == null ||
+        this.propertyInfo.rooms == null ||
+        this.propertyInfo.bathrooms == null
       ) {
         alert("Please fill out all required fields");
         return;

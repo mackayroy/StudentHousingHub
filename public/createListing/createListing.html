@@ -67,6 +67,7 @@
           <br />
           <label for="rent">Rent:</label>
           <input
+            placeholder="Enter Rent"
             type="number"
             id="rent"
             name="rent"
@@ -75,6 +76,7 @@
           <br />
           <label for="beds">Beds: </label>
           <input
+            placeholder="Enter Beds"
             type="number"
             id="beds"
             name="beds"
@@ -83,6 +85,7 @@
           <br />
           <label for="bathrooms">Baths: </label>
           <input
+            placeholder="Enter Bathrooms"
             type="number"
             id="bathrooms"
             name="bathrooms"
@@ -143,6 +146,7 @@
                 name="other"
                 v-model="item.text"
                 v-for="item in ammenitylist"
+                @keyup.enter="addAmenity()"
               />
               <button class="addAnother" @click="addAmenity()">
                 Add Another
@@ -164,6 +168,7 @@
               ref="imageUpload"
               multiple="multiple"
             />
+            <button class="submitPhotos">Submit Photos</button>
             <output id="result"></output>
           </div>
         </div>
@@ -183,9 +188,6 @@
         <!-- Submit btn -->
         <div class="btn">
           <button @click="submitForm()" class="uploadbtn">Upload</button>
-          <button @click="boost()" class="boost">
-            Boost Listing<i class="icofont-crown"></i>
-          </button>
         </div>
       </div>
 
