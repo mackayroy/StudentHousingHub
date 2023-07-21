@@ -381,6 +381,12 @@ footer {
   .amenitiesList ul {
     column-gap: 4em;
   }
+  .carousel-button.prev {
+    left: 8rem;
+  }
+  .carousel-button.next {
+    right: 8rem;
+  }
 }
 @media (max-width: 850px) {
   .footerNav ul {

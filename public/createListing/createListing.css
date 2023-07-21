@@ -117,7 +117,7 @@ nav .navRefs {
   border-radius: 5px;
   font-size: 1em;
   background-color: var(--dark-green);
-  color: var(--font-color);
+  color: var(--white);
   min-width: 50%;
   height: 35px;
   margin-top: 10px;
@@ -127,15 +127,35 @@ nav .navRefs {
 .uploadImageSection {
   margin-top: 20px;
 }
+
 .upload {
   display: flex;
   justify-content: center;
+  flex-flow: column nowrap;
   align-items: center;
+  gap: 10px;
   background-color: var(--light-green);
   border-radius: 10px;
   padding: 20px 20px;
   min-height: 300px;
   width: 80vw;
+}
+.submitPhotos {
+  border: none;
+  border-radius: 5px;
+  background-color: var(--dark-green);
+  color: var(--white);
+  font-size: 1em;
+  width: 200px;
+  height: 35px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.submitPhotos:hover {
+  background-color: var(--middle-green);
+  box-shadow: 0px 0px 10px 0px var(--middleGreen-opacity);
+  cursor: pointer;
+  transform: scale(1.05);
 }
 #result {
   display: flex;
@@ -197,25 +217,6 @@ nav .navRefs {
   box-shadow: 0px 0px 10px 0px var(--middleGreen-opacity);
   cursor: pointer;
   transform: scale(1.05);
-}
-.boost {
-  color: var(--font-color);
-  font-size: 1.5em;
-  margin-bottom: 20px;
-  border: none;
-  border-radius: 2px;
-  width: 200px;
-  height: 50px;
-  background-color: rgb(245, 203, 35);
-  cursor: pointer;
-  transition: 0.5s;
-}
-.boost:hover {
-  background-color: rgba(255, 215, 0, 0.8);
-  transform: scale(1.1);
-}
-.icofont-crown {
-  margin-left: 10px;
 }
 
 /* Footer css */
