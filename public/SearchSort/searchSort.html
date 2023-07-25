@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search</title>
+    <title>Student Housing Hub</title>
+    <link rel="icon" href="../MODERN HOME.png" />
     <link href="searchSort.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link
@@ -80,23 +81,43 @@
             <div class="amenitiesList">
               <ul>
                 <li>
-                  <input type="checkbox" v-model="poolCheckbox" id="poolCheckbox" />
+                  <input
+                    type="checkbox"
+                    v-model="poolCheckbox"
+                    id="poolCheckbox"
+                  />
                   <label for="poolCheckbox">Pool</label>
                 </li>
                 <li>
-                  <input type="checkbox" v-model="wifiCheckbox" id="wifiCheckbox" />
+                  <input
+                    type="checkbox"
+                    v-model="wifiCheckbox"
+                    id="wifiCheckbox"
+                  />
                   <label for="wifiCheckbox">WiFi</label>
                 </li>
                 <li>
-                  <input type="checkbox" v-model="printerCheckbox" id="printerCheckbox" />
+                  <input
+                    type="checkbox"
+                    v-model="printerCheckbox"
+                    id="printerCheckbox"
+                  />
                   <label for="printerCheckbox">Printer</label>
                 </li>
                 <li>
-                  <input type="checkbox" v-model="kitchenCheckbox" id="kitchenCheckbox" />
+                  <input
+                    type="checkbox"
+                    v-model="kitchenCheckbox"
+                    id="kitchenCheckbox"
+                  />
                   <label for="kitchenCheckbox">Kitchen</label>
                 </li>
                 <li>
-                  <input type="checkbox" v-model="privetRoomCheckbox" id="privetRoomCheckbox" />
+                  <input
+                    type="checkbox"
+                    v-model="privetRoomCheckbox"
+                    id="privetRoomCheckbox"
+                  />
                   <label for="privetRoomCheckbox">Private Room</label>
                 </li>
               </ul>
@@ -143,23 +164,43 @@
               <div class="amenitiesList">
                 <ul>
                   <li>
-                    <input type="checkbox" v-model="poolCheckbox" id="poolCheckbox" />
+                    <input
+                      type="checkbox"
+                      v-model="poolCheckbox"
+                      id="poolCheckbox"
+                    />
                     <label for="poolCheckbox">Pool</label>
                   </li>
                   <li>
-                    <input type="checkbox" v-model="wifiCheckbox" id="wifiCheckbox" />
+                    <input
+                      type="checkbox"
+                      v-model="wifiCheckbox"
+                      id="wifiCheckbox"
+                    />
                     <label for="wifiCheckbox">WiFi</label>
                   </li>
                   <li>
-                    <input type="checkbox" v-model="printerCheckbox" id="printerCheckbox" />
+                    <input
+                      type="checkbox"
+                      v-model="printerCheckbox"
+                      id="printerCheckbox"
+                    />
                     <label for="printerCheckbox">Printer</label>
                   </li>
                   <li>
-                    <input type="checkbox" v-model="kitchenCheckbox" id="kitchenCheckbox" />
+                    <input
+                      type="checkbox"
+                      v-model="kitchenCheckbox"
+                      id="kitchenCheckbox"
+                    />
                     <label for="kitchenCheckbox">Kitchen</label>
                   </li>
                   <li>
-                    <input type="checkbox" v-model="privetRoomCheckbox" id="privetRoomCheckbox" />
+                    <input
+                      type="checkbox"
+                      v-model="privetRoomCheckbox"
+                      id="privetRoomCheckbox"
+                    />
                     <label for="privetRoomCheckbox">Private Room</label>
                   </li>
                 </ul>
@@ -185,7 +226,9 @@
               <h2 class="drop">Sort By</h2>
               <i class="fa-solid fa-sort sortIcon"></i>
               <div class="dropdown-content">
-                <span @click="sortByLowestPrice()" :class="{ 'active-sort': activeSort === 'low' }"
+                <span
+                  @click="sortByLowestPrice()"
+                  :class="{ 'active-sort': activeSort === 'low' }"
                   >Price Low too High</span
                 >
                 <span
@@ -269,6 +312,7 @@
         <footer>
           <div class="footerContainer">
             <div class="socialIcons">
+
               <a href="https://www.facebook.com/utahtechu"><i class="fa-brands fa-facebook"></i></i></a>
               <a href="https://www.instagram.com/utahtechu/"><i class="fa-brands fa-instagram"></i></a>
               <a href="https://twitter.com/utahtechu"><i class="fa-brands fa-twitter"></i></a>

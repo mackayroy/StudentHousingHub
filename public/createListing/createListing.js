@@ -351,10 +351,9 @@ Vue.createApp({
           this.propertyInfo.parking = true;
         }
       }
+      this.moveAmmenties();
+      this.pushListing();
       this.propertyInfo.creator = this.userId;
-      
-      // this.moveAmmenties();
-      // this.pushListing();
     },
     moveAmmenties: function () {
       for (let i = 0; i < this.ammenitylist.length; i++) {
