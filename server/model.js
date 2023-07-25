@@ -19,7 +19,6 @@ const PhotoSchema = new mongoose.Schema({
   },
 });
 
-
 const PropertySchema = new mongoose.Schema({
   college: {
     type: String,
@@ -62,9 +61,9 @@ const PropertySchema = new mongoose.Schema({
   },
   amenities: [String],
   photos: PhotoSchema,
-  description: [String]
-})
-
+  description: [String],
+  creator: String,
+});
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -85,7 +84,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "User must have a password."],
   },
-  saveListings: [PropertySchema],
+  savedListings: [String],
 });
 
 UserSchema.methods.setPassword = function (plainPassword) {

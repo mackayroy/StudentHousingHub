@@ -22,9 +22,9 @@
       <nav>
         <div id="logo"></div>
         <div class="navRefs">
-          <div @click="" class="navLinks" v-if="userSession">Create Listing</div>
+          <div @click="toCreateListing()" class="navLinks" v-if="userSession">Create Listing</div>
           <div @click="toggleNavModal()" class="navLinks" v-else>Create Listing</div>
-          <div @click="" class="navLinks">My Listings</div>
+          <div @click="toggleMyListingsModal()" class="navLinks">My Listings</div>
           <div>
             <div class="profile" v-if="userSession">
               <img
@@ -38,7 +38,7 @@
                 <span class="profileModalLine"></span>
                 <div @click="toggleSettingsModal()">Profile Settings</div>
                 <span class="profileModalLine"></span>
-                <div>Saved Listings</div>
+                <div @click="toggleSavedModal()">Saved Listings</div>
                 <span class="profileModalLine"></span>
                 <div @click="toggleContactModal()">Contact Us</div>
               </div>
@@ -222,6 +222,28 @@
           <div class="settingsButtons">
             <button @click="toggleSettingsModal()" class="otherButton">Cancel</button>
             <button @click="updateProfile()" class="mainButton">Save</button>
+          </div>
+        </div>
+      </div>
+      <div class="savedModal" v-if="showSavedModal">
+        <div class="saved">
+          <div class="savedTopText">
+            <h2 @click="toggleSavedModal()" class="savedExit">X</h2>
+            <h2>Saved Listings</h2>
+          </div>
+          <div class="savedLongLine"></div>
+          <div v-for="pro in user.savedListings">p</div>
+        </div>
+      </div>
+      <div class="myListingsModal" v-if="showMyListingsModal">
+        <div class="myListings">
+          <div class="savedTopText">
+            <h2 @click="toggleMyListingsModal()" class="savedExit">X</h2>
+            <h2>My Listings</h2>
+          </div>
+          <div class="savedLongLine"></div>
+          <div v-for="pro in user.myListings">
+            <div>hello</div>
           </div>
         </div>
       </div>
