@@ -549,6 +549,7 @@ footer {
   font-size: 1em;
   opacity: 0.7;
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .footerNav ul li a:hover {
