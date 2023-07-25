@@ -403,3 +403,10 @@ footer {
     font-size: 1.3em;
   }
 }
+
+@media (min-width: 1200px) {
+  #map {
+    height: 450px;
+    width: 450px;
+  }
+}
