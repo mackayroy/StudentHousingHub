@@ -32,17 +32,23 @@ Vue.createApp({
         password: "",
         changePassword: false,
       },
-      user: {
-        name: "",
-        email: "",
-        phoneNumber: "",
-        password: "",
-      },
+      user: {},
       userId: "",
       updateUser: {},
+      showSavedModal: false,
+      showMyListingsModal: false,
+      myListings: [],
+      savedListings: [],
     };
   },
   methods: {
+    getMyListings: function () {
+      fetch(URL + "users/" + this.userId + "/listings")
+        .then((response) => response.json())
+        .then((data) => {
+          this.user.myListings = data;
+        });
+    },
     // Sign In / Up Modal
     toggleNavModal: function () {
       this.navUser.name = "";
@@ -86,6 +92,25 @@ Vue.createApp({
         this.showContactModal = false;
       } else {
         this.showContactModal = true;
+      }
+    },
+
+    // Saved Modal
+    toggleSavedModal: function () {
+      if (this.showSavedModal) {
+        this.showSavedModal = false;
+      } else {
+        this.showSavedModal = true;
+      }
+    },
+
+    // My Listings Modal
+
+    toggleMyListingsModal: function () {
+      if (this.showMyListingsModal) {
+        this.showMyListingsModal = false;
+      } else {
+        this.showMyListingsModal = true;
       }
     },
 
@@ -153,6 +178,9 @@ Vue.createApp({
           alert("Unable to update user.");
         }
       });
+    },
+    toCreateListing: function () {
+      window.location.href = "createListing/createListing.html";
     },
 
     togglePhoto: function () {
@@ -237,6 +265,7 @@ Vue.createApp({
               this.setUser();
               this.userSession = true;
               this.toggleNavModal();
+              this.getMyListings();
             } else {
               alert("Can't log in.");
             }
@@ -274,10 +303,8 @@ Vue.createApp({
       fetch(URL + "users/" + this.userId)
         .then((response) => response.json())
         .then((data) => {
-          this.user.name = data.name;
-          this.user.email = data.email;
-          this.user.phoneNumber = data.phoneNumber;
-          this.user.password = data.password;
+          this.user = data;
+          this.getMyListings();
         });
     },
 

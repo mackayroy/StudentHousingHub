@@ -54,6 +54,7 @@ app.post("/users", function (req, res) {
     name: req.body.name,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
+    savedListings: [],
   });
   newUser.setPassword(req.body.password).then(function () {
     newUser
@@ -84,7 +85,13 @@ app.get("/users/:usersId", function (req, res) {
   });
 });
 
-app.put("/users/:usersId", function (req, res) {
+app.get("/users/:userId/listings", function (req, res) {
+  model.Property.find({ "creator": req.params.userId }).then(function (properties) {
+    res.send(properties);
+  });
+});
+
+app.put("/users/:usersId", AuthMiddleware, function (req, res) {
   var usersId = req.params.usersId;
   model.User.findOne({ "_id": usersId }).then((user) => {
     if (user) {
@@ -131,12 +138,32 @@ app.put("/users/:usersId", function (req, res) {
     }
   });
 });
+app.put("/users/:usersId/:propertyId", AuthMiddleware, function (req, res) {
+  var userId = req.params.usersId;
+  var propertyId = req.params.propertyId;
+  model.User.findOne({ "_id": userId }).then((user) => {
+    if (user) {
+      user.savedListings.push(propertyId);
+      user
+        .save()
+        .then(function () {
+          res.status(200).send("Saved Listing");
+        })
+        .catch((errors) => {
+          console.log(errors);
+          res.status(422).send("Error updating user.");
+        });
+    } else {
+      res.status(404).send("User not found.");
+    }
+  });
+});
 
 // property
 app.post("/properties", AuthMiddleware, function (req, res) {
   const newProperty = new model.Property({
     college: req.body.college,
-    propertyName: req.body.college,
+    propertyName: req.body.propertyName,
     address: req.body.address,
     rent: req.body.rent,
     rooms: req.body.rooms,
@@ -147,6 +174,7 @@ app.post("/properties", AuthMiddleware, function (req, res) {
     parking: req.body.parking,
     amenities: req.body.amenities,
     photos: req.body.photos,
+    creator: req.body.creator,
   });
   newProperty
     .save()
@@ -165,10 +193,9 @@ app.get("/properties", function (req, res) {
   });
 });
 
-app.get("/properties/:propertiesId", function (req, res) {
-  model.Property.findOne({ "_id": req.params.propertiesId }).then(function (
-    property
-  ) {
+app.get("/properties/:propertyId", function (req, res) {
+  model.Property.findOne({ "_id": req.params.propertyId }).then(function (property) {
+
     if (property) {
       res.send(property);
     } else {
