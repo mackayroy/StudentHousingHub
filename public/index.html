@@ -205,7 +205,7 @@
       <div class="contactModal" v-if="showContactModal">
         <div class="contact">
           <div class="contactTopText">
-            <h2 @click="toggleContactModal()" class="contactExit">X</h2>
+            <h2 @click="toggleContactModal()" class="contactExit"><i class="fa-solid fa-circle-xmark"></i></h2>
             <h2 class="contactUs">Contact Us</h2>
           </div>
           <div class="contactLongLine"></div>
@@ -315,22 +315,45 @@
       <div class="savedModal" v-if="showSavedModal">
         <div class="saved">
           <div class="savedTopText">
-            <h2 @click="toggleSavedModal()" class="savedExit">X</h2>
+            <h2 @click="toggleSavedModal()" class="savedExit"><i class="fa-solid fa-circle-xmark"></i></h2>
             <h2>Saved Listings</h2>
           </div>
           <div class="savedLongLine"></div>
           <div v-for="pro in user.savedListings">p</div>
         </div>
       </div>
+      
       <div class="myListingsModal" v-if="showMyListingsModal">
+        <!-- <div class="myListingsBackground"> -->
         <div class="myListings">
           <div class="savedTopText">
-            <h2 @click="toggleMyListingsModal()" class="savedExit">X</h2>
-            <h2>My Listings</h2>
+            <h2 @click="toggleMyListingsModal()" class="savedExit"><i class="fa-solid fa-circle-xmark"></i></h2>
+            <h2 class="myListingText">My Listings</h2>
           </div>
           <div class="savedLongLine"></div>
-          <div v-for="pro in user.myListings">
-            <div>hello</div>
+          <div class="contentBox--nav">
+            <div v-for="(pro, index) in user.myListings" class="content--nav">
+              <div class="property--nav">
+                <img src="SearchSort/pexels-vecislavas-popa-1571460.jpg" alt="property" />
+                <div class="propertyInfo--nav">
+                  <h3 class="price--nav">${{ pro.rent }}</h3>
+                  <p class="propertyName--nav">{{ pro.propertyName }}</p>
+                  <span class="address--nav">{{ pro.addresss }}</span>
+                  <span class="address--nav university--nav">{{ pro.college }}</span>
+                  <p class="numbeds--nav">Bed / Bath: {{ pro.rooms }} / {{ pro.bathrooms }}</p>
+                
+            </div>
+              <div class="TrashCan--nav" >
+                <i
+                  @click="deleteListing(index)"
+                 class="fa-solid fa-trash"
+                ></i>
+              </div>
+              <!-- </div> -->
+            </div>
+            </div>
+          </div>
+            </div>
           </div>
         </div>
       </div>
