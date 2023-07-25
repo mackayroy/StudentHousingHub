@@ -112,6 +112,25 @@ Vue.createApp({
       } else {
         this.showMyListingsModal = true;
       }
+      console.log("user.myListings: " + this.user);
+    },
+
+    deleteListing: function (index) {
+      var listingId = this.user.myListings[index]._id;
+      var requestOptions = {
+        method: "DELETE",
+      };
+
+      fetch(URL + "properties/" + listingId, requestOptions).then(
+        (response) => {
+          if (response.status === 204) {
+            console.log("Listing deleted");
+            this.user.myListings.splice(index, 1);
+          } else {
+            alert("Not able to delete listing");
+          }
+        }
+      );
     },
 
     // Settings Modal
