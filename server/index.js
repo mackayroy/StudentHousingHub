@@ -133,7 +133,8 @@ app.put("/users/:usersId", function (req, res) {
 });
 
 // property
-app.post("/properties", AuthMiddleware, function (req, res) {
+// AuthMiddleware,
+app.post("/properties", function (req, res) {
   const newProperty = new model.Property({
     college: req.body.college,
     propertyName: req.body.college,
@@ -146,7 +147,7 @@ app.post("/properties", AuthMiddleware, function (req, res) {
     washerDryer: req.body.washerDryer,
     parking: req.body.parking,
     amenities: req.body.amenities,
-    photos: req.body.photos,
+    // photos: req.body.photos,
   });
   newProperty
     .save()

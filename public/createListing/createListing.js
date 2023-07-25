@@ -80,8 +80,8 @@ Vue.createApp({
           this.propertyInfo.parking = true;
         }
       }
-      // this.moveAmmenties();
-      // this.pushListing();
+      this.moveAmmenties();
+      this.pushListing();
     },
     moveAmmenties: function () {
       for (let i = 0; i < this.ammenitylist.length; i++) {

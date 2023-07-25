@@ -98,11 +98,19 @@ Vue.createApp({
     },
     // Function to display the map and create markers
     map() {
-      const addMarker = (coords) => {
+      const addMarker = (props) => {
         var marker = new google.maps.Marker({
-          position: coords,
+          position: props.coords,
           map: map,
         });
+        if (props.content) {
+          var infoWindow = new google.maps.InfoWindow({
+            content: props.content,
+          });
+          marker.addListener("click", function () {
+            infoWindow.open(map, marker);
+          });
+        }
       };
 
       let map;
@@ -115,8 +123,14 @@ Vue.createApp({
           zoom: 10,
           center: { lat: this.collegeLat, lng: this.collegeLng },
         });
-        addMarker({ lat: this.collegeLat, lng: this.collegeLng });
-        addMarker({ lat: this.lat, lng: this.lng });
+        addMarker({
+          coords: { lat: this.collegeLat, lng: this.collegeLng },
+          content: "<h3>College</h3>",
+        });
+        addMarker({
+          coords: { lat: this.lat, lng: this.lng },
+          content: "<h3>Property</h3>",
+        });
       }
       initMap.call(this);
     },
