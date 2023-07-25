@@ -8,6 +8,13 @@
     <link rel="icon" href="../MODERN HOME.png" />
     <link rel="stylesheet" href="./icofont.min.css" />
     <link href="createListing.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
 
@@ -50,9 +57,11 @@
         <form class="info" name="info">
           <label for="college">College: </label>
           <input type="text" name="college" id="college" v-model="propertyInfo.college" />
+
           <br />
           <label for="propertyName">Property Name: </label>
           <input
+            placeholder="Enter Property Name"
             type="text"
             name="propertyName"
             id="propertyName"
@@ -70,6 +79,7 @@
           <br />
           <label for="bathrooms">Baths: </label>
           <input type="number" id="bathrooms" name="bathrooms" v-model="propertyInfo.bathrooms" />
+
           <br />
         </form>
 
@@ -119,7 +129,8 @@
                 type="text"
                 name="other"
                 v-model="item.text"
-                v-for="item in propertyInfo.amenities"
+                v-for="item in ammenitylist"
+                @keyup.enter="addAmenity()"
               />
               <button class="addAnother" @click="addAmenity()">Add Another</button>
             </div>
@@ -139,6 +150,7 @@
               ref="imageUpload"
               multiple="multiple"
             />
+            <button class="submitPhotos">Submit Photos</button>
             <output id="result"></output>
           </div>
         </div>
@@ -158,14 +170,10 @@
         <!-- Submit btn -->
         <div class="btn">
           <button @click="submitForm()" class="uploadbtn">Upload</button>
-          <button @click="boost()" class="boost">Boost Listing<i class="icofont-crown"></i></button>
         </div>
       </div>
 
       <!-- footer -->
-      <div class="footer">
-        <p>footer</p>
-      </div>
       <div class="navModal" v-if="showNavModal">
         <div class="sisuModal">
           <div class="si-modal" v-if="currentNavModal == 'signin'">
@@ -293,7 +301,36 @@
           </div>
         </div>
       </div>
+
+      <footer>
+        <div class="footerContainer">
+          <div class="socialIcons">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-google-plus"></i></a>
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+          </div>
+          <div class="footerNav">
+            <ul>
+              <li><a href="">Home</a></li>
+              <li><a href="">About Us</a></li>
+              <li><a href="">Contact Us</a></li>
+              <li><a href="">Terms of Service</a></li>
+              <li><a href="">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="footerBottom">
+            <p>
+              Copyright &copy;2022; Designed by
+              <span class="Designer">Goblins</span>
+            </p>
+          </div>
+        </div>
+      </footer>
+
     </div>
+
     <script src="createListing.js"></script>
   </body>
 </html>

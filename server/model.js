@@ -63,6 +63,7 @@ const PropertySchema = new mongoose.Schema({
   photos: PhotoSchema,
   description: [String],
   creator: String,
+
 });
 
 const UserSchema = new mongoose.Schema({

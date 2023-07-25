@@ -3,13 +3,14 @@ Vue.createApp({
   data() {
     return {
       search: "",
+      ammenitylist: [],
       propertyInfo: {
         college: "",
         propertyName: "",
         address: "",
-        rent: 0,
-        rooms: 0,
-        bathrooms: 0,
+        rent: null,
+        rooms: null,
+        bathrooms: null,
         private: false,
         wifi: false,
         washerDryer: false,
@@ -321,13 +322,14 @@ Vue.createApp({
       });
     },
     submitForm: function () {
+      console.log(this.propertyInfo);
       if (
         this.propertyInfo.college == "" ||
         this.propertyInfo.propertyName == "" ||
         this.propertyInfo.address == "" ||
-        this.propertyInfo.rent == 0 ||
-        this.propertyInfo.rooms == 0 ||
-        this.propertyInfo.bathrooms == 0
+        this.propertyInfo.rent == null ||
+        this.propertyInfo.rooms == null ||
+        this.propertyInfo.bathrooms == null
       ) {
         alert("Please fill out all required fields");
         return;
@@ -350,7 +352,15 @@ Vue.createApp({
         }
       }
       this.propertyInfo.creator = this.userId;
-      console.log(this.propertyInfo);
+      
+      // this.moveAmmenties();
+      // this.pushListing();
+    },
+    moveAmmenties: function () {
+      for (let i = 0; i < this.ammenitylist.length; i++) {
+        this.propertyInfo.amenities.push(this.ammenitylist[i].text);
+      }
+      this.moveAmmenties();
       this.pushListing();
     },
 
@@ -367,14 +377,15 @@ Vue.createApp({
         if (response.status === 201) {
           alert("Property Listed!");
           window.location.href = "../index.html";
+
         } else {
-          alert("Property not Listed, please try again.");
+          alert("Error listing property");
         }
       });
     },
 
     addAmenity: function () {
-      this.propertyInfo.amenities.push({ text: "" });
+      this.ammenitylist.push({ text: "" });
     },
     async postImage() {
       const formData = new FormData();
