@@ -352,16 +352,14 @@ Vue.createApp({
         }
       }
       this.propertyInfo.creator = this.userId;
-      
-      // this.moveAmmenties();
-      // this.pushListing();
+
+      this.moveAmmenties();
+      this.pushListing();
     },
     moveAmmenties: function () {
       for (let i = 0; i < this.ammenitylist.length; i++) {
         this.propertyInfo.amenities.push(this.ammenitylist[i].text);
       }
-      this.moveAmmenties();
-      this.pushListing();
     },
 
     pushListing: function () {
@@ -377,7 +375,6 @@ Vue.createApp({
         if (response.status === 201) {
           alert("Property Listed!");
           window.location.href = "../index.html";
-
         } else {
           alert("Error listing property");
         }

@@ -48,12 +48,7 @@ Vue.createApp({
         password: "",
         changePassword: false,
       },
-      user: {
-        name: "",
-        email: "",
-        phoneNumber: "",
-        password: "",
-      },
+      user: {},
       userId: "",
       updateUser: {},
     };
@@ -93,6 +88,14 @@ Vue.createApp({
       fetch(URL + "properties")
         .then((response) => response.json())
         .then((data) => {
+          for (let i = 0; i < data.length; i++) {
+            if (this.user.savedListings.includes(data[i]._id)) {
+              data[i].saved = true;
+            } else {
+              data[i].saved = false;
+            }
+            console.log(data[i].saved);
+          }
           this.properties = data;
         });
     },
@@ -113,7 +116,12 @@ Vue.createApp({
           if (response.status != 200) {
             alert("Unable to save listing.");
           } else {
-            alert("Listing saved.");
+            if (this.properties[index].saved) {
+              this.properties[index].saved = false;
+            } else {
+              this.properties[index].saved = true;
+            }
+            this.user.savedListings.push(this.properties[index]._id);
           }
         }
       );
@@ -331,6 +339,7 @@ Vue.createApp({
           if (data && data.cookie && data.userId) {
             this.userSession = true;
             this.userId = data.userId;
+            this.user = data;
             this.setUser();
           }
         });
@@ -348,10 +357,8 @@ Vue.createApp({
       fetch(URL + "users/" + this.userId)
         .then((response) => response.json())
         .then((data) => {
-          this.user.name = data.name;
-          this.user.email = data.email;
-          this.user.phoneNumber = data.phoneNumber;
-          this.user.password = data.password;
+          this.user = data;
+          this.getListings();
         });
     },
     sortByLowestPrice: function () {
@@ -452,6 +459,5 @@ Vue.createApp({
       sessionStorage.removeItem("search");
     }
     this.loggedIn();
-    this.getListings();
   },
 }).mount("#app");
