@@ -160,10 +160,7 @@ app.put("/users/:usersId/:propertyId", AuthMiddleware, function (req, res) {
   });
 });
 
-
 // property
-
- main
 app.post("/properties", AuthMiddleware, function (req, res) {
   const newProperty = new model.Property({
     college: req.body.college,
@@ -177,6 +174,7 @@ app.post("/properties", AuthMiddleware, function (req, res) {
     washerDryer: req.body.washerDryer,
     parking: req.body.parking,
     amenities: req.body.amenities,
+    description: req.body.description,
     // photos: req.body.photos
   });
   newProperty
@@ -199,11 +197,10 @@ app.get("/properties", function (req, res) {
   });
 });
 
-
 app.get("/properties/:propertyId", function (req, res) {
-  model.Property.findOne({ "_id": req.params.propertyId }).then(function (property) {
-
-
+  model.Property.findOne({ "_id": req.params.propertyId }).then(function (
+    property
+  ) {
     if (property) {
       res.send(property);
     } else {
@@ -234,7 +231,6 @@ app.put("/properties/:propertiesId", AuthMiddleware, function (req, res) {
       }
       if (req.body.propertyName) {
         property.propertyName = req.body.propertyName;
-
       }
       if (req.body.address) {
         property.address = req.body.address;
