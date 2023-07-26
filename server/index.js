@@ -11,6 +11,7 @@ const unlinkFile = util.promisify(fs.unlink);
 
 const app = express();
 const port = 8080;
+// const port = process.env.PORT || 8080
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -31,6 +32,7 @@ app.use(
     resave: false,
   })
 );
+app.use(express.static('public'))
 
 // middleware
 function AuthMiddleware(req, res, next) {
@@ -146,7 +148,7 @@ app.post("/properties", AuthMiddleware, function (req, res) {
     washerDryer: req.body.washerDryer,
     parking: req.body.parking,
     amenities: req.body.amenities,
-    photos: req.body.photos,
+    photos: req.body.photos
   });
   newProperty
     .save()
@@ -250,13 +252,15 @@ app.post("/images", upload.single("file"), async (req, res) => {
   res.send({ imagePath: `/images/${result.key}` });
 });
 
-app.get("/images", (req, res) => {
+app.get("/images/:bucket/:key", (req, res) => {
   // get key and bucket name from database for that property
-  // const key = propertyimage.key;
-  const readStream = getFileStream("29e0df61504970629bd242bd5a18bb9c", "student-housing-hub");
+  const key = req.params.key;
+  const bucket = req.params.bucket;
+  console.log(key, bucket);
+  const readStream = getFileStream(key, bucket);
   readStream.pipe(res);
 });
-
+  
 // session
 app.get("/session", function (req, res) {
   console.log(req.session);
@@ -296,6 +300,38 @@ app.delete("/session", function (req, res) {
   res.status(204).send(req.session);
 });
 
+
+
+
+// app.post('/images', upload.single('file'), async (req, res) =>{
+//   const file = req.file;
+//   const result = await uploadFile(file);
+//   console.log(result);
+//   await unlinkFile("uploads"+ result.key);
+//   res.send({imagePath: `/images/${result.key}`});
+
+//   // Call POST properties to handle the nested POST request
+//   postProperty(req.body, res);
+// });
+
+// // postProperty function to handle nested POST request
+// function postProperty(body, res) {
+//   const req = {
+//     body: body,
+//   };
+
+//   // call the first POST route handler
+//   app.handle(req, res, '/images')
+// };
+
+
+
+
+
 app.listen(port, function () {
   console.log(`Running server on port ${port}...`);
 });
+
+
+
+

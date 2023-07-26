@@ -1,7 +1,7 @@
 Vue.createApp({
   data() {
       return {
-        displayImageSrc: ""
+        imageUrl: null
       }
   },
   methods : {
@@ -25,15 +25,32 @@ Vue.createApp({
         throw error;
       } 
     },
-    downloadImage() {
-      fetch("http://localhost:8080/images").then(response => response.text())
-      .then(data => {
-        console.log(data);
-        this.displayImageSrc = data;
-      });
+
+    fetchImage() {
+      const key = '144b333569cdc843e4ee57f55bf0a947';
+      const bucket = 'student-housing-hub'
+
+      fetch(`http://localhost:8080/images/${bucket}/${key}`)
+      .then(response => response.blob())
+      .then(blob => {
+        const imageUrl = URL.createObjectURL(blob);
+        this.imageUrl = imageUrl;
+      }).catch(error => {
+        console.log('Error:', error)
+      })
     }
+
+
+
+    // downloadImage() {
+    //   fetch("http://localhost:8080/images").then(response => response.text())
+    //   .then(data => {
+    //     console.log(data);
+    //     this.displayImageSrc = data;
+    //   });
+    // }
   },
   created : function() {
-    this.downloadImage();
+    // this.downloadImage();
   }
 }).mount("#app");
