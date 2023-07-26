@@ -134,6 +134,33 @@ app.put("/users/:usersId", function (req, res) {
   });
 });
 
+app.put("/users/:usersId/:propertyId", AuthMiddleware, function (req, res) {
+  var userId = req.params.usersId;
+  var propertyId = req.params.propertyId;
+  model.User.findOne({ "_id": userId }).then((user) => {
+    if (user) {
+      if (user.savedListings.includes(propertyId)) {
+        let index1 = user.savedListings.indexOf(propertyId);
+        user.savedListings.splice(index1, 1);
+      } else {
+        user.savedListings.push(propertyId);
+      }
+      user
+        .save()
+        .then(function () {
+          res.status(200).send("Saved Listing");
+        })
+        .catch((errors) => {
+          console.log(errors);
+          res.status(422).send("Error updating user.");
+        });
+    } else {
+      res.status(404).send("User not found.");
+    }
+  });
+});
+
+
 // property
 app.post("/properties", AuthMiddleware, function (req, res) {
   const newProperty = new model.Property({
@@ -170,10 +197,11 @@ app.get("/properties", function (req, res) {
   });
 });
 
-app.get("/properties/:propertiesId", function (req, res) {
-  model.Property.findOne({ _id: req.params.propertiesId }).then(function (
-    property
-  ) {
+
+app.get("/properties/:propertyId", function (req, res) {
+  model.Property.findOne({ "_id": req.params.propertyId }).then(function (property) {
+
+
     if (property) {
       res.send(property);
     } else {
@@ -204,10 +232,12 @@ app.put("/properties/:propertiesId", AuthMiddleware, function (req, res) {
       }
       if (req.body.propertyName) {
         property.propertyName = req.body.propertyName;
+
       }
       if (req.body.address) {
         property.address = req.body.address;
       }
+
       if (req.body.rent) {
         property.rent = req.body.rent;
       }
@@ -260,16 +290,17 @@ app.post("/images", upload.single("file"), async (req, res) => {
 
 app.get("/images/:bucket/:key", (req, res) => {
   // get key and bucket name from database for that property
+
   const key = req.params.key;
   const bucket = req.params.bucket;
   console.log(key, bucket);
   const readStream = getFileStream(key, bucket);
+
   readStream.pipe(res);
 });
 
 // session
 app.get("/session", function (req, res) {
-  console.log(req.session);
   res.send(req.session);
 });
 

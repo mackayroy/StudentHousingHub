@@ -373,7 +373,6 @@ button {
   left: 287px;
   font-size: 33px;
   color: rgb(156, 175, 136);
-  font-weight: unset !important;
 }
 /* Styles for BookMark Icon when Saved */
 .bookMarkIconSaved {
