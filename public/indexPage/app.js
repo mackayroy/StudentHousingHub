@@ -32,17 +32,23 @@ Vue.createApp({
         password: "",
         changePassword: false,
       },
-      user: {
-        name: "",
-        email: "",
-        phoneNumber: "",
-        password: "",
-      },
+      user: {},
       userId: "",
       updateUser: {},
+      showSavedModal: false,
+      showMyListingsModal: false,
+      myListings: [],
+      savedListings: [],
     };
   },
   methods: {
+    getMyListings: function () {
+      fetch(URL + "users/" + this.userId + "/listings")
+        .then((response) => response.json())
+        .then((data) => {
+          this.user.myListings = data;
+        });
+    },
     // Sign In / Up Modal
     toggleNavModal: function () {
       this.navUser.name = "";
@@ -89,10 +95,55 @@ Vue.createApp({
       }
     },
 
+    // Saved Modal
+    toggleSavedModal: function () {
+      if (this.showSavedModal) {
+        this.showSavedModal = false;
+      } else {
+        this.showSavedModal = true;
+      }
+    },
+
+    // My Listings Modal
+
+    toggleMyListingsModal: function () {
+      if (this.showMyListingsModal) {
+        this.showMyListingsModal = false;
+      } else {
+        this.showMyListingsModal = true;
+      }
+      console.log("user.myListings: " + this.user);
+    },
+
+    deleteListing: function (index) {
+      var listingId = this.user.myListings[index]._id;
+      var requestOptions = {
+        method: "DELETE",
+      };
+
+      fetch(URL + "properties/" + listingId, requestOptions).then(
+        (response) => {
+          if (response.status === 204) {
+            console.log("Listing deleted");
+            this.user.myListings.splice(index, 1);
+          } else {
+            alert("Not able to delete listing");
+          }
+        }
+      );
+    },
+
     // Settings Modal
     toggleSettingsModal: function () {
       if (this.showSettingsModal) {
         this.showSettingsModal = false;
+
+        this.settingsUser.changePhoto = false;
+        this.settingsUser.changeName = false;
+        this.settingsUser.changeEmail = false;
+        this.settingsUser.changePhoneNumber = false;
+        this.settingsUser.changePassword = false;
+        this.settingsUser.verifyPassword = "";
       } else {
         this.showSettingsModal = true;
       }
@@ -146,6 +197,9 @@ Vue.createApp({
           alert("Unable to update user.");
         }
       });
+    },
+    toCreateListing: function () {
+      window.location.href = "createListing/createListing.html";
     },
 
     togglePhoto: function () {
@@ -230,6 +284,7 @@ Vue.createApp({
               this.setUser();
               this.userSession = true;
               this.toggleNavModal();
+              this.getMyListings();
             } else {
               alert("Can't log in.");
             }
@@ -248,12 +303,9 @@ Vue.createApp({
         .then((response) => response.json())
         .then((data) => {
           if (data && data.cookie && data.userId) {
-            console.log(data && data.cookie && data.userId);
             this.userSession = true;
             this.userId = data.userId;
             this.setUser();
-            console.log(this.user);
-            console.log(this.settingsUser);
           }
         });
     },
@@ -270,11 +322,17 @@ Vue.createApp({
       fetch(URL + "users/" + this.userId)
         .then((response) => response.json())
         .then((data) => {
-          this.user.name = data.name;
-          this.user.email = data.email;
-          this.user.phoneNumber = data.phoneNumber;
-          this.user.password = data.password;
+          this.user = data;
+          this.getMyListings();
         });
+    },
+
+    // Search Bar
+    searchAndSend: function () {
+      console.log(this.heroSearch);
+      sessionStorage.setItem("search", String(this.heroSearch));
+      console.log(sessionStorage.getItem("search"));
+      window.location.href = "SearchSort/searchSort.html";
     },
   },
   created: function () {

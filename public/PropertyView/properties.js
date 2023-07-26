@@ -1,16 +1,37 @@
+const URL = "http://localhost:8080/";
 Vue.createApp({
   data() {
     return {
+      propertyId: "",
       userSession: false,
       search: "",
       login: "false",
       lng: 0,
       lat: 0,
-      address: "432 S Tech Ridge Dr, St. George, UT 84770",
-      collegeAddress: "Utah Tech University",
       collegeLat: 0,
       collegeLng: 0,
       distance: 0,
+
+      userInfo: {
+        name: "Bob Smith",
+        phoneNumber: "801-555-5555",
+        email: "bobsmith@gmail.com",
+      },
+
+      propertyInfo: {
+        college: "",
+        propertyName: "",
+        address: "",
+        rent: null,
+        rooms: null,
+        bathrooms: null,
+        private: false,
+        wifi: false,
+        washerDryer: false,
+        parking: false,
+        amenities: [],
+        description: "",
+      },
     };
   },
   methods: {
@@ -43,13 +64,12 @@ Vue.createApp({
     degToRad(degrees) {
       return (degrees * Math.PI) / 180;
     },
-
     // Function to get the coordinates of the address
     async fetchCoordinates() {
       try {
         const collegeResponse = await fetch(
           "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-            this.collegeAddress +
+            this.propertyInfo.college +
             "&key=AIzaSyCqxIxZcHaBCF5z_I73rdc53GkkmF3KHOw"
         );
         const collegeData = await collegeResponse.json();
@@ -58,7 +78,7 @@ Vue.createApp({
 
         const propertyResponse = await fetch(
           "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-            this.address +
+            this.propertyInfo.address +
             "&key=AIzaSyCqxIxZcHaBCF5z_I73rdc53GkkmF3KHOw"
         );
         const propertyData = await propertyResponse.json();
@@ -74,18 +94,23 @@ Vue.createApp({
 
         // Call the map function here after coordinates are fetched
         this.map();
-      } catch (error) {
-        console.error("Error fetching coordinates:", error);
-      }
+      } catch (error) {}
     },
-
     // Function to display the map and create markers
     map() {
-      const addMarker = (coords) => {
+      const addMarker = (props) => {
         var marker = new google.maps.Marker({
-          position: coords,
+          position: props.coords,
           map: map,
         });
+        if (props.content) {
+          var infoWindow = new google.maps.InfoWindow({
+            content: props.content,
+          });
+          marker.addListener("click", function () {
+            infoWindow.open(map, marker);
+          });
+        }
       };
 
       let map;
@@ -98,8 +123,14 @@ Vue.createApp({
           zoom: 10,
           center: { lat: this.collegeLat, lng: this.collegeLng },
         });
-        addMarker({ lat: this.collegeLat, lng: this.collegeLng });
-        addMarker({ lat: this.lat, lng: this.lng });
+        addMarker({
+          coords: { lat: this.collegeLat, lng: this.collegeLng },
+          content: "<h3>College</h3>",
+        });
+        addMarker({
+          coords: { lat: this.lat, lng: this.lng },
+          content: "<h3>Property</h3>",
+        });
       }
       initMap.call(this);
     },
@@ -108,8 +139,28 @@ Vue.createApp({
     loginBtn() {
       this.login = "true";
     },
+
+    // Function to display the get the property information
+    getProperty: function () {
+      fetch(URL + "properties/" + this.propertyId)
+        .then((response) => response.json())
+        .then((data) => {
+          this.propertyInfo = data;
+          this.fetchCoordinates();
+        });
+    },
+
+    getUserInfo: function () {
+      fetch(URL + "users")
+        .then((response) => response.json())
+        .then((data) => {
+          this.userInfo = data;
+        });
+    },
   },
   created() {
-    this.fetchCoordinates();
+    this.propertyId = window.location.href.split("=")[1];
+
+    this.getProperty();
   },
 }).mount("#app");

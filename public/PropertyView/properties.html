@@ -13,7 +13,13 @@
       rel="stylesheet"
     />
     <link rel="icon" href="../MODERN HOME.png" />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="photo.js" defer></script>
   </head>
@@ -45,13 +51,22 @@
             </button>
             <ul data-slides>
               <li class="slide" data-active>
-                <img src="download (1).jpeg" alt="Nature Image #1" />
+                <img
+                  src="EleanorEmail-847750221ae1499c972c977f279d2d5e.png"
+                  alt="Nature Image #1"
+                />
               </li>
               <li class="slide">
-                <img src="download (2).jpeg" alt="Nature Image #2" />
+                <img
+                  src="istockphoto-1165384568-612x612.jpg"
+                  alt="Nature Image #2"
+                />
               </li>
               <li class="slide">
-                <img src="download.jpeg" alt="Nature Image #3" />
+                <img
+                  src="living-room-gallery-shelves-l-shaped-couch-ELeyNpyyqpZ8hosOG3EG1X-b5a39646574544e8a75f2961332cd89a.jpg"
+                  alt="Nature Image #3"
+                />
               </li>
             </ul>
           </div>
@@ -59,53 +74,48 @@
         <div class="bottomContainer">
           <!-- Property section of the pages shows all the details of the property -->
           <div class="PropertyOverview">
+            <h2>Property Info</h2>
             <div class="propertyDetails">
-              <h1 class="price">$450</h1>
-              <h3 class="name">Campus View</h3>
-              <h5 class="address">123 Road, St George, UT 84770</h5>
-              <h2 class="beds">1-3 Bed</h2>
+              <p class="price">${{propertyInfo.rent}}</p>
+              <p class="name">{{propertyInfo.propertyName}}</p>
+              <p class="address">{{propertyInfo.address}}</p>
+              <p class="beds">Beds: {{propertyInfo.rooms}}</p>
+              <p class="baths">Baths: {{propertyInfo.bathrooms}}</p>
             </div>
             <div class="amenities">
-              <h3>Amenities</h3>
+              <h2>Amenities</h2>
               <div class="amenitiesList">
                 <ul>
-                  <li>Pool</li>
-                  <li>WiFi</li>
-                  <li>Printer</li>
-                  <li>Kitchen</li>
+                  <li v-if="propertyInfo.private">Private</li>
+                  <li v-if="propertyInfo.wifi">WiFi</li>
+                  <li v-if="propertyInfo.washerDryer">Laundry</li>
+                  <li v-if="propertyInfo.parking">Parking</li>
+                  <li v-for="amenity in propertyInfo.amenities">{{amenity}}</li>
                 </ul>
               </div>
             </div>
             <div class="overview">
-              <h3>Overview</h3>
+              <h2>Overview</h2>
               <div class="overviewDescription">
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged.
-                </p>
+                <p>{{propertyInfo.description}}</p>
               </div>
             </div>
           </div>
           <!-- Contact section of the page with owners info -->
           <div class="contactSection">
-            <h1 class="contactBtn">Contact</h1>
+            <h2 class="contactBtn">Contact</h2>
             <div class="line"></div>
             <button
               @click="loginBtn()"
               class="loginBtn"
               v-if="login === 'false'"
             >
-              Login
+              Contact
             </button>
             <div v-if="login === 'true'" class="salersInfo">
-              <p>Name: Bob</p>
-              <p>Email: bob@go.com</p>
-              <p>Phone: 801-984-9876</p>
+              <p>Name: {{userInfo.name}}</p>
+              <p class="email">Email: {{userInfo.email}}</p>
+              <p>Phone: {{userInfo.phoneNumber}}</p>
             </div>
           </div>
           <!-- Map section of the page will display the map -->
@@ -117,9 +127,46 @@
         </div>
       </div>
       <!-- Footer of the page -->
-      <div class="footer">
-        <p>footer</p>
-      </div>
+      <footer>
+        <div class="footerContainer">
+          <div class="socialIcons">
+            <a href="https://www.facebook.com/utahtechu"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+            <a href="https://www.instagram.com/utahtechu/"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="https://twitter.com/utahtechu"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="https://www.youtube.com/@UtahTechUniversity"
+              ><i class="fa-brands fa-youtube"></i
+            ></a>
+          </div>
+          <div class="footerNav">
+            <ul>
+              <li><a href="../index.html">Home</a></li>
+              <li><a @click="toggleContactModal()">Contact</a></li>
+              <li>
+                <a href="https://utahtech.edu/terms-of-use/"
+                  >Terms of Service</a
+                >
+              </li>
+              <li>
+                <a href="https://utahtech.edu/privacy-policy/"
+                  >Privacy Policy</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="footerBottom">
+            <p>
+              Copyright &copy;2022; Designed by
+              <span class="Designer">Goblins</span>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
     <!-- Google maps script -->
     <script>

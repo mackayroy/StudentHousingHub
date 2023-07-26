@@ -8,6 +8,13 @@
     <link rel="icon" href="../MODERN HOME.png" />
     <link rel="stylesheet" href="./icofont.min.css" />
     <link href="createListing.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
 
@@ -15,13 +22,34 @@
     <div id="app">
       <!-- Header of the page -->
       <nav>
-        <img src="../logo.png" alt="logo" />
+        <div @click="backtoHome()" id="logo"></div>
         <div class="navRefs">
-          <div @click="">Create Listing</div>
-          <div @click="">My Listings</div>
+          <div @click="toCreateListing()" class="navLinks" v-if="userSession">
+            Create Listing
+          </div>
+          <div @click="toggleNavModal()" class="navLinks" v-else>
+            Create Listing
+          </div>
+          <div @click="" class="navLinks">My Listings</div>
           <div>
-            <!-- <div @click="toggleSignOut" v-if="userSession">Sign Out</div>
-            <div @click="toggleSignIn" v-else>Sign In</div> -->
+            <div class="profile" v-if="userSession">
+              <img
+                src="../sample.jpg"
+                alt="profilePicture"
+                class="profilePreview"
+                @click="toggleProfileModal()"
+              />
+              <div class="profileModal">
+                <h4>{{user.name}}</h4>
+                <span class="profileModalLine"></span>
+                <div @click="toggleSettingsModal()">Profile Settings</div>
+                <span class="profileModalLine"></span>
+                <div>Saved Listings</div>
+                <span class="profileModalLine"></span>
+                <div @click="toggleContactModal()">Contact Us</div>
+              </div>
+            </div>
+            <div @click="toggleNavModal()" v-else class="signIn">Sign In</div>
           </div>
         </div>
       </nav>
@@ -30,17 +58,20 @@
       <div class="mainContainer">
         <h1 class="title">Create Listing</h1>
         <!-- Basic info about the property -->
-        <form class="info" name="info">
+        <form id="listingForm" class="info" name="info">
           <label for="college">College: </label>
           <input
             type="text"
             name="college"
             id="college"
+            placeholder="Enter College"
             v-model="propertyInfo.college"
           />
+
           <br />
           <label for="propertyName">Property Name: </label>
           <input
+            placeholder="Enter Property Name"
             type="text"
             name="propertyName"
             id="propertyName"
@@ -52,6 +83,7 @@
             type="text"
             name="address"
             id="address"
+            placeholder="Enter Address"
             v-model="propertyInfo.address"
           />
           <br />
@@ -60,11 +92,13 @@
             type="number"
             id="rent"
             name="rent"
+            placeholder="Enter Rent"
             v-model="propertyInfo.rent"
           />
           <br />
           <label for="beds">Beds: </label>
           <input
+            placeholder="Enter Beds"
             type="number"
             id="beds"
             name="beds"
@@ -73,11 +107,13 @@
           <br />
           <label for="bathrooms">Baths: </label>
           <input
+            placeholder="Enter Baths"
             type="number"
             id="bathrooms"
             name="bathrooms"
             v-model="propertyInfo.bathrooms"
           />
+
           <br />
         </form>
 
@@ -132,7 +168,8 @@
                 type="text"
                 name="other"
                 v-model="item.text"
-                v-for="item in propertyInfo.amenities"
+                v-for="item in ammenitylist"
+                @keyup.enter="addAmenity()"
               />
               <button class="addAnother" @click="addAmenity()">
                 Add Another
@@ -146,12 +183,15 @@
           <h2>Upload Images</h2>
           <div class="upload">
             <input
-              @click="photos()"
+              enctype="multipart/form-data"
+              @submit.prevent="postImage()"
               type="file"
-              id="files"
+              id="imageUpload"
               accept="images/*"
+              ref="imageUpload"
               multiple="multiple"
             />
+            <button class="submitPhotos">Submit Photos</button>
             <output id="result"></output>
           </div>
         </div>
@@ -171,17 +211,227 @@
         <!-- Submit btn -->
         <div class="btn">
           <button @click="submitForm()" class="uploadbtn">Upload</button>
-          <button @click="boost()" class="boost">
-            Boost Listing<i class="icofont-crown"></i>
-          </button>
         </div>
       </div>
 
       <!-- footer -->
-      <div class="footer">
-        <p>footer</p>
+      <div class="navModal" v-if="showNavModal">
+        <div class="sisuModal">
+          <div class="si-modal" v-if="currentNavModal == 'signin'">
+            <div class="sisu-topText">
+              <h2 class="sisuExit" @click="toggleNavModal()">X</h2>
+              <h2 class="sisuTitle">Sign In To Student Housing Hub</h2>
+            </div>
+            <div class="sisu-formCont">
+              <div class="sisu-form">
+                <input
+                  type="text"
+                  placeholder="Email..."
+                  v-model="navLoginUser.email"
+                />
+                <input
+                  type="text"
+                  placeholder="Password..."
+                  v-model="navLoginUser.password"
+                />
+              </div>
+              <div class="sisu-line"></div>
+              <div class="sisu-buttons">
+                <div @click="createSession()" class="mainButton">Log In</div>
+                <div @click="swapNavModal()" class="otherButton">Sign Up</div>
+              </div>
+            </div>
+          </div>
+          <div class="su-modal" v-if="currentNavModal == 'signup'">
+            <div class="sisu-topText">
+              <h2 class="sisuExit" @click="toggleNavModal()">X</h2>
+              <h2 class="sisuTitle">Sign Up For Student Housing Hub</h2>
+            </div>
+            <div class="sisu-formCont">
+              <div class="sisu-form">
+                <input
+                  type="text"
+                  placeholder="Name..."
+                  v-model="navUser.name"
+                />
+                <input
+                  type="text"
+                  placeholder="Email..."
+                  v-model="navUser.email"
+                />
+                <input
+                  type="text"
+                  placeholder="Phone..."
+                  v-model="navUser.phoneNumber"
+                />
+                <input
+                  type="text"
+                  placeholder="Password..."
+                  v-model="navUser.password"
+                />
+              </div>
+              <div class="sisu-line-long"></div>
+              <div class="sisu-buttons">
+                <div @click="swapNavModal()" class="otherButton">Log In</div>
+                <div @click="signUp()" class="mainButton">Sign Up</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <div class="contactModal" v-if="showContactModal">
+        <div class="contact">
+          <div class="contactTopText">
+            <h2 @click="toggleContactModal()" class="contactExit">X</h2>
+            <h2 class="contactUs">Contact Us</h2>
+          </div>
+          <div class="contactLongLine"></div>
+          <div class="contactEmail">Jack Snyder: jacksnyder@shh.com</div>
+          <div class="contactLine"></div>
+          <div class="contactEmail">Gabriel Puente: gabrielpuente@shh.com</div>
+          <div class="contactLine"></div>
+          <div class="contactEmail">MacKay Roy: mackayroy@shh.com</div>
+          <div class="contactLine"></div>
+          <div class="contactEmail">Josh Gilbert: joshgilbert@shh.com</div>
+        </div>
+      </div>
+      <div class="settingsModal" v-if="showSettingsModal">
+        <div class="settings">
+          <div class="settingsTopText">
+            <h2 class="settingsTitle">Profile Settings</h2>
+          </div>
+          <div class="settingsLongLine"></div>
+          <div class="settingsProfilePic">
+            <div class="settingsFileInput" v-if="settingsUser.changePhoto">
+              <input type="file" />
+            </div>
+            <img
+              src="../sample.jpg"
+              alt="profilePicture"
+              class="settingsPP"
+              v-else
+            />
+            <i
+              class="fa-regular fa-pen-to-square"
+              class="settingsEdit"
+              @click="togglePhoto()"
+            ></i>
+          </div>
+          <div class="settingsLine"></div>
+          <div class="settingsInputs">
+            <div class="settingsInput">
+              <span>Name:</span>
+              <input
+                type="text"
+                v-model="settingsUser.name"
+                v-if="settingsUser.changeName"
+              />
+              <p v-else>{{user.name}}</p>
+              <i
+                class="fa-regular fa-pen-to-square"
+                class="settingsEdit"
+                @click="toggleName()"
+              ></i>
+            </div>
+            <div class="settingsInput">
+              <span>Email:</span>
+              <input
+                type="text"
+                v-model="settingsUser.email"
+                v-if="settingsUser.changeEmail"
+              />
+              <p v-else>{{user.email}}</p>
+              <i
+                class="fa-regular fa-pen-to-square"
+                class="settingsEdit"
+                @click="toggleEmail()"
+              ></i>
+            </div>
+            <div class="settingsInput">
+              <span>Phone:</span>
+              <input
+                type="text"
+                v-model="settingsUser.phoneNumber"
+                v-if="settingsUser.changePhoneNumber"
+              />
+              <p v-else>{{user.phoneNumber}}</p>
+              <i
+                class="fa-regular fa-pen-to-square"
+                class="settingsEdit"
+                @click="togglePhoneNumber()"
+              ></i>
+            </div>
+
+            <div class="settingsInput">
+              <span>New Password:</span>
+              <input
+                type="text"
+                v-model="settingsUser.password"
+                v-if="settingsUser.changePassword"
+              />
+              <p v-else>********</p>
+              <i
+                class="fa-regular fa-pen-to-square"
+                class="settingsEdit"
+                @click="togglePassword()"
+              ></i>
+            </div>
+            <div class="settingsInput">
+              <span>Current Password:</span>
+              <input type="text" v-model="settingsUser.verifyPassword" />
+            </div>
+          </div>
+          <div class="settingsButtons">
+            <button @click="toggleSettingsModal()" class="otherButton">
+              Cancel
+            </button>
+            <button @click="updateProfile()" class="mainButton">Save</button>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footerContainer">
+          <div class="socialIcons">
+            <a href="https://www.facebook.com/utahtechu"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+            <a href="https://www.instagram.com/utahtechu/"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="https://twitter.com/utahtechu"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="https://www.youtube.com/@UtahTechUniversity"
+              ><i class="fa-brands fa-youtube"></i
+            ></a>
+          </div>
+          <div class="footerNav">
+            <ul>
+              <li><a href="../index.html">Home</a></li>
+              <li><a @click="toggleContactModal()">Contact</a></li>
+              <li>
+                <a href="https://utahtech.edu/terms-of-use/"
+                  >Terms of Service</a
+                >
+              </li>
+              <li>
+                <a href="https://utahtech.edu/privacy-policy/"
+                  >Privacy Policy</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="footerBottom">
+            <p>
+              Copyright &copy;2022; Designed by
+              <span class="Designer">Goblins</span>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
+
     <script src="createListing.js"></script>
   </body>
 </html>

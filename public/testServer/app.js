@@ -8,6 +8,7 @@ Vue.createApp({
     async postImage() {
       const formData = new FormData();
       formData.append("file", this.$refs.uploadImage.files[0]);
+      // name, price
       try {
         const response = await fetch('http://localhost:8080/images', {
           method: 'POST',
@@ -27,7 +28,7 @@ Vue.createApp({
     },
 
     fetchImage() {
-      const key = '144b333569cdc843e4ee57f55bf0a947';
+      const key = "";
       const bucket = 'student-housing-hub'
 
       fetch(`http://localhost:8080/images/${bucket}/${key}`)

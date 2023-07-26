@@ -163,6 +163,9 @@ app.post("/properties", AuthMiddleware, function (req, res) {
 
 app.get("/properties", function (req, res) {
   model.Property.find().then(function (properties) {
+    // each prop has a key
+    // for each property, getfilestream for img data
+    // property.imgData = ^
     res.send(properties);
   });
 });
@@ -249,6 +252,7 @@ app.post("/images", upload.single("file"), async (req, res) => {
   const result = await uploadFile(file);
   console.log(result);
   await unlinkFile("uploads/" + result.key);
+  // save listing with image(s) keys
   res.send({ imagePath: `/images/${result.key}` });
 });
 

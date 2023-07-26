@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search</title>
+    <title>Student Housing Hub</title>
+    <link rel="icon" href="../MODERN HOME.png" />
     <link href="searchSort.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link
@@ -21,15 +22,35 @@
       <div id="wrapper">
         <!-- Navigation bar -->
         <nav>
-          <img src="../logo.png" alt="logo" />
+          <div id="logo"></div>
           <div class="navRefs">
-            <div @click="">Create Listing</div>
-            <div @click="">My Listings</div>
-            <!-- Sign in/out buttons -->
-            <!-- <div>
-              <div @click="toggleSignOut" v-if="userSession">Sign Out</div>
-              <div @click="toggleSignIn" v-else>Sign In</div>
-            </div> -->
+            <div @click="toCreateListing()" class="navLinks" v-if="userSession">
+              Create Listing
+            </div>
+            <div @click="toggleNavModal()" class="navLinks" v-else>
+              Create Listing
+            </div>
+            <div @click="" class="navLinks">My Listings</div>
+            <div>
+              <div class="profile" v-if="userSession">
+                <img
+                  src="../sample.jpg"
+                  alt="profilePicture"
+                  class="profilePreview"
+                  @click="toggleProfileModal()"
+                />
+                <div class="profileModal">
+                  <h4>{{user.name}}</h4>
+                  <span class="profileModalLine"></span>
+                  <div @click="toggleSettingsModal()">Profile Settings</div>
+                  <span class="profileModalLine"></span>
+                  <div>Saved Listings</div>
+                  <span class="profileModalLine"></span>
+                  <div @click="toggleContactModal()">Contact Us</div>
+                </div>
+              </div>
+              <div @click="toggleNavModal()" v-else class="signIn">Sign In</div>
+            </div>
           </div>
         </nav>
 
@@ -196,70 +217,53 @@
 
         <!-- Search by city section -->
         <div class="searchCity">
-          <!-- <div class="searchBar"> -->
-          <input
-            type="text"
-            placeholder="Search by City, College..."
-            class="cityInput"
-          />
-          <div class="dropdown">
-            <h2 class="drop">Sort By</h2>
-            <i class="fa-solid fa-sort sortIcon"></i>
-            <div class="dropdown-content">
-              <span
-                @click="sortByLowestPrice()"
-                :class="{ 'active-sort': activeSort === 'low' }"
-                >Price High too Low</span
-              >
-              <span
-                @click="sortByHighestPrice()"
-                :class="{ 'active-sort': activeSort === 'high' }"
-                >Price Low too High</span
-              >
-            </div>
-          </div>
-          <!-- </div> -->
-        </div>
-
-        <!-- Content box -->
-        <div class="contentBox">
-          <!-- Properties (without sorting) -->
-          <div v-if="!sort" v-for="(pro, index) in properties" class="content">
-            <div class="property">
-              <img src="pexels-vecislavas-popa-1571460.jpg" alt="property" />
-              <div class="propertyInfo">
-                <h3 class="price">${{pro.price}}</h3>
-                <p class="propertyName">{{pro.name}}</p>
-                <span class="address">{{pro.location}}</span>
-                <p class="numbeds">Beds Available: {{pro.numBeds}}</p>
-              </div>
-              <div class="bookMark">
-                <i
-                  class="fa-solid fa-bookmark bookMarkIcon"
-                  v-bind:class="{bookMarkIconSaved: pro.bookMark}"
-                  @click="bookMark(index)"
-                ></i>
+          <div class="searchBar">
+            <input
+              type="text"
+              placeholder="Search by Name, College, Address..."
+              id="autocomplete_search"
+              name="autocomplete_search"
+              class="form-control"
+              v-model="search"
+            />
+            <div class="dropdown">
+              <h2 class="drop">Sort By</h2>
+              <i class="fa-solid fa-sort sortIcon"></i>
+              <div class="dropdown-content">
+                <span
+                  @click="sortByLowestPrice()"
+                  :class="{ 'active-sort': activeSort === 'low' }"
+                  >Price Low too High</span
+                >
+                <span
+                  @click="sortByHighestPrice()"
+                  :class="{ 'active-sort': activeSort === 'high' }"
+                  >Price High too Low</span
+                >
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Filtered content -->
-        <div class="contentBox">
-          <div
-            v-for="(pro, index) in sortedProperties"
-            class="content"
-            v-if="sort"
-          >
+        <!-- Sorted Properties -->
+        <div class="contentBox" v-if="sortProperties()">
+          <div v-for="(pro, index) in sortedProperties" class="content">
             <div class="property">
-              <img src="pexels-vecislavas-popa-1571460.jpg" alt="property" />
-              <div class="propertyInfo">
-                <h3 class="price">${{pro.price}}</h3>
-                <p class="propertyName">{{pro.name}}</p>
-                <span class="address">{{pro.location}}</span>
-                <p class="numbeds">Beds Available: {{pro.numBeds}}</p>
+              <img
+                @click="goToProperty(index)"
+                src="pexels-vecislavas-popa-1571460.jpg"
+                alt="property"
+              />
+              <div @click="goToProperty(index)" class="propertyInfo">
+                <h3 class="price">${{pro.rent}}</h3>
+                <p class="propertyName">{{pro.propertyName}}</p>
+                <span class="address">{{pro.address}}</span>
+                <span class="address university">{{pro.college}}</span>
+                <p class="numbeds">
+                  Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}
+                </p>
               </div>
-              <div class="bookMark">
+              <div class="bookMark" @click="saveListing(index)">
                 <i
                   class="fa-solid fa-bookmark bookMarkIcon"
                   v-bind:class="{bookMarkIconSaved: pro.bookMark}"
@@ -269,8 +273,303 @@
             </div>
           </div>
         </div>
+        <!-- Searched And Sorted Properties -->
+        <div class="contentBox" v-if="searchProperties()">
+          <div v-for="(pro, index) in searchedProperties" class="content">
+            <div class="property">
+              <img
+                @click="goToProperty(index)"
+                src="pexels-vecislavas-popa-1571460.jpg"
+                alt="property"
+              />
+              <div @click="goToProperty(index)" class="propertyInfo">
+                <h3 class="price">${{pro.rent}}</h3>
+                <p class="propertyName">{{pro.propertyName}}</p>
+                <span class="address">{{pro.addresss}}</span>
+                <span class="address university">{{pro.college}}</span>
+                <p class="numbeds">
+                  Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}
+                </p>
+              </div>
+              <div class="bookMark" @click="saveListing(index)">
+                <i
+                  class="fa-solid fa-bookmark bookMarkIcon"
+                  v-bind:class="{bookMarkIconSaved: pro.bookMark}"
+                  @click="bookMark(index, 'sorted')"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content box -->
+        <div class="contentBox" v-if="baseProperties()">
+          <!-- Properties (without sorting) -->
+          <div v-if="!sort" v-for="(pro, index) in properties" class="content">
+            <div class="property">
+              <img
+                @click="goToProperty(index)"
+                src="pexels-vecislavas-popa-1571460.jpg"
+                alt="property"
+              />
+              <div class="propertyInfo" @click="goToProperty(index)">
+                <h3 class="price">${{pro.rent}}</h3>
+                <p class="propertyName">{{pro.propertyName}}</p>
+                <span class="address">{{pro.address}}</span>
+                <span class="address university">{{pro.college}}</span>
+                <p class="numbeds">
+                  Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}
+                </p>
+              </div>
+              <div class="bookMark" @click="saveListing(index)">
+                <i
+                  class="fa-solid fa-bookmark bookMarkIcon"
+                  v-bind:class="{bookMarkIconSaved: pro.bookMark}"
+                  @click="bookMark(index)"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <div class="footerContainer">
+            <div class="socialIcons">
+              <a href="https://www.facebook.com/utahtechu"
+                ><i class="fa-brands fa-facebook"></i
+              ></a>
+              <a href="https://www.instagram.com/utahtechu/"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a href="https://twitter.com/utahtechu"
+                ><i class="fa-brands fa-twitter"></i
+              ></a>
+              <a href="https://www.youtube.com/@UtahTechUniversity"
+                ><i class="fa-brands fa-youtube"></i
+              ></a>
+            </div>
+            <div class="footerNav">
+              <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a @click="toggleContactModal()">Contact</a></li>
+                <li>
+                  <a href="https://utahtech.edu/terms-of-use/"
+                    >Terms of Service</a
+                  >
+                </li>
+                <li>
+                  <a href="https://utahtech.edu/privacy-policy/"
+                    >Privacy Policy</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="footerBottom">
+              <p>
+                Copyright &copy;2022; Designed by
+                <span class="Designer">Goblins</span>
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div class="navModal" v-if="showNavModal">
+        <div class="sisuModal">
+          <div class="si-modal" v-if="currentNavModal == 'signin'">
+            <div class="sisu-topText">
+              <h2 class="sisuExit" @click="toggleNavModal()">X</h2>
+              <h2 class="sisuTitle">Sign In To Student Housing Hub</h2>
+            </div>
+            <div class="sisu-formCont">
+              <div class="sisu-form">
+                <input
+                  type="text"
+                  placeholder="Email..."
+                  v-model="navLoginUser.email"
+                />
+                <input
+                  type="text"
+                  placeholder="Password..."
+                  v-model="navLoginUser.password"
+                />
+              </div>
+              <div class="sisu-line"></div>
+              <div class="sisu-buttons">
+                <div @click="createSession()" class="mainButton">Log In</div>
+                <div @click="swapNavModal()" class="otherButton">Sign Up</div>
+              </div>
+            </div>
+          </div>
+          <div class="su-modal" v-if="currentNavModal == 'signup'">
+            <div class="sisu-topText">
+              <h2 class="sisuExit" @click="toggleNavModal()">X</h2>
+              <h2 class="sisuTitle">Sign Up For Student Housing Hub</h2>
+            </div>
+            <div class="sisu-formCont">
+              <div class="sisu-form">
+                <input
+                  type="text"
+                  placeholder="Name..."
+                  v-model="navUser.name"
+                />
+                <input
+                  type="text"
+                  placeholder="Email..."
+                  v-model="navUser.email"
+                />
+                <input
+                  type="text"
+                  placeholder="Phone..."
+                  v-model="navUser.phoneNumber"
+                />
+                <input
+                  type="text"
+                  placeholder="Password..."
+                  v-model="navUser.password"
+                />
+              </div>
+              <div class="sisu-line-long"></div>
+              <div class="sisu-buttons">
+                <div @click="swapNavModal()" class="otherButton">Log In</div>
+                <div @click="signUp()" class="mainButton">Sign Up</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contactModal" v-if="showContactModal">
+        <div class="contact">
+          <div class="contactTopText">
+            <h2 @click="toggleContactModal()" class="contactExit">X</h2>
+            <h2 class="contactUs">Contact Us</h2>
+          </div>
+          <div class="contactLongLine"></div>
+          <div class="contactEmail">Jack Snyder: jacksnyder@shh.com</div>
+          <div class="contactLine"></div>
+          <div class="contactEmail">Gabriel Puente: gabrielpuente@shh.com</div>
+          <div class="contactLine"></div>
+          <div class="contactEmail">MacKay Roy: mackayroy@shh.com</div>
+          <div class="contactLine"></div>
+          <div class="contactEmail">Josh Gilbert: joshgilbert@shh.com</div>
+        </div>
+      </div>
+      <div class="settingsModal" v-if="showSettingsModal">
+        <div class="settings">
+          <div class="settingsTopText">
+            <h2 class="settingsTitle">Profile Settings</h2>
+          </div>
+          <div class="settingsLongLine"></div>
+          <div class="settingsProfilePic">
+            <div class="settingsFileInput" v-if="settingsUser.changePhoto">
+              <input type="file" />
+            </div>
+            <img
+              src="../sample.jpg"
+              alt="profilePicture"
+              class="settingsPP"
+              v-else
+            />
+            <i
+              class="fa-regular fa-pen-to-square"
+              class="settingsEdit"
+              @click="togglePhoto()"
+            ></i>
+          </div>
+          <div class="settingsLine"></div>
+          <div class="settingsInputs">
+            <div class="settingsInput">
+              <span>Name:</span>
+              <input
+                type="text"
+                v-model="settingsUser.name"
+                v-if="settingsUser.changeName"
+              />
+              <p v-else>{{user.name}}</p>
+              <i
+                class="fa-regular fa-pen-to-square"
+                class="settingsEdit"
+                @click="toggleName()"
+              ></i>
+            </div>
+            <div class="settingsInput">
+              <span>Email:</span>
+              <input
+                type="text"
+                v-model="settingsUser.email"
+                v-if="settingsUser.changeEmail"
+              />
+              <p v-else>{{user.email}}</p>
+              <i
+                class="fa-regular fa-pen-to-square"
+                class="settingsEdit"
+                @click="toggleEmail()"
+              ></i>
+            </div>
+            <div class="settingsInput">
+              <span>Phone:</span>
+              <input
+                type="text"
+                v-model="settingsUser.phoneNumber"
+                v-if="settingsUser.changePhoneNumber"
+              />
+              <p v-else>{{user.phoneNumber}}</p>
+              <i
+                class="fa-regular fa-pen-to-square"
+                class="settingsEdit"
+                @click="togglePhoneNumber()"
+              ></i>
+            </div>
+
+            <div class="settingsInput">
+              <span>New Password:</span>
+              <input
+                type="text"
+                v-model="settingsUser.password"
+                v-if="settingsUser.changePassword"
+              />
+              <p v-else>********</p>
+              <i
+                class="fa-regular fa-pen-to-square"
+                class="settingsEdit"
+                @click="togglePassword()"
+              ></i>
+            </div>
+            <div class="settingsInput">
+              <span>Current Password:</span>
+              <input type="text" v-model="settingsUser.verifyPassword" />
+            </div>
+          </div>
+          <div class="settingsButtons">
+            <button @click="toggleSettingsModal()" class="otherButton">
+              Cancel
+            </button>
+            <button @click="updateProfile()" class="mainButton">Save</button>
+          </div>
+        </div>
       </div>
     </div>
     <script src="searchSort.js"></script>
+    <script
+      type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfajG_u7o0iR0ZXoZLbh4As_TvpfkgK3Q&libraries=places"
+    ></script>
+    <script>
+      google.maps.event.addDomListener(window, "load", initialize);
+
+      function initialize() {
+        var input = document.getElementById("autocomplete_search");
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.addListener("place_changed", function () {
+          var place = autocomplete.getPlace();
+
+          // place variable will have all the information you are looking for.
+
+          $("#lat").val(place.geometry["location"].lat());
+
+          $("#long").val(place.geometry["location"].lng());
+        });
+      }
+    </script>
   </body>
 </html>
