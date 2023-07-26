@@ -28,12 +28,14 @@
       </div>
         
         <div class="navRefs">
+
           <a href="SearchSort/searchSort.html" class="navLinks allListings">
             All Listings
           </a>
           <div @click="toCreateListing()" class="navLinks" v-if="userSession">Create Listing</div>
           <div @click="toggleNavModal()" class="navLinks" v-else>Create Listing</div>
           <div @click="toggleMyListingsModal()" class="navLinks">My Listings</div>
+
 
           <div>
             <div class="profile" v-if="userSession">
@@ -108,8 +110,8 @@
             </h5>
             <p>
               We all have a strong background in website development through
-              Utah Tech University and their CodeSchool program. At [Your
-              Company Name], we combine our expertise and passion to deliver
+              Utah Tech University and their CodeSchool program. At Student
+              Housing Hub, we combine our expertise and passion to deliver
               outstanding web solutions tailored to your needs. Experience the
               difference of working with a skilled and dedicated team committed
               to bringing your visions to life.
@@ -122,18 +124,33 @@
       <footer>
         <div class="footerContainer">
           <div class="socialIcons">
-
-            <a href="https://www.facebook.com/utahtechu"><i class="fa-brands fa-facebook"></i></i></a>
-            <a href="https://www.instagram.com/utahtechu/"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://twitter.com/utahtechu"><i class="fa-brands fa-twitter"></i></a>
-            <a href="https://www.youtube.com/@UtahTechUniversity"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.facebook.com/utahtechu"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+            <a href="https://www.instagram.com/utahtechu/"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="https://twitter.com/utahtechu"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="https://www.youtube.com/@UtahTechUniversity"
+              ><i class="fa-brands fa-youtube"></i
+            ></a>
           </div>
           <div class="footerNav">
             <ul>
               <li><a href="index.html">Home</a></li>
-              <li><a  @click="toggleContactModal()">Contact</a></li>
-              <li><a href="https://utahtech.edu/terms-of-use/">Terms of Service</a></li>
-              <li><a href="https://utahtech.edu/privacy-policy/">Privacy Policy</a></li>
+              <li><a @click="toggleContactModal()">Contact</a></li>
+              <li>
+                <a href="https://utahtech.edu/terms-of-use/"
+                  >Terms of Service</a
+                >
+              </li>
+              <li>
+                <a href="https://utahtech.edu/privacy-policy/"
+                  >Privacy Policy</a
+                >
+              </li>
             </ul>
           </div>
           <div class="footerBottom">
