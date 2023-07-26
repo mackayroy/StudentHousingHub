@@ -28,6 +28,9 @@
       </div>
         
         <div class="navRefs">
+          <a href="SearchSort/searchSort.html" class="navLinks allListings">
+            All Listings
+          </a>
           <div @click="toCreateListing()" class="navLinks" v-if="userSession">Create Listing</div>
           <div @click="toggleNavModal()" class="navLinks" v-else>Create Listing</div>
           <div @click="toggleMyListingsModal()" class="navLinks">My Listings</div>

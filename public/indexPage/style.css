@@ -49,6 +49,11 @@ nav .navRefs {
   text-decoration: none;
   margin-right: 10%;
 }
+
+.allListings {
+  text-decoration: none;
+  color: inherit;
+}
 nav .navRefs img {
   margin-left: 0;
 }
@@ -744,6 +749,12 @@ footer {
 }
 
 /* Styles for BookMark Icon when Saved */
+
+@media (max-width: 1000px) {
+  .allListings {
+    display: none;
+  }
+}
 
 @media (max-width: 900px) {
   .svgHero,
