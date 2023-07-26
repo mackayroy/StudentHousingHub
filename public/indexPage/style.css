@@ -27,13 +27,17 @@ nav {
   user-select: none;
   padding: 5px 0px;
 }
-#logo {
+#logoimage {
   width: 75px;
   height: 75px;
   background-image: url("../logo.png");
   background-size: 200%;
   background-position: center;
   background-repeat: no-repeat;
+  margin-left: 10%;
+}
+
+.logo {
   margin-left: 10%;
 }
 nav .navRefs {
@@ -787,8 +791,12 @@ footer {
     margin-right: 5%;
   }
 
-  #logo {
+  .logo {
     margin-left: 5%;
+  }
+
+  #logoimage {
+    background-size: 150%;
   }
 
   .hero input {
