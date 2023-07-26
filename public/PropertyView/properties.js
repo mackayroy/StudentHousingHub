@@ -2,6 +2,7 @@ const URL = "http://localhost:8080/";
 Vue.createApp({
   data() {
     return {
+      propertyId: "",
       userSession: false,
       search: "",
       login: "false",
@@ -18,19 +19,18 @@ Vue.createApp({
       },
 
       propertyInfo: {
-        college: "Utah Tech",
+        college: "",
         propertyName: "",
-        address: "669 S 700 E Apt 1, St. George, UT 84770",
-        rent: 550,
-        rooms: 3,
-        bathrooms: 2,
-        private: true,
-        wifi: true,
-        washerDryer: true,
-        parking: true,
-        amenities: ["Pool", "Gym", "Hot Tub"],
-        description:
-          "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, comes from a line in section 1.10.32.",
+        address: "",
+        rent: null,
+        rooms: null,
+        bathrooms: null,
+        private: false,
+        wifi: false,
+        washerDryer: false,
+        parking: false,
+        amenities: [],
+        description: "",
       },
     };
   },
@@ -142,10 +142,11 @@ Vue.createApp({
 
     // Function to display the get the property information
     getProperty: function () {
-      fetch(URL + "properties/")
+      fetch(URL + "properties/" + this.propertyId)
         .then((response) => response.json())
         .then((data) => {
           this.propertyInfo = data;
+          this.fetchCoordinates();
         });
     },
 
@@ -158,7 +159,8 @@ Vue.createApp({
     },
   },
   created() {
+    this.propertyId = window.location.href.split("=")[1];
+
     this.getProperty();
-    this.fetchCoordinates();
   },
 }).mount("#app");

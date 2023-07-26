@@ -86,7 +86,9 @@ app.get("/users/:usersId", function (req, res) {
 });
 
 app.get("/users/:userId/listings", function (req, res) {
-  model.Property.find({ "creator": req.params.userId }).then(function (properties) {
+  model.Property.find({ "creator": req.params.userId }).then(function (
+    properties
+  ) {
     res.send(properties);
   });
 });
@@ -173,6 +175,7 @@ app.post("/properties", function (req, res) {
     wifi: req.body.wifi,
     washerDryer: req.body.washerDryer,
     parking: req.body.parking,
+    description: req.body.description,
     amenities: req.body.amenities,
     photos: req.body.photos,
     creator: req.body.creator,
@@ -195,8 +198,9 @@ app.get("/properties", function (req, res) {
 });
 
 app.get("/properties/:propertyId", function (req, res) {
-  model.Property.findOne({ "_id": req.params.propertyId }).then(function (property) {
-
+  model.Property.findOne({ "_id": req.params.propertyId }).then(function (
+    property
+  ) {
     if (property) {
       res.send(property);
     } else {
