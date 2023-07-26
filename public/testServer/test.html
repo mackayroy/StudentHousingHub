@@ -21,7 +21,9 @@
           <input type="submit" value="Submit">
       </form>
       <div>
-        <img v-bind:src="displayImageSrc">
+        <button @click="fetchImage">Fetch Image</button>
+        <img v-bind:src="imageUrl" v-if="imageUrl">
+        <!-- <img src="displayImageSrc" alt=""> -->
       </div>
   
       <div id="preview"></div>

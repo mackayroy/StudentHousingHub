@@ -263,12 +263,9 @@
                   Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}
                 </p>
               </div>
-              <div class="bookMark" @click="saveListing(index)">
-                <i
-                  class="fa-solid fa-bookmark bookMarkIcon"
-                  v-bind:class="{bookMarkIconSaved: pro.bookMark}"
-                  @click="bookMark(index, 'sorted')"
-                ></i>
+              <div class="bookMark">
+                <i class="fa-solid fa-bookmark bookMarkIcon" v-show="pro.saved" @click="saveListing(index)"></i>
+                <i class="fa-regular fa-bookmark bookMarkIcon" v-show="!pro.saved" @click="saveListing(index)"></i>
               </div>
             </div>
           </div>
@@ -291,12 +288,9 @@
                   Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}
                 </p>
               </div>
-              <div class="bookMark" @click="saveListing(index)">
-                <i
-                  class="fa-solid fa-bookmark bookMarkIcon"
-                  v-bind:class="{bookMarkIconSaved: pro.bookMark}"
-                  @click="bookMark(index, 'sorted')"
-                ></i>
+              <div class="bookMark">
+                <i class="fa-solid fa-bookmark bookMarkIcon" v-show="pro.saved" @click="saveListing(index)"></i>
+                <i class="fa-regular fa-bookmark bookMarkIcon" v-show="!pro.saved" @click="saveListing(index)"></i>
               </div>
             </div>
           </div>
@@ -321,12 +315,9 @@
                   Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}
                 </p>
               </div>
-              <div class="bookMark" @click="saveListing(index)">
-                <i
-                  class="fa-solid fa-bookmark bookMarkIcon"
-                  v-bind:class="{bookMarkIconSaved: pro.bookMark}"
-                  @click="bookMark(index)"
-                ></i>
+              <div class="bookMark">
+                <i class="fa-solid fa-bookmark bookMarkIcon" v-show="pro.saved" @click="saveListing(index)"></i>
+                <i class="fa-regular fa-bookmark bookMarkIcon" v-show="!pro.saved" @click="saveListing(index)"></i>
               </div>
             </div>
           </div>

@@ -64,7 +64,11 @@ const PropertySchema = new mongoose.Schema({
     required: [true, "Property must have a description."],
   },
   amenities: [String],
-  photos: PhotoSchema,
+  // photos: [PhotoSchema],
+  description: {
+    type: String,
+    required: [true, "Must have a description"],
+  },
   creator: String,
 });
 
