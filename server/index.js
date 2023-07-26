@@ -162,8 +162,8 @@ app.put("/users/:usersId/:propertyId", AuthMiddleware, function (req, res) {
 });
 
 // property
-// AuthMiddleware,
-app.post("/properties", function (req, res) {
+
+app.post("/properties", AuthMiddleware, function (req, res) {
   const newProperty = new model.Property({
     college: req.body.college,
     propertyName: req.body.propertyName,
