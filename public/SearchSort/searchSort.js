@@ -112,22 +112,23 @@ Vue.createApp({
         credentials: "include",
       };
 
-      fetch(URL + "users/" + this.userId + "/" + this.properties[index]._id, options).then(
-        (response) => {
-          if (response.status != 200) {
-            alert("Unable to save listing.");
+      fetch(
+        URL + "users/" + this.userId + "/" + this.properties[index]._id,
+        options
+      ).then((response) => {
+        if (response.status != 200) {
+          alert("Unable to save listing.");
+        } else {
+          if (this.properties[index].saved) {
+            this.properties[index].saved = false;
           } else {
-            if (this.properties[index].saved) {
-              this.properties[index].saved = false;
-            } else {
-              this.properties[index].saved = true;
-            }
-            this.user.savedListings.push(this.properties[index]._id);
+            this.properties[index].saved = true;
           }
-
+          this.user.savedListings.push(this.properties[index]._id);
         }
       });
     },
+
     toggleNavModal: function () {
       this.navUser.name = "";
       this.navUser.email = "";
