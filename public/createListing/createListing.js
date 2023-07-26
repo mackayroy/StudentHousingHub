@@ -1,4 +1,5 @@
 const URL = "http://localhost:8080/";
+
 Vue.createApp({
   data() {
     return {
@@ -59,6 +60,9 @@ Vue.createApp({
     };
   },
   methods: {
+    backtoHome: function () {
+      window.location.href = "../index.html";
+    },
     toCreateListing: function () {
       window.location.href = "../createListing/createListing.html";
     },
@@ -300,7 +304,12 @@ Vue.createApp({
     },
     photos: function () {
       document.querySelector("#files").addEventListener("change", (e) => {
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
+        if (
+          window.File &&
+          window.FileReader &&
+          window.FileList &&
+          window.Blob
+        ) {
           const files = e.target.files;
           const output = document.querySelector("#result");
 
@@ -351,10 +360,10 @@ Vue.createApp({
           this.propertyInfo.parking = true;
         }
       }
-      this.propertyInfo.creator = this.userId;
-
       this.moveAmmenties();
       this.pushListing();
+      this.propertyInfo.creator = this.userId;
+
     },
     moveAmmenties: function () {
       for (let i = 0; i < this.ammenitylist.length; i++) {

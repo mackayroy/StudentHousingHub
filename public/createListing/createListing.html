@@ -22,10 +22,14 @@
     <div id="app">
       <!-- Header of the page -->
       <nav>
-        <div id="logo"></div>
+        <div @click="backtoHome()" id="logo"></div>
         <div class="navRefs">
-          <div @click="toCreateListing()" class="navLinks" v-if="userSession">Create Listing</div>
-          <div @click="toggleNavModal()" class="navLinks" v-else>Create Listing</div>
+          <div @click="toCreateListing()" class="navLinks" v-if="userSession">
+            Create Listing
+          </div>
+          <div @click="toggleNavModal()" class="navLinks" v-else>
+            Create Listing
+          </div>
           <div @click="" class="navLinks">My Listings</div>
           <div>
             <div class="profile" v-if="userSession">
@@ -54,9 +58,15 @@
       <div class="mainContainer">
         <h1 class="title">Create Listing</h1>
         <!-- Basic info about the property -->
-        <form class="info" name="info">
+        <form id="listingForm" class="info" name="info">
           <label for="college">College: </label>
-          <input type="text" name="college" id="college" v-model="propertyInfo.college" />
+          <input
+            type="text"
+            name="college"
+            id="college"
+            placeholder="Enter College"
+            v-model="propertyInfo.college"
+          />
 
           <br />
           <label for="propertyName">Property Name: </label>
@@ -69,16 +79,40 @@
           />
           <br />
           <label for="address">Address: </label>
-          <input type="text" name="address" id="address" v-model="propertyInfo.address" />
+          <input
+            type="text"
+            name="address"
+            id="address"
+            placeholder="Enter Address"
+            v-model="propertyInfo.address"
+          />
           <br />
           <label for="rent">Rent:</label>
-          <input type="number" id="rent" name="rent" v-model="propertyInfo.rent" />
+          <input
+            type="number"
+            id="rent"
+            name="rent"
+            placeholder="Enter Rent"
+            v-model="propertyInfo.rent"
+          />
           <br />
           <label for="beds">Beds: </label>
-          <input type="number" id="beds" name="beds" v-model="propertyInfo.rooms" />
+          <input
+            placeholder="Enter Beds"
+            type="number"
+            id="beds"
+            name="beds"
+            v-model="propertyInfo.rooms"
+          />
           <br />
           <label for="bathrooms">Baths: </label>
-          <input type="number" id="bathrooms" name="bathrooms" v-model="propertyInfo.bathrooms" />
+          <input
+            placeholder="Enter Baths"
+            type="number"
+            id="bathrooms"
+            name="bathrooms"
+            v-model="propertyInfo.bathrooms"
+          />
 
           <br />
         </form>
@@ -99,7 +133,12 @@
                   <label for="private">Private Room</label>
                 </li>
                 <li>
-                  <input type="checkbox" id="wifi" name="wifi" v-model="propertyInfo.wifi" />
+                  <input
+                    type="checkbox"
+                    id="wifi"
+                    name="wifi"
+                    v-model="propertyInfo.wifi"
+                  />
                   <label for="wifi">Wifi</label>
                 </li>
                 <li>
@@ -132,7 +171,9 @@
                 v-for="item in ammenitylist"
                 @keyup.enter="addAmenity()"
               />
-              <button class="addAnother" @click="addAmenity()">Add Another</button>
+              <button class="addAnother" @click="addAmenity()">
+                Add Another
+              </button>
             </div>
           </div>
         </div>
@@ -183,8 +224,16 @@
             </div>
             <div class="sisu-formCont">
               <div class="sisu-form">
-                <input type="text" placeholder="Email..." v-model="navLoginUser.email" />
-                <input type="text" placeholder="Password..." v-model="navLoginUser.password" />
+                <input
+                  type="text"
+                  placeholder="Email..."
+                  v-model="navLoginUser.email"
+                />
+                <input
+                  type="text"
+                  placeholder="Password..."
+                  v-model="navLoginUser.password"
+                />
               </div>
               <div class="sisu-line"></div>
               <div class="sisu-buttons">
@@ -200,10 +249,26 @@
             </div>
             <div class="sisu-formCont">
               <div class="sisu-form">
-                <input type="text" placeholder="Name..." v-model="navUser.name" />
-                <input type="text" placeholder="Email..." v-model="navUser.email" />
-                <input type="text" placeholder="Phone..." v-model="navUser.phoneNumber" />
-                <input type="text" placeholder="Password..." v-model="navUser.password" />
+                <input
+                  type="text"
+                  placeholder="Name..."
+                  v-model="navUser.name"
+                />
+                <input
+                  type="text"
+                  placeholder="Email..."
+                  v-model="navUser.email"
+                />
+                <input
+                  type="text"
+                  placeholder="Phone..."
+                  v-model="navUser.phoneNumber"
+                />
+                <input
+                  type="text"
+                  placeholder="Password..."
+                  v-model="navUser.password"
+                />
               </div>
               <div class="sisu-line-long"></div>
               <div class="sisu-buttons">
@@ -240,20 +305,41 @@
             <div class="settingsFileInput" v-if="settingsUser.changePhoto">
               <input type="file" />
             </div>
-            <img src="../sample.jpg" alt="profilePicture" class="settingsPP" v-else />
-            <i class="fa-regular fa-pen-to-square" class="settingsEdit" @click="togglePhoto()"></i>
+            <img
+              src="../sample.jpg"
+              alt="profilePicture"
+              class="settingsPP"
+              v-else
+            />
+            <i
+              class="fa-regular fa-pen-to-square"
+              class="settingsEdit"
+              @click="togglePhoto()"
+            ></i>
           </div>
           <div class="settingsLine"></div>
           <div class="settingsInputs">
             <div class="settingsInput">
               <span>Name:</span>
-              <input type="text" v-model="settingsUser.name" v-if="settingsUser.changeName" />
+              <input
+                type="text"
+                v-model="settingsUser.name"
+                v-if="settingsUser.changeName"
+              />
               <p v-else>{{user.name}}</p>
-              <i class="fa-regular fa-pen-to-square" class="settingsEdit" @click="toggleName()"></i>
+              <i
+                class="fa-regular fa-pen-to-square"
+                class="settingsEdit"
+                @click="toggleName()"
+              ></i>
             </div>
             <div class="settingsInput">
               <span>Email:</span>
-              <input type="text" v-model="settingsUser.email" v-if="settingsUser.changeEmail" />
+              <input
+                type="text"
+                v-model="settingsUser.email"
+                v-if="settingsUser.changeEmail"
+              />
               <p v-else>{{user.email}}</p>
               <i
                 class="fa-regular fa-pen-to-square"
@@ -296,7 +382,9 @@
             </div>
           </div>
           <div class="settingsButtons">
-            <button @click="toggleSettingsModal()" class="otherButton">Cancel</button>
+            <button @click="toggleSettingsModal()" class="otherButton">
+              Cancel
+            </button>
             <button @click="updateProfile()" class="mainButton">Save</button>
           </div>
         </div>
@@ -305,19 +393,33 @@
       <footer>
         <div class="footerContainer">
           <div class="socialIcons">
-            <a href=""><i class="fa-brands fa-facebook"></i></a>
-            <a href=""><i class="fa-brands fa-instagram"></i></a>
-            <a href=""><i class="fa-brands fa-twitter"></i></a>
-            <a href=""><i class="fa-brands fa-google-plus"></i></a>
-            <a href=""><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.facebook.com/utahtechu"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+            <a href="https://www.instagram.com/utahtechu/"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="https://twitter.com/utahtechu"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="https://www.youtube.com/@UtahTechUniversity"
+              ><i class="fa-brands fa-youtube"></i
+            ></a>
           </div>
           <div class="footerNav">
             <ul>
-              <li><a href="">Home</a></li>
-              <li><a href="">About Us</a></li>
-              <li><a href="">Contact Us</a></li>
-              <li><a href="">Terms of Service</a></li>
-              <li><a href="">Privacy Policy</a></li>
+              <li><a href="../index.html">Home</a></li>
+              <li><a @click="toggleContactModal()">Contact</a></li>
+              <li>
+                <a href="https://utahtech.edu/terms-of-use/"
+                  >Terms of Service</a
+                >
+              </li>
+              <li>
+                <a href="https://utahtech.edu/privacy-policy/"
+                  >Privacy Policy</a
+                >
+              </li>
             </ul>
           </div>
           <div class="footerBottom">
@@ -328,7 +430,6 @@
           </div>
         </div>
       </footer>
-
     </div>
 
     <script src="createListing.js"></script>

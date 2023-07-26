@@ -1,13 +1,14 @@
 Vue.createApp({
   data() {
       return {
-        displayImageSrc: ""
+        imageUrl: null
       }
   },
   methods : {
     async postImage() {
       const formData = new FormData();
       formData.append("file", this.$refs.uploadImage.files[0]);
+      // name, price
       try {
         const response = await fetch('http://localhost:8080/images', {
           method: 'POST',
@@ -25,15 +26,32 @@ Vue.createApp({
         throw error;
       } 
     },
-    downloadImage() {
-      fetch("http://localhost:8080/images").then(response => response.text())
-      .then(data => {
-        console.log(data);
-        this.displayImageSrc = data;
-      });
+
+    fetchImage() {
+      const key = "";
+      const bucket = 'student-housing-hub'
+
+      fetch(`http://localhost:8080/images/${bucket}/${key}`)
+      .then(response => response.blob())
+      .then(blob => {
+        const imageUrl = URL.createObjectURL(blob);
+        this.imageUrl = imageUrl;
+      }).catch(error => {
+        console.log('Error:', error)
+      })
     }
+
+
+
+    // downloadImage() {
+    //   fetch("http://localhost:8080/images").then(response => response.text())
+    //   .then(data => {
+    //     console.log(data);
+    //     this.displayImageSrc = data;
+    //   });
+    // }
   },
   created : function() {
-    this.downloadImage();
+    // this.downloadImage();
   }
 }).mount("#app");

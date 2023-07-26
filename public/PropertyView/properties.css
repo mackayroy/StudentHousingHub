@@ -409,4 +409,7 @@ footer {
     height: 450px;
     width: 450px;
   }
+  .salersInfo {
+    font-size: 1.5em;
+  }
 }
