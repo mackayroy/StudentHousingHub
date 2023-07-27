@@ -121,16 +121,14 @@ Vue.createApp({
         method: "DELETE",
       };
 
-      fetch(URL + "properties/" + listingId, requestOptions).then(
-        (response) => {
-          if (response.status === 204) {
-            console.log("Listing deleted");
-            this.user.myListings.splice(index, 1);
-          } else {
-            alert("Not able to delete listing");
-          }
+      fetch(URL + "properties/" + listingId, requestOptions).then((response) => {
+        if (response.status === 204) {
+          console.log("Listing deleted");
+          this.user.myListings.splice(index, 1);
+        } else {
+          alert("Not able to delete listing");
         }
-      );
+      });
     },
 
     // Settings Modal
@@ -315,7 +313,9 @@ Vue.createApp({
         credentials: "include",
       };
       fetch(URL + "session", options).then((response) => {
-        this.navUser.name = "";
+        this.user = {};
+        this.userId = "";
+        window.location.href = "index.html";
       });
     },
     setUser: function () {

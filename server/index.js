@@ -86,6 +86,12 @@ app.get("/users/:usersId", function (req, res) {
   });
 });
 
+app.get("/users/:usersId/listings", function (req, res) {
+  model.Property.find({ "creator": req.params.usersId }).then(function (properties) {
+    res.send(properties);
+  });
+});
+
 app.put("/users/:usersId", function (req, res) {
   var usersId = req.params.usersId;
   model.User.findOne({ _id: usersId }).then((user) => {
@@ -174,8 +180,10 @@ app.post("/properties", AuthMiddleware, function (req, res) {
     washerDryer: req.body.washerDryer,
     parking: req.body.parking,
     amenities: req.body.amenities,
+
     description: req.body.description,
     // photos: req.body.photos
+
   });
   newProperty
     .save()
@@ -198,9 +206,11 @@ app.get("/properties", function (req, res) {
 });
 
 app.get("/properties/:propertyId", function (req, res) {
+
   model.Property.findOne({ _id: req.params.propertyId }).then(function (
     property
   ) {
+
     if (property) {
       res.send(property);
     } else {
