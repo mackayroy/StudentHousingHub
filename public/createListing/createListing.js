@@ -363,7 +363,6 @@ Vue.createApp({
       this.moveAmmenties();
       this.pushListing();
       this.propertyInfo.creator = this.userId;
-
     },
     moveAmmenties: function () {
       for (let i = 0; i < this.ammenitylist.length; i++) {
