@@ -1,4 +1,5 @@
 const URL = "https://studenthousinghub-production.up.railway.app/";
+
 Vue.createApp({
   data() {
     return {
@@ -84,6 +85,36 @@ Vue.createApp({
     },
   },
   methods: {
+    navSaveListing: function (index) {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var options = {
+        method: "PUT",
+        headers: myHeaders,
+        credentials: "include",
+      };
+
+      fetch(
+        URL + "users/" + this.userId + "/" + this.savedListings[index]._id,
+        options
+      ).then((response) => {
+        if (response.status != 200) {
+          alert("Unable to save listing.");
+        } else {
+          this.savedListings.splice(index, 1);
+
+          this.user.savedListings.push(this.properties[index]._id);
+        }
+      });
+    },
+    getMyListings: function () {
+      fetch(URL + "users/" + this.userId + "/listings")
+        .then((response) => response.json())
+        .then((data) => {
+          this.user.myListings = data;
+        });
+    },
     getListings: function () {
       fetch(URL + "properties")
         .then((response) => response.json())
@@ -113,23 +144,25 @@ Vue.createApp({
         credentials: "include",
       };
 
-      fetch(URL + "users/" + this.userId + "/" + this.properties[index]._id, options).then(
-        (response) => {
-          if (response.status != 200) {
-            alert("Unable to save listing.");
+      fetch(
+        URL + "users/" + this.userId + "/" + this.properties[index]._id,
+        options
+      ).then((response) => {
+        if (response.status != 200) {
+          alert("Unable to save listing.");
+        } else {
+          if (this.properties[index].saved) {
+            this.properties[index].saved = false;
           } else {
-            if (this.properties[index].saved) {
-              this.properties[index].saved = false;
-            } else {
-              this.properties[index].saved = true;
-            }
-
-            this.user.savedListings.push(this.properties[index]._id);
+            this.properties[index].saved = true;
           }
+
+          this.user.savedListings.push(this.properties[index]._id);
         }
-      );
+      });
     },
 
+    // Sign In / Up Modal
     toggleNavModal: function () {
       this.navUser.name = "";
       this.navUser.email = "";
@@ -144,7 +177,6 @@ Vue.createApp({
       }
     },
     swapNavModal: function () {
-      x;
       this.navUser.name = "";
       this.navUser.email = "";
       this.navUser.phone = "";
@@ -157,8 +189,10 @@ Vue.createApp({
         this.currentNavModal = "signin";
       }
     },
+
     goToProperty: function (index) {
-      window.location.href = "../PropertyView/properties.html?p=" + this.properties[index]._id;
+      window.location.href =
+        "../PropertyView/properties.html?p=" + this.properties[index]._id;
     },
 
     // Profile Modal
@@ -170,13 +204,42 @@ Vue.createApp({
       }
     },
 
-    // Contact Modal
-    toggleContactModal: function () {
-      if (this.showContactModal) {
-        this.showContactModal = false;
+    // Saved Modal
+    toggleSavedModal: function () {
+      if (this.showSavedModal) {
+        this.showSavedModal = false;
       } else {
-        this.showContactModal = true;
+        this.showSavedModal = true;
       }
+    },
+
+    // My Listings Modal
+
+    toggleMyListingsModal: function () {
+      if (this.showMyListingsModal) {
+        this.showMyListingsModal = false;
+      } else {
+        this.showMyListingsModal = true;
+      }
+      console.log(this.user);
+    },
+
+    deleteListing: function (index) {
+      var listingId = this.user.myListings[index]._id;
+      var requestOptions = {
+        method: "DELETE",
+      };
+
+      fetch(URL + "properties/" + listingId, requestOptions).then(
+        (response) => {
+          if (response.status === 204) {
+            console.log("Listing deleted");
+            this.user.myListings.splice(index, 1);
+          } else {
+            alert("Not able to delete listing");
+          }
+        }
+      );
     },
 
     // Settings Modal
@@ -244,6 +307,9 @@ Vue.createApp({
         }
       });
     },
+    toCreateListing: function () {
+      window.location.href = "createListing/createListing.html";
+    },
 
     togglePhoto: function () {
       if (this.settingsUser.changePhoto) {
@@ -286,7 +352,6 @@ Vue.createApp({
     },
 
     // Sessions and users
-
     signUp: function () {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -327,6 +392,7 @@ Vue.createApp({
               this.setUser();
               this.userSession = true;
               this.toggleNavModal();
+              this.getMyListings();
             } else {
               alert("Can't log in.");
             }
@@ -347,7 +413,7 @@ Vue.createApp({
           if (data && data.cookie && data.userId) {
             this.userSession = true;
             this.userId = data.userId;
-            this.user = data;
+            this.getMyListings();
             this.setUser();
           }
         });
@@ -358,7 +424,9 @@ Vue.createApp({
         credentials: "include",
       };
       fetch(URL + "session", options).then((response) => {
-        this.navUser.name = "";
+        this.user = {};
+        this.userId = "";
+        window.location.href = "searchSort.html";
       });
     },
     setUser: function () {
@@ -366,9 +434,29 @@ Vue.createApp({
         .then((response) => response.json())
         .then((data) => {
           this.user = data;
-          this.getListings();
+          this.user.savedListings.forEach((listingId) => {
+            fetch(URL + "properties/" + listingId)
+              .then((response) => response.json())
+              .then((data) => {
+                if (data !== "Property not found.") {
+                  console.log(data);
+                  this.savedListings.push(data);
+                }
+              });
+          });
+          this.getMyListings();
         });
     },
+
+    // Contact Modal
+    toggleContactModal: function () {
+      if (this.showContactModal) {
+        this.showContactModal = false;
+      } else {
+        this.showContactModal = true;
+      }
+    },
+
     sortByLowestPrice: function () {
       this.properties.sort((a, b) => a.price - b.price);
       this.sortedProperties.sort((a, b) => a.price - b.price);
@@ -382,7 +470,8 @@ Vue.createApp({
     },
 
     toggleDropdown: function () {
-      var dropdownContent = document.getElementsByClassName("dropdown-content")[0];
+      var dropdownContent =
+        document.getElementsByClassName("dropdown-content")[0];
       dropdownContent.classList.toggle("show");
     },
     clearSearch() {
@@ -410,16 +499,22 @@ Vue.createApp({
         let meetsCriteria = true;
         this.sort = true;
 
-        if (this.minPrice && property.rent < this.minPrice) meetsCriteria = false;
-        if (this.maxPrice && property.rent > this.maxPrice) meetsCriteria = false;
+        if (this.minPrice && property.rent < this.minPrice)
+          meetsCriteria = false;
+        if (this.maxPrice && property.rent > this.maxPrice)
+          meetsCriteria = false;
         if (this.bedrooms && parseInt(property.rooms) != this.bedrooms) {
           meetsCriteria = false;
         }
-        if (this.bathrooms && parseInt(property.bathrooms) != this.bathrooms) meetsCriteria = false;
-        if (this.privateRoomCheckbox && property.private !== true) meetsCriteria = false;
+        if (this.bathrooms && parseInt(property.bathrooms) != this.bathrooms)
+          meetsCriteria = false;
+        if (this.privateRoomCheckbox && property.private !== true)
+          meetsCriteria = false;
         if (this.wifiCheckbox && property.wifi !== true) meetsCriteria = false;
-        if (this.washerDryerCheckbox && property.washerDryer !== true) meetsCriteria = false;
-        if (this.parkingCheckbox && parking.Kitchen !== true) meetsCriteria = false;
+        if (this.washerDryerCheckbox && property.washerDryer !== true)
+          meetsCriteria = false;
+        if (this.parkingCheckbox && parking.Kitchen !== true)
+          meetsCriteria = false;
 
         if (meetsCriteria) {
           this.sortedProperties.push(property);
@@ -431,7 +526,8 @@ Vue.createApp({
         if (!this.sortedProperties[index].bookMark) {
           this.sortedProperties[index].bookMark = true;
         } else {
-          this.sortedProperties[index].bookMark = !this.sortedProperties[index].bookMark;
+          this.sortedProperties[index].bookMark =
+            !this.sortedProperties[index].bookMark;
         }
       } else {
         if (!this.properties[index].bookMark) {
@@ -460,10 +556,8 @@ Vue.createApp({
 
   created: function () {
     if (sessionStorage.getItem("search")) {
-      if (sessionStorage.getItem("search") !== null) {
-        this.search = sessionStorage.getItem("search");
-        sessionStorage.removeItem("search");
-      }
+      this.search = sessionStorage.getItem("search");
+      sessionStorage.removeItem("search");
     }
     this.getListings();
     this.loggedIn();

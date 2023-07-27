@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/";
+const URL = "https://studenthousinghub-production.up.railway.app/";
 
 Vue.createApp({
   data() {
@@ -441,7 +441,12 @@ Vue.createApp({
 
     photos: function () {
       document.querySelector("#files").addEventListener("change", (e) => {
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
+        if (
+          window.File &&
+          window.FileReader &&
+          window.FileList &&
+          window.Blob
+        ) {
           const files = e.target.files;
           const output = document.querySelector("#result");
 
