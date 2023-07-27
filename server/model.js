@@ -5,8 +5,10 @@ dotenv.config();
 const { rejects } = require("assert");
 const bcrypt = require("bcryptjs");
 
+
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.DB_LINK);
+
 
 const PhotoSchema = new mongoose.Schema({
   key: {
@@ -16,7 +18,7 @@ const PhotoSchema = new mongoose.Schema({
   bucketName: {
     type: String,
     required: [true, "Bucket must have a name."],
-  },
+  }
 });
 
 const PropertySchema = new mongoose.Schema({
@@ -64,13 +66,12 @@ const PropertySchema = new mongoose.Schema({
     required: [true, "Property must have a description."],
   },
   amenities: [String],
-  photos: [PhotoSchema],
   description: {
     type: String,
     required: [true, 'Must have a description']
-  }
-})
-  creator: String,
+  },
+  creator: String
+ 
 });
 
 
@@ -119,10 +120,12 @@ UserSchema.methods.verifyPassword = function (plainPassword) {
   return promise;
 };
 
+
 const Photo = mongoose.model("Photo", PhotoSchema);
 const User = mongoose.model("User", UserSchema);
 const RedactedUser = mongoose.model("RedactedUser", UserSchema);
 const Property = mongoose.model("Property", PropertySchema);
+
 
 User.createCollection();
 RedactedUser.createCollection({
@@ -138,11 +141,10 @@ RedactedUser.createCollection({
   ],
 });
 
+
 module.exports = {
   Photo: Photo,
   User: User,
   RedactedUser: RedactedUser,
   Property: Property,
 };
-
-//hello
