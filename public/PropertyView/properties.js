@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/";
+const URL = "https://studenthousinghub-production.up.railway.app/";
 Vue.createApp({
   data() {
     return {
@@ -13,9 +13,9 @@ Vue.createApp({
       distance: 0,
 
       userInfo: {
-        name: "Bob Smith",
-        phoneNumber: "801-555-5555",
-        email: "bobsmith@gmail.com",
+        name: "",
+        phoneNumber: "",
+        email: "",
       },
 
       propertyInfo: {
@@ -31,6 +31,7 @@ Vue.createApp({
         parking: false,
         amenities: [],
         description: "",
+        creator: "",
       },
     };
   },
@@ -146,8 +147,8 @@ Vue.createApp({
         .then((response) => response.json())
         .then((data) => {
           this.propertyInfo = data;
-          this.fetchCoordinates();
           this.getUserInfo();
+          this.fetchCoordinates();
         });
     },
 
@@ -156,7 +157,6 @@ Vue.createApp({
         .then((response) => response.json())
         .then((data) => {
           this.userInfo = data;
-          console.log(this.userInfo);
         });
     },
   },

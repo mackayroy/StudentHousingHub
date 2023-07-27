@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/";
+const URL = "https://studenthousinghub-production.up.railway.app/";
 
 Vue.createApp({
   data() {
@@ -142,14 +142,16 @@ Vue.createApp({
         method: "DELETE",
       };
 
-      fetch(URL + "properties/" + listingId, requestOptions).then((response) => {
-        if (response.status === 204) {
-          console.log("Listing deleted");
-          this.user.myListings.splice(index, 1);
-        } else {
-          alert("Not able to delete listing");
+      fetch(URL + "properties/" + listingId, requestOptions).then(
+        (response) => {
+          if (response.status === 204) {
+            console.log("Listing deleted");
+            this.user.myListings.splice(index, 1);
+          } else {
+            alert("Not able to delete listing");
+          }
         }
-      });
+      );
     },
 
     // Settings Modal

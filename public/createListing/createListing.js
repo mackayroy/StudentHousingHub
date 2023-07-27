@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/";
+const URL = "https://studenthousinghub-production.up.railway.app/";
 
 Vue.createApp({
   data() {
@@ -363,7 +363,6 @@ Vue.createApp({
       this.moveAmmenties();
       this.pushListing();
       this.propertyInfo.creator = this.userId;
-
     },
     moveAmmenties: function () {
       for (let i = 0; i < this.ammenitylist.length; i++) {
