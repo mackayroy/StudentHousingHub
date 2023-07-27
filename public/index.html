@@ -340,13 +340,29 @@
         </div>
       </div>
       <div class="savedModal" v-if="showSavedModal">
-        <div class="saved">
+        <div class="saved myListings">
           <div class="savedTopText">
             <h2 @click="toggleSavedModal()" class="savedExit"><i class="fa-solid fa-circle-xmark"></i></h2>
-            <h2>Saved Listings</h2>
+            <h2 class="myListingText">Saved Listings</h2>
           </div>
           <div class="savedLongLine"></div>
-          <div v-for="pro in user.savedListings">p</div>
+          <div class="contentBox--nav"></div>
+          <div v-for="(pro, index) in user.savedListings" class="content--nav">
+            <div class="property--nav">
+                <img src="SearchSort/pexels-vecislavas-popa-1571460.jpg" alt="property" />
+                <div class="propertyInfo--nav">
+                  <h3 class="price--nav">${{ pro.rent }}</h3>
+                  <p class="propertyName--nav">{{ pro.propertyName }}</p>
+                  <span class="address--nav">{{ pro.addresss }}</span>
+                  <span class="address--nav university--nav">{{ pro.college }}</span>
+                  <p class="numbeds--nav">Bed / Bath: {{ pro.rooms }} / {{ pro.bathrooms }}</p>
+            </div>
+              <div class="TrashCan--nav" >
+                <i
+                  class="fa-solid fa-bookmark bookMarkIcon"
+                ></i>
+              </div>
+          </div>
         </div>
       </div>
       

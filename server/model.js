@@ -69,6 +69,7 @@ const PropertySchema = new mongoose.Schema({
     type: String,
     required: [true, "Must have a description"],
   },
+
   creator: String,
 });
 

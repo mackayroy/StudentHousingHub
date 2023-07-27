@@ -37,7 +37,7 @@ app.use(express.static("public"));
 // middleware
 function AuthMiddleware(req, res, next) {
   if (req.session && req.session.userId) {
-    model.User.findOne({ "_id": req.session.userId }).then((user) => {
+    model.User.findOne({ _id: req.session.userId }).then((user) => {
       if (user) {
         req.user = user;
         next();
@@ -77,7 +77,7 @@ app.get("/users", function (req, res) {
 });
 
 app.get("/users/:usersId", function (req, res) {
-  model.User.findOne({ "_id": req.params.usersId }).then(function (user) {
+  model.User.findOne({ _id: req.params.usersId }).then(function (user) {
     if (user) {
       res.send(user);
     } else {
@@ -94,7 +94,7 @@ app.get("/users/:usersId/listings", function (req, res) {
 
 app.put("/users/:usersId", function (req, res) {
   var usersId = req.params.usersId;
-  model.User.findOne({ "_id": usersId }).then((user) => {
+  model.User.findOne({ _id: usersId }).then((user) => {
     if (user) {
       user.verifyPassword(req.body.verifyPassword).then((result) => {
         if (result) {
@@ -143,7 +143,7 @@ app.put("/users/:usersId", function (req, res) {
 app.put("/users/:usersId/:propertyId", AuthMiddleware, function (req, res) {
   var userId = req.params.usersId;
   var propertyId = req.params.propertyId;
-  model.User.findOne({ "_id": userId }).then((user) => {
+  model.User.findOne({ _id: userId }).then((user) => {
     if (user) {
       if (user.savedListings.includes(propertyId)) {
         let index1 = user.savedListings.indexOf(propertyId);
@@ -180,7 +180,10 @@ app.post("/properties", AuthMiddleware, function (req, res) {
     washerDryer: req.body.washerDryer,
     parking: req.body.parking,
     amenities: req.body.amenities,
-    // photos: req.body.photos,
+
+    description: req.body.description,
+    // photos: req.body.photos
+
   });
   newProperty
     .save()
@@ -203,7 +206,11 @@ app.get("/properties", function (req, res) {
 });
 
 app.get("/properties/:propertyId", function (req, res) {
-  model.Property.findOne({ "_id": req.params.propertyId }).then(function (property) {
+
+  model.Property.findOne({ _id: req.params.propertyId }).then(function (
+    property
+  ) {
+
     if (property) {
       res.send(property);
     } else {
@@ -213,7 +220,7 @@ app.get("/properties/:propertyId", function (req, res) {
 });
 
 app.delete("/properties/:propertiesId", AuthMiddleware, function (req, res) {
-  model.Property.findOneAndDelete({ "_id": req.params.propertiesId })
+  model.Property.findOneAndDelete({ _id: req.params.propertiesId })
     .then(function (property) {
       if (property) {
         res.status(204).send("Property deleted.");
@@ -227,7 +234,7 @@ app.delete("/properties/:propertiesId", AuthMiddleware, function (req, res) {
 });
 
 app.put("/properties/:propertiesId", AuthMiddleware, function (req, res) {
-  model.Property.findOne({ "_id": req.params.propertiesId }).then((property) => {
+  model.Property.findOne({ _id: req.params.propertiesId }).then((property) => {
     if (property) {
       if (req.body.college) {
         property.college = req.body.college;
@@ -306,7 +313,7 @@ app.get("/session", function (req, res) {
 });
 
 app.post("/session", function (req, res) {
-  model.User.findOne({ "email": req.body.email })
+  model.User.findOne({ email: req.body.email })
     .then((user) => {
       if (user) {
         // user exist now check password
@@ -318,7 +325,9 @@ app.post("/session", function (req, res) {
             res.status(201).send(req.session);
           } else {
             // password doesnt match
-            res.status(401).send("Couldn't authenticate. Check email/password.");
+            res
+              .status(401)
+              .send("Couldn't authenticate. Check email/password.");
           }
         });
       } else {
