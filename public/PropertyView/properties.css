@@ -148,12 +148,14 @@ nav .navRefs .signIn {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  z-index: 3;
 }
 .si-modal,
 .su-modal {
   background-color: var(--light-green);
   border-radius: 10px;
   width: 500px;
+  z-index: 3;
 }
 .sisu-topText {
   display: flex;
@@ -249,6 +251,7 @@ nav .navRefs .signIn {
   justify-content: center;
   align-items: center;
   white-space: nowrap;
+  z-index: 3;
 }
 .profileModal:before {
   content: "";
@@ -260,6 +263,7 @@ nav .navRefs .signIn {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 10px solid white;
+  z-index: 3;
 }
 .profile:hover .profileModal {
   display: flex;
@@ -285,6 +289,7 @@ nav .navRefs .signIn {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  z-index: 3;
 }
 .contact {
   background-color: var(--light-green);
@@ -293,6 +298,7 @@ nav .navRefs .signIn {
   flex-flow: column;
   justify-content: center;
   padding: 15px;
+  z-index: 3;
 }
 .contactTopText {
   display: flex;
@@ -342,6 +348,7 @@ nav .navRefs .signIn {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  z-index: 3;
 }
 .saved,
 .myListings {
@@ -355,6 +362,7 @@ nav .navRefs .signIn {
   /* get the modal too scroll */
   min-height: 300px;
   min-width: 300px;
+  z-index: 3;
 }
 
 /* .myListingsBackground {
@@ -409,6 +417,7 @@ nav .navRefs .signIn {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  z-index: 3;
 }
 .settingsTopText {
   display: flex;
