@@ -469,6 +469,7 @@ Vue.createApp({
       this.search = sessionStorage.getItem("search");
       sessionStorage.removeItem("search");
     }
+    this.getListings();
     this.loggedIn();
   },
 }).mount("#app");

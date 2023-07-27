@@ -13,9 +13,9 @@ Vue.createApp({
       distance: 0,
 
       userInfo: {
-        name: "Bob Smith",
-        phoneNumber: "801-555-5555",
-        email: "bobsmith@gmail.com",
+        name: "",
+        phoneNumber: "",
+        email: "",
       },
 
       propertyInfo: {
