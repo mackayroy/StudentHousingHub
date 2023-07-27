@@ -88,11 +88,13 @@ Vue.createApp({
       fetch(URL + "properties")
         .then((response) => response.json())
         .then((data) => {
-          for (let i = 0; i < data.length; i++) {
-            if (this.user.savedListings.includes(data[i]._id)) {
-              data[i].saved = true;
-            } else {
-              data[i].saved = false;
+          if (Object.keys(this.user).length > 0) {
+            for (let i = 0; i < data.length; i++) {
+              if (this.user.savedListings.includes(data[i]._id)) {
+                data[i].saved = true;
+              } else {
+                data[i].saved = false;
+              }
             }
           }
           this.properties = data;
