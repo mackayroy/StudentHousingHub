@@ -284,6 +284,8 @@ nav .navRefs .signIn {
   padding: 15px;
   overflow-y: auto;
   /* get the modal too scroll */
+  min-height: 300px;
+  min-width: 300px;
 }
 
 /* .myListingsBackground {
@@ -294,6 +296,15 @@ nav .navRefs .signIn {
 
 .myListings {
   justify-content: flex-start;
+}
+
+.noListing {
+  padding: 20px;
+  margin: 30px 0px;
+  font: bold 20px/30px Helvetica, Sans-Serif;
+  background: white;
+  border-radius: 10px;
+  color: #819171;
 }
 
 .savedExit {
