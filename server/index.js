@@ -183,7 +183,6 @@ app.post("/properties", AuthMiddleware, function (req, res) {
 
     description: req.body.description,
     photos: req.body.photos,
-
   });
   newProperty
     .save()
@@ -206,15 +205,11 @@ app.get("/properties", function (req, res) {
 });
 
 app.get("/properties/:propertyId", function (req, res) {
-
-  model.Property.findOne({ _id: req.params.propertyId }).then(function (
-    property
-  ) {
-
+  model.Property.findOne({ _id: req.params.propertyId }).then(function (property) {
     if (property) {
       res.send(property);
     } else {
-      res.status(404).send("Property not found.");
+      res.status(404).send(JSON.stringify("Property not found."));
     }
   });
 });
@@ -325,9 +320,7 @@ app.post("/session", function (req, res) {
             res.status(201).send(req.session);
           } else {
             // password doesnt match
-            res
-              .status(401)
-              .send("Couldn't authenticate. Check email/password.");
+            res.status(401).send("Couldn't authenticate. Check email/password.");
           }
         });
       } else {
