@@ -815,6 +815,11 @@
 
         autocomplete.addListener("place_changed", function () {
           var place = autocomplete.getPlace();
+          if (place.formatted_address) {
+            sessionStorage.setItem("searchSort", place.formatted_address);
+          } else {
+            sessionStorage.setItem("searchSort", place.name);
+          }
 
           // place variable will have all the information you are looking for.
 

@@ -63,6 +63,7 @@ Vue.createApp({
     };
   },
   methods: {
+
     navSaveListing: function (index) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -92,6 +93,27 @@ Vue.createApp({
         .then((data) => {
           this.user.myListings = data;
         });
+      
+    async postImage() {
+      const formData = new FormData();
+      formData.append('file', this.$refs.uploadImage.files[0]);
+      // name, price 
+      try {
+        const response = await fetch('http://localhost:8080/images', {
+          method: 'POST',
+          body: formData
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        
+        const result = await response.json();
+        return result;
+      } catch(error) {
+        console.error(error);
+        throw error;
+      }
+
     },
     backtoHome: function () {
       window.location.href = "../index.html";

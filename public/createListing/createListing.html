@@ -202,16 +202,12 @@
         <div class="uploadImageSection">
           <h2>Upload Images</h2>
           <div class="upload">
-            <input
-              enctype="multipart/form-data"
-              @submit.prevent="postImage()"
-              type="file"
-              id="imageUpload"
-              accept="images/*"
-              ref="imageUpload"
-              multiple="multiple"
-            />
-            <button class="submitPhotos">Submit Photos</button>
+            <form id="imageForm" enctype="multipart/form-data" @submit.prevent="postImage()" >
+              <label for="imageUpload">Choose Image</label>
+              <input type="file" id="imageUpload" accept="images/*" multiple="multiple" ref="uploadImage" required>
+              <br>
+              <input class="submitbtn" type="submit" value="Submit">
+          </form>
             <output id="result"></output>
           </div>
         </div>

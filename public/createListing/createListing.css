@@ -656,13 +656,13 @@ nav .navRefs .signIn {
   min-height: 300px;
   width: 80vw;
 }
-.submitPhotos {
+.submitbtn {
   border: none;
   border-radius: 5px;
   background-color: var(--dark-green);
   color: var(--white);
   font-size: 1em;
-  width: 200px;
+  width: 150px;
   height: 35px;
   cursor: pointer;
   transition: 0.5s;

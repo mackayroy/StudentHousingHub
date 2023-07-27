@@ -256,6 +256,7 @@ button {
 .contentBox {
   grid-column: 3/-2;
   grid-row: 3/-1;
+  min-height: 100vh;
 }
 
 /* Styles for content */
@@ -1147,6 +1148,7 @@ nav .navRefs .signIn {
   #wrapper {
     display: flex;
     flex-flow: column nowrap;
+    min-height: 100vh;
   }
 
   .sort {
@@ -1233,5 +1235,8 @@ nav .navRefs .signIn {
   }
   .footerNav ul li a:hover {
     font-size: 1.3em;
+  }
+  .form-control {
+    border-radius: 16px;
   }
 }
