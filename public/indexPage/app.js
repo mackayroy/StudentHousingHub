@@ -360,13 +360,13 @@ Vue.createApp({
           this.getMyListings();
         });
     },
-
-    // Search Bar
     searchAndSend: function () {
-      console.log(this.heroSearch);
-      sessionStorage.setItem("search", String(this.heroSearch));
-      console.log(sessionStorage.getItem("search"));
-      window.location.href = "SearchSort/searchSort.html";
+      sessionStorage.setItem("search", this.heroSearch);
+      window.location.href = "../SearchSort/searchSort.html";
+    },
+
+    getSearchFromAuto: function () {
+      this.heroSearch = sessionStorage.getItem("search");
     },
   },
   created: function () {

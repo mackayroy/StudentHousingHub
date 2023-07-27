@@ -68,7 +68,8 @@
           id="autocomplete_search"
           name="autocomplete_search"
           class="form-control"
-          v-on:keyup.enter="searchAndSend()"
+          @keyup.enter="searchAndSend()"
+          @click="getSearchFromAuto()"
           v-model="heroSearch"
         />
       </div>
