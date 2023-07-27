@@ -11,8 +11,8 @@ const unlinkFile = util.promisify(fs.unlink);
 
 
 const app = express();
-const port = process.env.PORT || 8080
 
+const port = process.env.PORT || 8080;
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -33,13 +33,13 @@ app.use(
     resave: false,
   })
 );
-app.use(express.static('public'))
+app.use(express.static("public"));
 
 
 // middleware
 function AuthMiddleware(req, res, next) {
   if (req.session && req.session.userId) {
-    model.User.findOne({ "_id": req.session.userId }).then((user) => {
+    model.User.findOne({ _id: req.session.userId }).then((user) => {
       if (user) {
         req.user = user;
         next();
@@ -80,7 +80,7 @@ app.get("/users", function (req, res) {
 });
 
 app.get("/users/:usersId", function (req, res) {
-  model.User.findOne({ "_id": req.params.usersId }).then(function (user) {
+  model.User.findOne({ _id: req.params.usersId }).then(function (user) {
     if (user) {
       res.send(user);
     } else {
@@ -89,9 +89,17 @@ app.get("/users/:usersId", function (req, res) {
   });
 });
 
+app.get("/users/:usersId/listings", function (req, res) {
+  model.Property.find({ "creator": req.params.usersId }).then(function (
+    properties
+  ) {
+    res.send(properties);
+  });
+});
+
 app.put("/users/:usersId", function (req, res) {
   var usersId = req.params.usersId;
-  model.User.findOne({ "_id": usersId }).then((user) => {
+  model.User.findOne({ _id: usersId }).then((user) => {
     if (user) {
       user.verifyPassword(req.body.verifyPassword).then((result) => {
         if (result) {
@@ -138,6 +146,33 @@ app.put("/users/:usersId", function (req, res) {
 });
 
 
+app.put("/users/:usersId/:propertyId", AuthMiddleware, function (req, res) {
+  var userId = req.params.usersId;
+  var propertyId = req.params.propertyId;
+  model.User.findOne({ _id: userId }).then((user) => {
+    if (user) {
+      if (user.savedListings.includes(propertyId)) {
+        let index1 = user.savedListings.indexOf(propertyId);
+        user.savedListings.splice(index1, 1);
+      } else {
+        user.savedListings.push(propertyId);
+      }
+      user
+        .save()
+        .then(function () {
+          res.status(200).send("Saved Listing");
+        })
+        .catch((errors) => {
+          console.log(errors);
+          res.status(422).send("Error updating user.");
+        });
+    } else {
+      res.status(404).send("User not found.");
+    }
+  });
+});
+
+
 // property
 app.post("/properties", AuthMiddleware, function (req, res) {
   const newProperty = new model.Property({
@@ -152,7 +187,10 @@ app.post("/properties", AuthMiddleware, function (req, res) {
     washerDryer: req.body.washerDryer,
     parking: req.body.parking,
     amenities: req.body.amenities,
-    photos: req.body.photos
+    description: req.body.description,
+
+    // photos: req.body.photos,
+    creator: req.user._id,
   });
   newProperty
     .save()
@@ -171,18 +209,20 @@ app.get("/properties", function (req, res) {
   })
 });
 
-app.get("/properties/:propertiesId", function (req, res) {
-  model.Property.findOne({ "_id": req.params.propertiesId }).then(function (property) {
+app.get("/properties/:propertyId", function (req, res) {
+
+  model.Property.findOne({ _id: req.params.propertyId }).then(function (property) {
+
     if (property) {
       res.send(property);
     } else {
-      res.status(404).send("Property not found.");
+      res.status(404).send(JSON.stringify("Property not found."));
     }
   });
 });
 
 app.delete("/properties/:propertiesId", AuthMiddleware, function (req, res) {
-  model.Property.findOneAndDelete({ "_id": req.params.propertiesId })
+  model.Property.findOneAndDelete({ _id: req.params.propertiesId })
     .then(function (property) {
       if (property) {
         res.status(204).send("Property deleted.");
@@ -196,7 +236,7 @@ app.delete("/properties/:propertiesId", AuthMiddleware, function (req, res) {
 });
 
 app.put("/properties/:propertiesId", AuthMiddleware, function (req, res) {
-  model.Property.findOne({ "_id": req.params.propertiesId }).then((property) => {
+  model.Property.findOne({ _id: req.params.propertiesId }).then((property) => {
     if (property) {
       if (req.body.college) {
         property.college = req.body.college;
@@ -207,6 +247,7 @@ app.put("/properties/:propertiesId", AuthMiddleware, function (req, res) {
       if (req.body.address) {
         property.address = req.body.address;
       }
+
       if (req.body.rent) {
         property.rent = req.body.rent;
       }
@@ -262,18 +303,18 @@ app.get("/images/:bucket/:key", (req, res) => {
   const bucket = req.params.bucket;
   console.log(key, bucket);
   const readStream = getFileStream(key, bucket);
+
   readStream.pipe(res);
 });
-  
+
 
 // session
 app.get("/session", function (req, res) {
-  console.log(req.session);
   res.send(req.session);
 });
 
 app.post("/session", function (req, res) {
-  model.User.findOne({ "email": req.body.email })
+  model.User.findOne({ email: req.body.email })
     .then((user) => {
       if (user) {
         // user exist now check password
@@ -306,6 +347,8 @@ app.delete("/session", function (req, res) {
 });
 
 
+
 app.listen(port, function () {
   console.log(`Running server on port ${port}...`);
 });
+

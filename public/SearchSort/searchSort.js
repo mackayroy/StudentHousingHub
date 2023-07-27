@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/";
+const URL = "https://studenthousinghub-production.up.railway.app/";
 
 Vue.createApp({
   data() {
@@ -12,13 +12,12 @@ Vue.createApp({
       sort: false,
       minPrice: null,
       maxPrice: null,
-      minBedrooms: null,
-      minBathrooms: null,
-      poolCheckbox: false,
+      bedrooms: null,
+      bathrooms: null,
+      privateRoomCheckbox: false,
       wifiCheckbox: false,
-      printerCheckbox: false,
-      kitchenCheckbox: false,
-      privetRoomCheckbox: false,
+      washerDryerCheckbox: false,
+      parkingCheckbox: false,
       activeSort: "",
       userSession: false,
       showNavModal: false,
@@ -48,12 +47,7 @@ Vue.createApp({
         password: "",
         changePassword: false,
       },
-      user: {
-        name: "",
-        email: "",
-        phoneNumber: "",
-        password: "",
-      },
+      user: {},
       userId: "",
       updateUser: {},
     };
@@ -61,13 +55,12 @@ Vue.createApp({
   watch: {
     minPrice: "filterProperties",
     maxPrice: "filterProperties",
-    minBedrooms: "filterProperties",
-    minBathrooms: "filterProperties",
-    poolCheckbox: "filterProperties",
+    bedrooms: "filterProperties",
+    bathrooms: "filterProperties",
+    privateRoomCheckbox: "filterProperties",
     wifiCheckbox: "filterProperties",
-    printerCheckbox: "filterProperties",
-    kitchenCheckbox: "filterProperties",
-    privetRoomCheckbox: "filterProperties",
+    washerDryerCheckbox: "filterProperties",
+    parkingCheckbox: "filterProperties",
 
     search(newSearch, oldSearch) {
       if (this.sort) {
@@ -81,9 +74,9 @@ Vue.createApp({
       }
       this.searchedProperties = this.properties.filter((pro) => {
         return (
-          pro.name.toLowerCase().includes(newSearch.toLowerCase()) ||
-          pro.location.toLowerCase().includes(newSearch.toLowerCase()) ||
-          pro.university.toLowerCase().includes(newSearch.toLowerCase())
+          pro.propertyName.toLowerCase().includes(newSearch.toLowerCase()) ||
+          pro.address.toLowerCase().includes(newSearch.toLowerCase()) ||
+          pro.college.toLowerCase().includes(newSearch.toLowerCase())
         );
       });
     },
@@ -93,6 +86,13 @@ Vue.createApp({
       fetch(URL + "properties")
         .then((response) => response.json())
         .then((data) => {
+          for (let i = 0; i < data.length; i++) {
+            if (this.user.savedListings.includes(data[i]._id)) {
+              data[i].saved = true;
+            } else {
+              data[i].saved = false;
+            }
+          }
           this.properties = data;
         });
     },
@@ -108,6 +108,7 @@ Vue.createApp({
         headers: myHeaders,
         credentials: "include",
       };
+
       fetch(
         URL + "users/" + this.userId + "/" + this.properties[index]._id,
         options
@@ -115,10 +116,17 @@ Vue.createApp({
         if (response.status != 200) {
           alert("Unable to save listing.");
         } else {
-          alert("Listing saved.");
+          if (this.properties[index].saved) {
+            this.properties[index].saved = false;
+          } else {
+            this.properties[index].saved = true;
+          }
+
+          this.user.savedListings.push(this.properties[index]._id);
         }
       });
     },
+
     toggleNavModal: function () {
       this.navUser.name = "";
       this.navUser.email = "";
@@ -337,6 +345,7 @@ Vue.createApp({
           if (data && data.cookie && data.userId) {
             this.userSession = true;
             this.userId = data.userId;
+            this.user = data;
             this.setUser();
           }
         });
@@ -354,10 +363,8 @@ Vue.createApp({
       fetch(URL + "users/" + this.userId)
         .then((response) => response.json())
         .then((data) => {
-          this.user.name = data.name;
-          this.user.email = data.email;
-          this.user.phoneNumber = data.phoneNumber;
-          this.user.password = data.password;
+          this.user = data;
+          this.getListings();
         });
     },
     sortByLowestPrice: function () {
@@ -385,13 +392,12 @@ Vue.createApp({
       });
       this.minPrice = null;
       this.maxPrice = null;
-      this.minBedrooms = null;
-      this.minBathrooms = null;
-      this.poolCheckbox = false;
+      this.bedrooms = null;
+      this.bathrooms = null;
+      this.privateRoomCheckbox = false;
       this.wifiCheckbox = false;
-      this.printerCheckbox = false;
-      this.kitchenCheckbox = false;
-      this.privetRoomCheckbox = false;
+      this.washerDryerCheckbox = false;
+      this.parkingCheckbox = false;
       this.sort = false;
     },
 
@@ -403,28 +409,21 @@ Vue.createApp({
         let meetsCriteria = true;
         this.sort = true;
 
-        if (this.minPrice && property.price < this.minPrice)
+        if (this.minPrice && property.rent < this.minPrice)
           meetsCriteria = false;
-        if (this.maxPrice && property.price > this.maxPrice)
+        if (this.maxPrice && property.rent > this.maxPrice)
           meetsCriteria = false;
-        if (
-          this.minBedrooms &&
-          parseInt(property.numBeds) !== this.minBedrooms
-        ) {
+        if (this.bedrooms && parseInt(property.rooms) != this.bedrooms) {
           meetsCriteria = false;
         }
-        if (
-          this.minBathrooms &&
-          parseInt(property.numBaths) !== this.minBathrooms
-        )
+        if (this.bathrooms && parseInt(property.bathrooms) != this.bathrooms)
           meetsCriteria = false;
-        if (this.poolCheckbox && property.Pool !== true) meetsCriteria = false;
-        if (this.wifiCheckbox && property.Wifi !== true) meetsCriteria = false;
-        if (this.printerCheckbox && property.Printer !== true)
+        if (this.privateRoomCheckbox && property.private !== true)
           meetsCriteria = false;
-        if (this.kitchenCheckbox && property.Kitchen !== true)
+        if (this.wifiCheckbox && property.wifi !== true) meetsCriteria = false;
+        if (this.washerDryerCheckbox && property.washerDryer !== true)
           meetsCriteria = false;
-        if (this.privetRoomCheckbox && property.privetRoom !== true)
+        if (this.parkingCheckbox && parking.Kitchen !== true)
           meetsCriteria = false;
 
         if (meetsCriteria) {
@@ -470,7 +469,7 @@ Vue.createApp({
       this.search = sessionStorage.getItem("search");
       sessionStorage.removeItem("search");
     }
-    this.loggedIn();
     this.getListings();
+    this.loggedIn();
   },
 }).mount("#app");

@@ -24,12 +24,8 @@
         <nav>
           <div id="logo"></div>
           <div class="navRefs">
-            <div @click="toCreateListing()" class="navLinks" v-if="userSession">
-              Create Listing
-            </div>
-            <div @click="toggleNavModal()" class="navLinks" v-else>
-              Create Listing
-            </div>
+            <div @click="toCreateListing()" class="navLinks" v-if="userSession">Create Listing</div>
+            <div @click="toggleNavModal()" class="navLinks" v-else>Create Listing</div>
             <div @click="" class="navLinks">My Listings</div>
             <div>
               <div class="profile" v-if="userSession">
@@ -70,11 +66,11 @@
               </div>
               <div class="preferenceItem">
                 <label>Bedrooms</label>
-                <input type="number" v-model="minBedrooms" />
+                <input type="number" v-model="bedrooms" />
               </div>
               <div class="preferenceItem">
                 <label>Bathrooms</label>
-                <input type="number" v-model="minBathrooms" />
+                <input type="number" v-model="bathrooms" />
               </div>
             </div>
           </div>
@@ -85,44 +81,20 @@
             <div class="amenitiesList">
               <ul>
                 <li>
-                  <input
-                    type="checkbox"
-                    v-model="poolCheckbox"
-                    id="poolCheckbox"
-                  />
-                  <label for="poolCheckbox">Pool</label>
+                  <input type="checkbox" v-model="privateRoomCheckbox" />
+                  <label for="privateRoomCheckbox">Private Room</label>
                 </li>
                 <li>
-                  <input
-                    type="checkbox"
-                    v-model="wifiCheckbox"
-                    id="wifiCheckbox"
-                  />
+                  <input type="checkbox" v-model="wifiCheckbox" />
                   <label for="wifiCheckbox">WiFi</label>
                 </li>
                 <li>
-                  <input
-                    type="checkbox"
-                    v-model="printerCheckbox"
-                    id="printerCheckbox"
-                  />
-                  <label for="printerCheckbox">Printer</label>
+                  <input type="checkbox" v-model="washerDryerCheckbox" />
+                  <label for="washerDryerCheckbox">Washer/Dryer</label>
                 </li>
                 <li>
-                  <input
-                    type="checkbox"
-                    v-model="kitchenCheckbox"
-                    id="kitchenCheckbox"
-                  />
-                  <label for="kitchenCheckbox">Kitchen</label>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    v-model="privetRoomCheckbox"
-                    id="privetRoomCheckbox"
-                  />
-                  <label for="privetRoomCheckbox">Private Room</label>
+                  <input type="checkbox" v-model="parkingCheckbox" />
+                  <label for="parkingCheckbox">Parking</label>
                 </li>
               </ul>
             </div>
@@ -153,11 +125,11 @@
                 </div>
                 <div class="preferenceItem">
                   <label>Bedrooms</label>
-                  <input type="number" v-model="minBedrooms" />
+                  <input type="number" v-model="bedrooms" />
                 </div>
                 <div class="preferenceItem">
                   <label>Bathrooms</label>
-                  <input type="number" v-model="minBathrooms" />
+                  <input type="number" v-model="bathrooms" />
                 </div>
               </div>
             </div>
@@ -168,44 +140,20 @@
               <div class="amenitiesList">
                 <ul>
                   <li>
-                    <input
-                      type="checkbox"
-                      v-model="poolCheckbox"
-                      id="poolCheckbox"
-                    />
-                    <label for="poolCheckbox">Pool</label>
+                    <input type="checkbox" v-model="privateRoomCheckbox" />
+                    <label for="privateRoomCheckbox">Private Room</label>
                   </li>
                   <li>
-                    <input
-                      type="checkbox"
-                      v-model="wifiCheckbox"
-                      id="wifiCheckbox"
-                    />
+                    <input type="checkbox" v-model="wifiCheckbox" />
                     <label for="wifiCheckbox">WiFi</label>
                   </li>
                   <li>
-                    <input
-                      type="checkbox"
-                      v-model="printerCheckbox"
-                      id="printerCheckbox"
-                    />
-                    <label for="printerCheckbox">Printer</label>
+                    <input type="checkbox" v-model="washerDryerCheckbox" />
+                    <label for="washerDryerCheckbox">Washer/Dryer</label>
                   </li>
                   <li>
-                    <input
-                      type="checkbox"
-                      v-model="kitchenCheckbox"
-                      id="kitchenCheckbox"
-                    />
-                    <label for="kitchenCheckbox">Kitchen</label>
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      v-model="privetRoomCheckbox"
-                      id="privetRoomCheckbox"
-                    />
-                    <label for="privetRoomCheckbox">Private Room</label>
+                    <input type="checkbox" v-model="parkingCheckbox" />
+                    <label for="parkingCheckbox">Parking</label>
                   </li>
                 </ul>
               </div>
@@ -230,15 +178,13 @@
               <h2 class="drop">Sort By</h2>
               <i class="fa-solid fa-sort sortIcon"></i>
               <div class="dropdown-content">
-                <span
-                  @click="sortByLowestPrice()"
-                  :class="{ 'active-sort': activeSort === 'low' }"
-                  >Price Low too High</span
+                <span @click="sortByLowestPrice()" :class="{ 'active-sort': activeSort === 'low' }"
+                  >Price Low to High</span
                 >
                 <span
                   @click="sortByHighestPrice()"
                   :class="{ 'active-sort': activeSort === 'high' }"
-                  >Price High too Low</span
+                  >Price High to Low</span
                 >
               </div>
             </div>
@@ -259,15 +205,18 @@
                 <p class="propertyName">{{pro.propertyName}}</p>
                 <span class="address">{{pro.address}}</span>
                 <span class="address university">{{pro.college}}</span>
-                <p class="numbeds">
-                  Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}
-                </p>
+                <p class="numbeds">Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}</p>
               </div>
-              <div class="bookMark" @click="saveListing(index)">
+              <div class="bookMark">
                 <i
                   class="fa-solid fa-bookmark bookMarkIcon"
-                  v-bind:class="{bookMarkIconSaved: pro.bookMark}"
-                  @click="bookMark(index, 'sorted')"
+                  v-show="pro.saved"
+                  @click="saveListing(index)"
+                ></i>
+                <i
+                  class="fa-regular fa-bookmark bookMarkIcon"
+                  v-show="!pro.saved"
+                  @click="saveListing(index)"
                 ></i>
               </div>
             </div>
@@ -285,17 +234,20 @@
               <div @click="goToProperty(index)" class="propertyInfo">
                 <h3 class="price">${{pro.rent}}</h3>
                 <p class="propertyName">{{pro.propertyName}}</p>
-                <span class="address">{{pro.addresss}}</span>
+                <span class="address">{{pro.address}}</span>
                 <span class="address university">{{pro.college}}</span>
-                <p class="numbeds">
-                  Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}
-                </p>
+                <p class="numbeds">Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}</p>
               </div>
-              <div class="bookMark" @click="saveListing(index)">
+              <div class="bookMark">
                 <i
                   class="fa-solid fa-bookmark bookMarkIcon"
-                  v-bind:class="{bookMarkIconSaved: pro.bookMark}"
-                  @click="bookMark(index, 'sorted')"
+                  v-show="pro.saved"
+                  @click="saveListing(index)"
+                ></i>
+                <i
+                  class="fa-regular fa-bookmark bookMarkIcon"
+                  v-show="!pro.saved"
+                  @click="saveListing(index)"
                 ></i>
               </div>
             </div>
@@ -317,15 +269,18 @@
                 <p class="propertyName">{{pro.propertyName}}</p>
                 <span class="address">{{pro.address}}</span>
                 <span class="address university">{{pro.college}}</span>
-                <p class="numbeds">
-                  Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}
-                </p>
+                <p class="numbeds">Bed / Bath: {{pro.rooms}} / {{pro.bathrooms}}</p>
               </div>
-              <div class="bookMark" @click="saveListing(index)">
+              <div class="bookMark">
                 <i
                   class="fa-solid fa-bookmark bookMarkIcon"
-                  v-bind:class="{bookMarkIconSaved: pro.bookMark}"
-                  @click="bookMark(index)"
+                  v-show="pro.saved"
+                  @click="saveListing(index)"
+                ></i>
+                <i
+                  class="fa-regular fa-bookmark bookMarkIcon"
+                  v-show="!pro.saved"
+                  @click="saveListing(index)"
                 ></i>
               </div>
             </div>
@@ -334,15 +289,11 @@
         <footer>
           <div class="footerContainer">
             <div class="socialIcons">
-              <a href="https://www.facebook.com/utahtechu"
-                ><i class="fa-brands fa-facebook"></i
-              ></a>
+              <a href="https://www.facebook.com/utahtechu"><i class="fa-brands fa-facebook"></i></a>
               <a href="https://www.instagram.com/utahtechu/"
                 ><i class="fa-brands fa-instagram"></i
               ></a>
-              <a href="https://twitter.com/utahtechu"
-                ><i class="fa-brands fa-twitter"></i
-              ></a>
+              <a href="https://twitter.com/utahtechu"><i class="fa-brands fa-twitter"></i></a>
               <a href="https://www.youtube.com/@UtahTechUniversity"
                 ><i class="fa-brands fa-youtube"></i
               ></a>
@@ -352,14 +303,10 @@
                 <li><a href="../index.html">Home</a></li>
                 <li><a @click="toggleContactModal()">Contact</a></li>
                 <li>
-                  <a href="https://utahtech.edu/terms-of-use/"
-                    >Terms of Service</a
-                  >
+                  <a href="https://utahtech.edu/terms-of-use/">Terms of Service</a>
                 </li>
                 <li>
-                  <a href="https://utahtech.edu/privacy-policy/"
-                    >Privacy Policy</a
-                  >
+                  <a href="https://utahtech.edu/privacy-policy/">Privacy Policy</a>
                 </li>
               </ul>
             </div>
@@ -381,16 +328,8 @@
             </div>
             <div class="sisu-formCont">
               <div class="sisu-form">
-                <input
-                  type="text"
-                  placeholder="Email..."
-                  v-model="navLoginUser.email"
-                />
-                <input
-                  type="text"
-                  placeholder="Password..."
-                  v-model="navLoginUser.password"
-                />
+                <input type="text" placeholder="Email..." v-model="navLoginUser.email" />
+                <input type="text" placeholder="Password..." v-model="navLoginUser.password" />
               </div>
               <div class="sisu-line"></div>
               <div class="sisu-buttons">
@@ -406,26 +345,10 @@
             </div>
             <div class="sisu-formCont">
               <div class="sisu-form">
-                <input
-                  type="text"
-                  placeholder="Name..."
-                  v-model="navUser.name"
-                />
-                <input
-                  type="text"
-                  placeholder="Email..."
-                  v-model="navUser.email"
-                />
-                <input
-                  type="text"
-                  placeholder="Phone..."
-                  v-model="navUser.phoneNumber"
-                />
-                <input
-                  type="text"
-                  placeholder="Password..."
-                  v-model="navUser.password"
-                />
+                <input type="text" placeholder="Name..." v-model="navUser.name" />
+                <input type="text" placeholder="Email..." v-model="navUser.email" />
+                <input type="text" placeholder="Phone..." v-model="navUser.phoneNumber" />
+                <input type="text" placeholder="Password..." v-model="navUser.password" />
               </div>
               <div class="sisu-line-long"></div>
               <div class="sisu-buttons">
@@ -462,41 +385,20 @@
             <div class="settingsFileInput" v-if="settingsUser.changePhoto">
               <input type="file" />
             </div>
-            <img
-              src="../sample.jpg"
-              alt="profilePicture"
-              class="settingsPP"
-              v-else
-            />
-            <i
-              class="fa-regular fa-pen-to-square"
-              class="settingsEdit"
-              @click="togglePhoto()"
-            ></i>
+            <img src="../sample.jpg" alt="profilePicture" class="settingsPP" v-else />
+            <i class="fa-regular fa-pen-to-square" class="settingsEdit" @click="togglePhoto()"></i>
           </div>
           <div class="settingsLine"></div>
           <div class="settingsInputs">
             <div class="settingsInput">
               <span>Name:</span>
-              <input
-                type="text"
-                v-model="settingsUser.name"
-                v-if="settingsUser.changeName"
-              />
+              <input type="text" v-model="settingsUser.name" v-if="settingsUser.changeName" />
               <p v-else>{{user.name}}</p>
-              <i
-                class="fa-regular fa-pen-to-square"
-                class="settingsEdit"
-                @click="toggleName()"
-              ></i>
+              <i class="fa-regular fa-pen-to-square" class="settingsEdit" @click="toggleName()"></i>
             </div>
             <div class="settingsInput">
               <span>Email:</span>
-              <input
-                type="text"
-                v-model="settingsUser.email"
-                v-if="settingsUser.changeEmail"
-              />
+              <input type="text" v-model="settingsUser.email" v-if="settingsUser.changeEmail" />
               <p v-else>{{user.email}}</p>
               <i
                 class="fa-regular fa-pen-to-square"
@@ -539,9 +441,7 @@
             </div>
           </div>
           <div class="settingsButtons">
-            <button @click="toggleSettingsModal()" class="otherButton">
-              Cancel
-            </button>
+            <button @click="toggleSettingsModal()" class="otherButton">Cancel</button>
             <button @click="updateProfile()" class="mainButton">Save</button>
           </div>
         </div>

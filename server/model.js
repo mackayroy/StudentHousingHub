@@ -58,7 +58,7 @@ const PropertySchema = new mongoose.Schema({
     required: [true, "Must be set to true or false."],
   },
   parking: {
-    type: String,
+    type: Boolean,
     required: [true, "Property must have parking listed."],
   },
   description: {
@@ -66,14 +66,15 @@ const PropertySchema = new mongoose.Schema({
     required: [true, "Property must have a description."],
   },
   amenities: [String],
+
   description: {
     type: String,
     required: [true, 'Must have a description']
   },
   creator: String
  
-});
 
+});
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -97,7 +98,6 @@ const UserSchema = new mongoose.Schema({
   savedListings: [String],
 });
 
-
 UserSchema.methods.setPassword = function (plainPassword) {
   var promise = new Promise((resolve, reject) => {
     bcrypt.hash(plainPassword, 12).then((hashedPassword) => {
@@ -109,7 +109,6 @@ UserSchema.methods.setPassword = function (plainPassword) {
   });
   return promise;
 };
-
 
 UserSchema.methods.verifyPassword = function (plainPassword) {
   var promise = new Promise((resolve, reject) => {

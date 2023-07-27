@@ -37,11 +37,32 @@ Vue.createApp({
       updateUser: {},
       showSavedModal: false,
       showMyListingsModal: false,
-      myListings: [],
       savedListings: [],
     };
   },
   methods: {
+    navSaveListing: function (index) {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var options = {
+        method: "PUT",
+        headers: myHeaders,
+        credentials: "include",
+      };
+
+      fetch(URL + "users/" + this.userId + "/" + this.savedListings[index]._id, options).then(
+        (response) => {
+          if (response.status != 200) {
+            alert("Unable to save listing.");
+          } else {
+            this.savedListings.splice(index, 1);
+
+            this.user.savedListings.push(this.properties[index]._id);
+          }
+        }
+      );
+    },
     getMyListings: function () {
       fetch(URL + "users/" + this.userId + "/listings")
         .then((response) => response.json())
@@ -112,7 +133,7 @@ Vue.createApp({
       } else {
         this.showMyListingsModal = true;
       }
-      console.log("user.myListings: " + this.user);
+      console.log(this.user);
     },
 
     deleteListing: function (index) {
@@ -305,6 +326,7 @@ Vue.createApp({
           if (data && data.cookie && data.userId) {
             this.userSession = true;
             this.userId = data.userId;
+            this.getMyListings();
             this.setUser();
           }
         });
@@ -315,7 +337,9 @@ Vue.createApp({
         credentials: "include",
       };
       fetch(URL + "session", options).then((response) => {
-        this.navUser.name = "";
+        this.user = {};
+        this.userId = "";
+        window.location.href = "index.html";
       });
     },
     setUser: function () {
@@ -323,6 +347,16 @@ Vue.createApp({
         .then((response) => response.json())
         .then((data) => {
           this.user = data;
+          this.user.savedListings.forEach((listingId) => {
+            fetch(URL + "properties/" + listingId)
+              .then((response) => response.json())
+              .then((data) => {
+                if (data !== "Property not found.") {
+                  console.log(data);
+                  this.savedListings.push(data);
+                }
+              });
+          });
           this.getMyListings();
         });
     },
