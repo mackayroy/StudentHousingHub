@@ -10,8 +10,7 @@ const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 
 const app = express();
-const port = 8080;
-// const port = process.env.PORT || 8080
+const port = process.env.PORT || 8080;
 
 app.use(express.static("public"));
 app.use(express.json());
