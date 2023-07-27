@@ -532,6 +532,37 @@ nav .navRefs .signIn {
   cursor: pointer;
 }
 
+/* Styles for BookMark Icon when Saved */
+
+/* @media (max-width: 1000px) {
+  .allListings {
+    display: none;
+  }
+} */
+
+/* @media (max-width: 700px) {
+  nav .navRefs {
+    gap: 25px;
+  }
+
+  .sectionImg {
+    display: none;
+  }
+
+  nav .navRefs {
+    margin-right: 5%;
+  }
+
+  .logo {
+    margin-left: 5%;
+  }
+
+  #logoimage {
+    background-size: 150%;
+  } */
+
+/* End of Nav */
+
 /* Hero */
 
 .hero {
@@ -747,8 +778,6 @@ footer {
   margin-bottom: 50px;
   display: none;
 }
-
-/* Styles for BookMark Icon when Saved */
 
 @media (max-width: 1000px) {
   .allListings {
