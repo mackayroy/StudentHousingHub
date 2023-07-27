@@ -12,13 +12,12 @@ Vue.createApp({
       sort: false,
       minPrice: null,
       maxPrice: null,
-      minBedrooms: null,
-      minBathrooms: null,
-      poolCheckbox: false,
+      bedrooms: null,
+      bathrooms: null,
+      privateRoomCheckbox: false,
       wifiCheckbox: false,
-      printerCheckbox: false,
-      kitchenCheckbox: false,
-      privetRoomCheckbox: false,
+      washerDryerCheckbox: false,
+      parkingCheckbox: false,
       activeSort: "",
       userSession: false,
       showNavModal: false,
@@ -56,13 +55,12 @@ Vue.createApp({
   watch: {
     minPrice: "filterProperties",
     maxPrice: "filterProperties",
-    minBedrooms: "filterProperties",
-    minBathrooms: "filterProperties",
-    poolCheckbox: "filterProperties",
+    bedrooms: "filterProperties",
+    bathrooms: "filterProperties",
+    privateRoomCheckbox: "filterProperties",
     wifiCheckbox: "filterProperties",
-    printerCheckbox: "filterProperties",
-    kitchenCheckbox: "filterProperties",
-    privetRoomCheckbox: "filterProperties",
+    washerDryerCheckbox: "filterProperties",
+    parkingCheckbox: "filterProperties",
 
     search(newSearch, oldSearch) {
       if (this.sort) {
@@ -76,9 +74,9 @@ Vue.createApp({
       }
       this.searchedProperties = this.properties.filter((pro) => {
         return (
-          pro.name.toLowerCase().includes(newSearch.toLowerCase()) ||
-          pro.location.toLowerCase().includes(newSearch.toLowerCase()) ||
-          pro.university.toLowerCase().includes(newSearch.toLowerCase())
+          pro.propertyName.toLowerCase().includes(newSearch.toLowerCase()) ||
+          pro.address.toLowerCase().includes(newSearch.toLowerCase()) ||
+          pro.college.toLowerCase().includes(newSearch.toLowerCase())
         );
       });
     },
@@ -94,7 +92,6 @@ Vue.createApp({
             } else {
               data[i].saved = false;
             }
-            console.log(data[i].saved);
           }
           this.properties = data;
         });
@@ -124,9 +121,8 @@ Vue.createApp({
             }
             this.user.savedListings.push(this.properties[index]._id);
           }
-
         }
-      });
+      );
     },
     toggleNavModal: function () {
       this.navUser.name = "";
@@ -156,8 +152,7 @@ Vue.createApp({
       }
     },
     goToProperty: function (index) {
-      window.location.href =
-        "../PropertyView/properties.html?p=" + this.properties[index]._id;
+      window.location.href = "../PropertyView/properties.html?p=" + this.properties[index]._id;
     },
 
     // Profile Modal
@@ -381,8 +376,7 @@ Vue.createApp({
     },
 
     toggleDropdown: function () {
-      var dropdownContent =
-        document.getElementsByClassName("dropdown-content")[0];
+      var dropdownContent = document.getElementsByClassName("dropdown-content")[0];
       dropdownContent.classList.toggle("show");
     },
     clearSearch() {
@@ -393,13 +387,12 @@ Vue.createApp({
       });
       this.minPrice = null;
       this.maxPrice = null;
-      this.minBedrooms = null;
-      this.minBathrooms = null;
-      this.poolCheckbox = false;
+      this.bedrooms = null;
+      this.bathrooms = null;
+      this.privateRoomCheckbox = false;
       this.wifiCheckbox = false;
-      this.printerCheckbox = false;
-      this.kitchenCheckbox = false;
-      this.privetRoomCheckbox = false;
+      this.washerDryerCheckbox = false;
+      this.parkingCheckbox = false;
       this.sort = false;
     },
 
@@ -411,29 +404,16 @@ Vue.createApp({
         let meetsCriteria = true;
         this.sort = true;
 
-        if (this.minPrice && property.price < this.minPrice)
-          meetsCriteria = false;
-        if (this.maxPrice && property.price > this.maxPrice)
-          meetsCriteria = false;
-        if (
-          this.minBedrooms &&
-          parseInt(property.numBeds) !== this.minBedrooms
-        ) {
+        if (this.minPrice && property.rent < this.minPrice) meetsCriteria = false;
+        if (this.maxPrice && property.rent > this.maxPrice) meetsCriteria = false;
+        if (this.bedrooms && parseInt(property.rooms) != this.bedrooms) {
           meetsCriteria = false;
         }
-        if (
-          this.minBathrooms &&
-          parseInt(property.numBaths) !== this.minBathrooms
-        )
-          meetsCriteria = false;
-        if (this.poolCheckbox && property.Pool !== true) meetsCriteria = false;
-        if (this.wifiCheckbox && property.Wifi !== true) meetsCriteria = false;
-        if (this.printerCheckbox && property.Printer !== true)
-          meetsCriteria = false;
-        if (this.kitchenCheckbox && property.Kitchen !== true)
-          meetsCriteria = false;
-        if (this.privetRoomCheckbox && property.privetRoom !== true)
-          meetsCriteria = false;
+        if (this.bathrooms && parseInt(property.bathrooms) != this.bathrooms) meetsCriteria = false;
+        if (this.privateRoomCheckbox && property.private !== true) meetsCriteria = false;
+        if (this.wifiCheckbox && property.wifi !== true) meetsCriteria = false;
+        if (this.washerDryerCheckbox && property.washerDryer !== true) meetsCriteria = false;
+        if (this.parkingCheckbox && parking.Kitchen !== true) meetsCriteria = false;
 
         if (meetsCriteria) {
           this.sortedProperties.push(property);
@@ -445,8 +425,7 @@ Vue.createApp({
         if (!this.sortedProperties[index].bookMark) {
           this.sortedProperties[index].bookMark = true;
         } else {
-          this.sortedProperties[index].bookMark =
-            !this.sortedProperties[index].bookMark;
+          this.sortedProperties[index].bookMark = !this.sortedProperties[index].bookMark;
         }
       } else {
         if (!this.properties[index].bookMark) {

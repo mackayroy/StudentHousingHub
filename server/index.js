@@ -32,7 +32,7 @@ app.use(
     resave: false,
   })
 );
-app.use(express.static('public'))
+app.use(express.static("public"));
 
 // middleware
 function AuthMiddleware(req, res, next) {
@@ -83,6 +83,12 @@ app.get("/users/:usersId", function (req, res) {
     } else {
       res.status(404).send("User not found.");
     }
+  });
+});
+
+app.get("/users/:usersId/listings", function (req, res) {
+  model.Property.find({ "creator": req.params.usersId }).then(function (properties) {
+    res.send(properties);
   });
 });
 
@@ -160,7 +166,6 @@ app.put("/users/:usersId/:propertyId", AuthMiddleware, function (req, res) {
   });
 });
 
-
 // property
 app.post("/properties", AuthMiddleware, function (req, res) {
   const newProperty = new model.Property({
@@ -175,7 +180,7 @@ app.post("/properties", AuthMiddleware, function (req, res) {
     washerDryer: req.body.washerDryer,
     parking: req.body.parking,
     amenities: req.body.amenities,
-    photos: req.body.photos
+    // photos: req.body.photos,
   });
   newProperty
     .save()
@@ -197,10 +202,8 @@ app.get("/properties", function (req, res) {
   });
 });
 
-
 app.get("/properties/:propertyId", function (req, res) {
   model.Property.findOne({ "_id": req.params.propertyId }).then(function (property) {
-
     if (property) {
       res.send(property);
     } else {
@@ -231,7 +234,6 @@ app.put("/properties/:propertiesId", AuthMiddleware, function (req, res) {
       }
       if (req.body.propertyName) {
         property.propertyName = req.body.propertyName;
-
       }
       if (req.body.address) {
         property.address = req.body.address;
@@ -297,7 +299,7 @@ app.get("/images/:bucket/:key", (req, res) => {
 
   readStream.pipe(res);
 });
-  
+
 // session
 app.get("/session", function (req, res) {
   res.send(req.session);
@@ -336,9 +338,6 @@ app.delete("/session", function (req, res) {
   res.status(204).send(req.session);
 });
 
-
-
-
 // app.post('/images', upload.single('file'), async (req, res) =>{
 //   const file = req.file;
 //   const result = await uploadFile(file);
@@ -360,14 +359,6 @@ app.delete("/session", function (req, res) {
 //   app.handle(req, res, '/images')
 // };
 
-
-
-
-
 app.listen(port, function () {
   console.log(`Running server on port ${port}...`);
 });
-
-
-
-
