@@ -1,4 +1,4 @@
-const URL = "https://studenthousinghub-production.up.railway.app/";
+const URL = "http://localhost:8080/";
 
 Vue.createApp({
   data() {
@@ -57,15 +57,76 @@ Vue.createApp({
       },
       userId: "",
       updateUser: {},
+      showSavedModal: false,
+      showMyListingsModal: false,
+      savedListings: [],
     };
   },
   methods: {
+    navSaveListing: function (index) {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var options = {
+        method: "PUT",
+        headers: myHeaders,
+        credentials: "include",
+      };
+
+      fetch(
+        URL + "users/" + this.userId + "/" + this.savedListings[index]._id,
+        options
+      ).then((response) => {
+        if (response.status != 200) {
+          alert("Unable to save listing.");
+        } else {
+          this.savedListings.splice(index, 1);
+
+          this.user.savedListings.push(this.properties[index]._id);
+        }
+      });
+    },
+    getMyListings: function () {
+      fetch(URL + "users/" + this.userId + "/listings")
+        .then((response) => response.json())
+        .then((data) => {
+          this.user.myListings = data;
+        });
+    },
     backtoHome: function () {
       window.location.href = "../index.html";
     },
     toCreateListing: function () {
-      window.location.href = "../createListing/createListing.html";
+      window.location.href = "./createListing.html";
     },
+    toggleNavModal: function () {
+      this.navUser.name = "";
+      this.navUser.email = "";
+      this.navUser.phone = "";
+      this.navUser.password = "";
+      this.navLoginUser.email = "";
+      this.navLoginUser.password = "";
+      if (this.showNavModal) {
+        this.showNavModal = false;
+      } else {
+        this.showNavModal = true;
+      }
+    },
+    swapNavModal: function () {
+      this.navUser.name = "";
+      this.navUser.email = "";
+      this.navUser.phone = "";
+      this.navUser.password = "";
+      this.navLoginUser.email = "";
+      this.navLoginUser.password = "";
+      if (this.currentNavModal == "signin") {
+        this.currentNavModal = "signup";
+      } else {
+        this.currentNavModal = "signin";
+      }
+    },
+
+    // Sign In / Up Modal
     toggleNavModal: function () {
       this.navUser.name = "";
       this.navUser.email = "";
@@ -109,6 +170,44 @@ Vue.createApp({
       } else {
         this.showContactModal = true;
       }
+    },
+
+    // Saved Modal
+    toggleSavedModal: function () {
+      if (this.showSavedModal) {
+        this.showSavedModal = false;
+      } else {
+        this.showSavedModal = true;
+      }
+    },
+
+    // My Listings Modal
+
+    toggleMyListingsModal: function () {
+      if (this.showMyListingsModal) {
+        this.showMyListingsModal = false;
+      } else {
+        this.showMyListingsModal = true;
+      }
+      console.log(this.user);
+    },
+
+    deleteListing: function (index) {
+      var listingId = this.user.myListings[index]._id;
+      var requestOptions = {
+        method: "DELETE",
+      };
+
+      fetch(URL + "properties/" + listingId, requestOptions).then(
+        (response) => {
+          if (response.status === 204) {
+            console.log("Listing deleted");
+            this.user.myListings.splice(index, 1);
+          } else {
+            alert("Not able to delete listing");
+          }
+        }
+      );
     },
 
     // Settings Modal
@@ -176,6 +275,9 @@ Vue.createApp({
         }
       });
     },
+    toCreateListing: function () {
+      window.location.href = "createListing/createListing.html";
+    },
 
     togglePhoto: function () {
       if (this.settingsUser.changePhoto) {
@@ -218,7 +320,6 @@ Vue.createApp({
     },
 
     // Sessions and users
-
     signUp: function () {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -259,6 +360,7 @@ Vue.createApp({
               this.setUser();
               this.userSession = true;
               this.toggleNavModal();
+              this.getMyListings();
             } else {
               alert("Can't log in.");
             }
@@ -279,6 +381,7 @@ Vue.createApp({
           if (data && data.cookie && data.userId) {
             this.userSession = true;
             this.userId = data.userId;
+            this.getMyListings();
             this.setUser();
           }
         });
@@ -289,19 +392,30 @@ Vue.createApp({
         credentials: "include",
       };
       fetch(URL + "session", options).then((response) => {
-        this.navUser.name = "";
+        this.user = {};
+        this.userId = "";
+        window.location.href = "../index.html";
       });
     },
     setUser: function () {
       fetch(URL + "users/" + this.userId)
         .then((response) => response.json())
         .then((data) => {
-          this.user.name = data.name;
-          this.user.email = data.email;
-          this.user.phoneNumber = data.phoneNumber;
-          this.user.password = data.password;
+          this.user = data;
+          this.user.savedListings.forEach((listingId) => {
+            fetch(URL + "properties/" + listingId)
+              .then((response) => response.json())
+              .then((data) => {
+                if (data !== "Property not found.") {
+                  console.log(data);
+                  this.savedListings.push(data);
+                }
+              });
+          });
+          this.getMyListings();
         });
     },
+
     photos: function () {
       document.querySelector("#files").addEventListener("change", (e) => {
         if (
