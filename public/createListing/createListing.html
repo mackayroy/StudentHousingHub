@@ -22,15 +22,33 @@
     <div id="app">
       <!-- Header of the page -->
       <nav>
-        <div @click="backtoHome()" id="logo"></div>
+        <div class="logo">
+          <a href="../index.html">
+            <div id="logoimage"></div>
+          </a>
+        </div>
+
         <div class="navRefs">
+          <a href="../SearchSort/searchSort.html" class="navLinks allListings">
+            All Listings
+          </a>
           <div @click="toCreateListing()" class="navLinks" v-if="userSession">
             Create Listing
           </div>
           <div @click="toggleNavModal()" class="navLinks" v-else>
             Create Listing
           </div>
-          <div @click="" class="navLinks">My Listings</div>
+          <div
+            @click="toggleMyListingsModal()"
+            class="navLinks"
+            v-if="userSession"
+          >
+            My Listings
+          </div>
+          <div @click="toggleNavModal()" class="navLinks" v-else>
+            My Listings
+          </div>
+
           <div>
             <div class="profile" v-if="userSession">
               <img
@@ -44,9 +62,11 @@
                 <span class="profileModalLine"></span>
                 <div @click="toggleSettingsModal()">Profile Settings</div>
                 <span class="profileModalLine"></span>
-                <div>Saved Listings</div>
+                <div @click="toggleSavedModal()">Saved Listings</div>
                 <span class="profileModalLine"></span>
                 <div @click="toggleContactModal()">Contact Us</div>
+                <span class="profileModalLine"></span>
+                <div @click="signOut()">Sign Out</div>
               </div>
             </div>
             <div @click="toggleNavModal()" v-else class="signIn">Sign In</div>
@@ -211,6 +231,8 @@
       </div>
 
       <!-- footer -->
+
+      <div v-if="userSession" @click="signOut()"></div>
       <div class="navModal" v-if="showNavModal">
         <div class="sisuModal">
           <div class="si-modal" v-if="currentNavModal == 'signin'">
@@ -278,7 +300,9 @@
       <div class="contactModal" v-if="showContactModal">
         <div class="contact">
           <div class="contactTopText">
-            <h2 @click="toggleContactModal()" class="contactExit">X</h2>
+            <h2 @click="toggleContactModal()" class="contactExit">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </h2>
             <h2 class="contactUs">Contact Us</h2>
           </div>
           <div class="contactLongLine"></div>
@@ -382,6 +406,94 @@
               Cancel
             </button>
             <button @click="updateProfile()" class="mainButton">Save</button>
+          </div>
+        </div>
+      </div>
+      <div class="savedModal" v-if="showSavedModal">
+        <div class="saved myListings">
+          <div class="savedTopText">
+            <h2 @click="toggleSavedModal()" class="savedExit">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </h2>
+            <h2 class="myListingText">Saved Listings</h2>
+          </div>
+          <div class="savedLongLine"></div>
+          <div class="contentBox--nav"></div>
+          <div v-if="user.myListings.length === 0" class="content--nav">
+            <p class="noListing">No listings created.</p>
+          </div>
+          <div v-else>
+            <div
+              v-for="(pro, index) in user.savedListings"
+              class="content--nav"
+            >
+              <div class="property--nav">
+                <img
+                  src="SearchSort/pexels-vecislavas-popa-1571460.jpg"
+                  alt="property"
+                />
+                <div class="propertyInfo--nav">
+                  <h3 class="price--nav">${{ pro.rent }}</h3>
+                  <p class="propertyName--nav">{{ pro.propertyName }}</p>
+                  <span class="address--nav">{{ pro.addresss }}</span>
+                  <span class="address--nav university--nav"
+                    >{{ pro.college }}</span
+                  >
+                  <p class="numbeds--nav">
+                    Bed / Bath: {{ pro.rooms }} / {{ pro.bathrooms }}
+                  </p>
+                </div>
+                <div class="TrashCan--nav">
+                  <i class="fa-solid fa-bookmark bookMarkIcon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="myListingsModal" v-if="showMyListingsModal">
+        <!-- <div class="myListingsBackground"> -->
+        <div class="myListings">
+          <div class="savedTopText">
+            <h2 @click="toggleMyListingsModal()" class="savedExit">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </h2>
+            <h2 class="myListingText">My Listings</h2>
+          </div>
+          <div class="savedLongLine"></div>
+          <div class="contentBox--nav">
+            <div v-if="user.myListings.length === 0" class="content--nav">
+              <p class="noListing">No listings created.</p>
+            </div>
+            <div v-else>
+              <div v-for="(pro, index) in user.myListings" class="content--nav">
+                <div class="property--nav">
+                  <img
+                    src="SearchSort/pexels-vecislavas-popa-1571460.jpg"
+                    alt="property"
+                  />
+                  <div class="propertyInfo--nav">
+                    <h3 class="price--nav">${{ pro.rent }}</h3>
+                    <p class="propertyName--nav">{{ pro.propertyName }}</p>
+
+                    <span class="address--nav">{{ pro.addresss }}</span>
+                    <span class="address--nav university--nav"
+                      >{{ pro.college }}</span
+                    >
+                    <p class="numbeds--nav">
+                      Bed / Bath: {{ pro.rooms }} / {{ pro.bathrooms }}
+                    </p>
+                  </div>
+                  <div class="TrashCan--nav">
+                    <i
+                      @click="deleteListing(index)"
+                      class="fa-solid fa-trash"
+                    ></i>
+                  </div>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
