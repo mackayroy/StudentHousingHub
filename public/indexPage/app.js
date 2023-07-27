@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/";
+const URL = "https://studenthousinghub-production.up.railway.app/";
 
 Vue.createApp({
   data() {
@@ -51,17 +51,18 @@ Vue.createApp({
         credentials: "include",
       };
 
-      fetch(URL + "users/" + this.userId + "/" + this.savedListings[index]._id, options).then(
-        (response) => {
-          if (response.status != 200) {
-            alert("Unable to save listing.");
-          } else {
-            this.savedListings.splice(index, 1);
+      fetch(
+        URL + "users/" + this.userId + "/" + this.savedListings[index]._id,
+        options
+      ).then((response) => {
+        if (response.status != 200) {
+          alert("Unable to save listing.");
+        } else {
+          this.savedListings.splice(index, 1);
 
-            this.user.savedListings.push(this.properties[index]._id);
-          }
+          this.user.savedListings.push(this.properties[index]._id);
         }
-      );
+      });
     },
     getMyListings: function () {
       fetch(URL + "users/" + this.userId + "/listings")
