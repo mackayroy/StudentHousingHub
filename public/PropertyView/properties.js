@@ -31,6 +31,7 @@ Vue.createApp({
         parking: false,
         amenities: [],
         description: "",
+        creator: "",
       },
     };
   },
@@ -146,8 +147,8 @@ Vue.createApp({
         .then((response) => response.json())
         .then((data) => {
           this.propertyInfo = data;
-          this.fetchCoordinates();
           this.getUserInfo();
+          this.fetchCoordinates();
         });
     },
 
