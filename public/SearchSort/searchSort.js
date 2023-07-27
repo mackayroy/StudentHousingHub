@@ -109,20 +109,19 @@ Vue.createApp({
         credentials: "include",
       };
 
-      fetch(
-        URL + "users/" + this.userId + "/" + this.properties[index]._id,
-        options
-      ).then((response) => {
-        if (response.status != 200) {
-          alert("Unable to save listing.");
-        } else {
-          if (this.properties[index].saved) {
-            this.properties[index].saved = false;
+      fetch(URL + "users/" + this.userId + "/" + this.properties[index]._id, options).then(
+        (response) => {
+          if (response.status != 200) {
+            alert("Unable to save listing.");
           } else {
-            this.properties[index].saved = true;
-          }
+            if (this.properties[index].saved) {
+              this.properties[index].saved = false;
+            } else {
+              this.properties[index].saved = true;
+            }
 
-          this.user.savedListings.push(this.properties[index]._id);
+            this.user.savedListings.push(this.properties[index]._id);
+          }
         }
       );
     },
