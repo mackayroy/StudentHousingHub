@@ -1,4 +1,4 @@
-const URL = "https://studenthousinghub-production.up.railway.app/";
+const URL = "http://localhost:8080/";
 
 Vue.createApp({
   data() {
@@ -62,20 +62,20 @@ Vue.createApp({
   methods: {
     async postImage() {
       const formData = new FormData();
-      formData.append('file', this.$refs.uploadImage.files[0]);
-      // name, price 
+      formData.append("file", this.$refs.uploadImage.files[0]);
+      // name, price
       try {
-        const response = await fetch('http://localhost:8080/images', {
-          method: 'POST',
-          body: formData
+        const response = await fetch("http://localhost:8080/images", {
+          method: "POST",
+          body: formData,
         });
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
-        
+
         const result = await response.json();
         return result;
-      } catch(error) {
+      } catch (error) {
         console.error(error);
         throw error;
       }
@@ -324,12 +324,7 @@ Vue.createApp({
     },
     photos: function () {
       document.querySelector("#files").addEventListener("change", (e) => {
-        if (
-          window.File &&
-          window.FileReader &&
-          window.FileList &&
-          window.Blob
-        ) {
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
           const files = e.target.files;
           const output = document.querySelector("#result");
 

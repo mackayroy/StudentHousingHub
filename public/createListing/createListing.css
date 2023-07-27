@@ -474,6 +474,15 @@ nav .navRefs .signIn {
 .uploadImageSection {
   margin-top: 20px;
 }
+#imageForm {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+#imageUpload {
+  width: 190px;
+}
 .upload {
   display: flex;
   justify-content: center;
