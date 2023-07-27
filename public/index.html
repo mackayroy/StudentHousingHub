@@ -28,7 +28,7 @@
         </div>
 
         <div class="navRefs">
-          <a href="SearchSort/searchSort.html" class="navLinks allListings">
+          <a href="SearchSort/searchSort.html" class="navLinks allListings" >
             All Listings
           </a>
           <div @click="toCreateListing()" class="navLinks" v-if="userSession">
@@ -37,7 +37,10 @@
           <div @click="toggleNavModal()" class="navLinks" v-else>
             Create Listing
           </div>
-          <div @click="toggleMyListingsModal()" class="navLinks">
+          <div @click="toggleMyListingsModal()" class="navLinks" v-if="userSession">
+            My Listings
+          </div>
+          <div @click="toggleNavModal()" class="navLinks" v-else>
             My Listings
           </div>
 
@@ -65,6 +68,9 @@
           </div>
         </div>
       </nav>
+
+
+      
       <div class="hero">
         <input
           type="text"
@@ -386,7 +392,6 @@
         </div>
       </div>
     </div>
-
       <div class="myListingsModal" v-if="showMyListingsModal">
         <!-- <div class="myListingsBackground"> -->
         <div class="myListings">
@@ -411,7 +416,7 @@
                 <div class="propertyInfo--nav">
                   <h3 class="price--nav">${{ pro.rent }}</h3>
                   <p class="propertyName--nav">{{ pro.propertyName }}</p>
-
+        
                   <span class="address--nav">{{ pro.addresss }}</span>
                   <span class="address--nav university--nav"
                     >{{ pro.college }}</span
@@ -427,13 +432,13 @@
                   ></i>
                 </div>
                 <!-- </div> -->
-
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <script src="./indexPage/app.js"></script>
     <script
       type="text/javascript"
