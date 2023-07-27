@@ -290,9 +290,9 @@ app.post("/images", upload.single("file"), async (req, res) => {
   const file = req.file;
   const result = await uploadFile(file);
   console.log(result);
-  await unlinkFile("uploads/" + result.key);
+  await unlinkFile("uploads/" + result.Key);
   // save listing with image(s) keys
-  res.send({ imagePath: `/images/${result.key}` });
+  res.send({ imagePath: `/images/${result.Key}` });
 });
 
 app.get("/images/:bucket/:key", (req, res) => {
