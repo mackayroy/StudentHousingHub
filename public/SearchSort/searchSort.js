@@ -84,47 +84,15 @@ Vue.createApp({
     },
   },
   methods: {
-    navSaveListing: function (index) {
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      var options = {
-        method: "PUT",
-        headers: myHeaders,
-        credentials: "include",
-      };
-
-      fetch(
-        URL + "users/" + this.userId + "/" + this.savedListings[index]._id,
-        options
-      ).then((response) => {
-        if (response.status != 200) {
-          alert("Unable to save listing.");
-        } else {
-          this.savedListings.splice(index, 1);
-
-          this.user.savedListings.push(this.properties[index]._id);
-        }
-      });
-    },
-    getMyListings: function () {
-      fetch(URL + "users/" + this.userId + "/listings")
-        .then((response) => response.json())
-        .then((data) => {
-          this.user.myListings = data;
-        });
-    },
     getListings: function () {
       fetch(URL + "properties")
         .then((response) => response.json())
         .then((data) => {
-          if (Object.keys(this.user).length > 0) {
-            for (let i = 0; i < data.length; i++) {
-              if (this.user.savedListings.includes(data[i]._id)) {
-                data[i].saved = true;
-              } else {
-                data[i].saved = false;
-              }
+          for (let i = 0; i < data.length; i++) {
+            if (this.user.savedListings.includes(data[i]._id)) {
+              data[i].saved = true;
+            } else {
+              data[i].saved = false;
             }
           }
           this.properties = data;
@@ -161,7 +129,6 @@ Vue.createApp({
       });
     },
 
-    // Sign In / Up Modal
     toggleNavModal: function () {
       this.navUser.name = "";
       this.navUser.email = "";
@@ -176,6 +143,7 @@ Vue.createApp({
       }
     },
     swapNavModal: function () {
+      x;
       this.navUser.name = "";
       this.navUser.email = "";
       this.navUser.phone = "";
@@ -188,7 +156,6 @@ Vue.createApp({
         this.currentNavModal = "signin";
       }
     },
-
     goToProperty: function (index) {
       window.location.href =
         "../PropertyView/properties.html?p=" + this.properties[index]._id;
@@ -203,42 +170,13 @@ Vue.createApp({
       }
     },
 
-    // Saved Modal
-    toggleSavedModal: function () {
-      if (this.showSavedModal) {
-        this.showSavedModal = false;
+    // Contact Modal
+    toggleContactModal: function () {
+      if (this.showContactModal) {
+        this.showContactModal = false;
       } else {
-        this.showSavedModal = true;
+        this.showContactModal = true;
       }
-    },
-
-    // My Listings Modal
-
-    toggleMyListingsModal: function () {
-      if (this.showMyListingsModal) {
-        this.showMyListingsModal = false;
-      } else {
-        this.showMyListingsModal = true;
-      }
-      console.log(this.user);
-    },
-
-    deleteListing: function (index) {
-      var listingId = this.user.myListings[index]._id;
-      var requestOptions = {
-        method: "DELETE",
-      };
-
-      fetch(URL + "properties/" + listingId, requestOptions).then(
-        (response) => {
-          if (response.status === 204) {
-            console.log("Listing deleted");
-            this.user.myListings.splice(index, 1);
-          } else {
-            alert("Not able to delete listing");
-          }
-        }
-      );
     },
 
     // Settings Modal
@@ -306,9 +244,6 @@ Vue.createApp({
         }
       });
     },
-    toCreateListing: function () {
-      window.location.href = "createListing/createListing.html";
-    },
 
     togglePhoto: function () {
       if (this.settingsUser.changePhoto) {
@@ -351,6 +286,7 @@ Vue.createApp({
     },
 
     // Sessions and users
+
     signUp: function () {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -391,7 +327,6 @@ Vue.createApp({
               this.setUser();
               this.userSession = true;
               this.toggleNavModal();
-              this.getMyListings();
             } else {
               alert("Can't log in.");
             }
@@ -412,7 +347,7 @@ Vue.createApp({
           if (data && data.cookie && data.userId) {
             this.userSession = true;
             this.userId = data.userId;
-            this.getMyListings();
+            this.user = data;
             this.setUser();
           }
         });
@@ -423,9 +358,7 @@ Vue.createApp({
         credentials: "include",
       };
       fetch(URL + "session", options).then((response) => {
-        this.user = {};
-        this.userId = "";
-        window.location.href = "searchSort.html";
+        this.navUser.name = "";
       });
     },
     setUser: function () {
@@ -433,29 +366,9 @@ Vue.createApp({
         .then((response) => response.json())
         .then((data) => {
           this.user = data;
-          this.user.savedListings.forEach((listingId) => {
-            fetch(URL + "properties/" + listingId)
-              .then((response) => response.json())
-              .then((data) => {
-                if (data !== "Property not found.") {
-                  console.log(data);
-                  this.savedListings.push(data);
-                }
-              });
-          });
-          this.getMyListings();
+          this.getListings();
         });
     },
-
-    // Contact Modal
-    toggleContactModal: function () {
-      if (this.showContactModal) {
-        this.showContactModal = false;
-      } else {
-        this.showContactModal = true;
-      }
-    },
-
     sortByLowestPrice: function () {
       this.properties.sort((a, b) => a.price - b.price);
       this.sortedProperties.sort((a, b) => a.price - b.price);
