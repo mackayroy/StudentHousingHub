@@ -21,8 +21,11 @@
           <input type="submit" value="Submit">
       </form>
       <div>
-        <button @click="fetchImage">Fetch Image</button>
+        <button @click="fetchImages">Fetch Image</button>
         <img v-bind:src="imageUrl" v-if="imageUrl">
+        <div v-for="p in properties">
+          <img v-bind:src="p.imageUrl" v-if="p.imageUrl">
+        </div>
         <!-- <img src="displayImageSrc" alt=""> -->
       </div>
   

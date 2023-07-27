@@ -1,7 +1,8 @@
 Vue.createApp({
   data() {
       return {
-        imageUrl: null
+        imageUrl: null,
+        properties: []
       }
   },
   methods : {
@@ -27,19 +28,39 @@ Vue.createApp({
       } 
     },
 
-    fetchImage() {
-      const key = "";
-      const bucket = 'student-housing-hub'
 
-      fetch(`http://localhost:8080/images/${bucket}/${key}`)
-      .then(response => response.blob())
-      .then(blob => {
-        const imageUrl = URL.createObjectURL(blob);
-        this.imageUrl = imageUrl;
-      }).catch(error => {
-        console.log('Error:', error)
-      })
-    }
+    // *** Displaying Images Code ***
+    // fetchImage() {
+    //   const key = '';
+    //   const bucket = 'student-housing-hub'
+
+    //   fetch(`http://localhost:8080/properties/${bucket}/${key}`)
+    //   .then(response => response.blob())
+    //   .then(blob => {
+    //     const imageUrl = URL.createObjectURL(blob);
+    //     this.imageUrl = imageUrl;
+    //   }).catch(error => {
+    //     console.log('Error:', error)
+    //   })
+    // },
+    // fetchImages() {
+    //   const key = '';
+    //   const bucket = 'student-housing-hub'
+
+    //   fetch(`http://localhost:8080/properties`)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     for (property of data) {
+    //       property.imgData.blob().then(blob => {
+    //         const imageUrl = URL.createObjectURL(blob);
+    //         this.property.imageUrl = imageUrl;
+    //       });
+    //     }
+    //     this.properties = data;
+    //   }).catch(error => {
+    //     console.log('Error:', error)
+    //   })
+    // }
 
 
 

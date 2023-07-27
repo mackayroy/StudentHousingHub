@@ -9,7 +9,9 @@ const fs = require("fs");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 
+
 const app = express();
+
 const port = process.env.PORT || 8080;
 
 app.use(express.static("public"));
@@ -33,6 +35,7 @@ app.use(
 );
 app.use(express.static("public"));
 
+
 // middleware
 function AuthMiddleware(req, res, next) {
   if (req.session && req.session.userId) {
@@ -48,6 +51,7 @@ function AuthMiddleware(req, res, next) {
     res.status(401).send("Unauthenticated");
   }
 }
+
 
 // users
 app.post("/users", function (req, res) {
@@ -141,6 +145,7 @@ app.put("/users/:usersId", function (req, res) {
   });
 });
 
+
 app.put("/users/:usersId/:propertyId", AuthMiddleware, function (req, res) {
   var userId = req.params.usersId;
   var propertyId = req.params.propertyId;
@@ -166,6 +171,7 @@ app.put("/users/:usersId/:propertyId", AuthMiddleware, function (req, res) {
     }
   });
 });
+
 
 // property
 app.post("/properties", AuthMiddleware, function (req, res) {
@@ -198,12 +204,9 @@ app.post("/properties", AuthMiddleware, function (req, res) {
 });
 
 app.get("/properties", function (req, res) {
-  model.Property.find().then(function (properties) {
-    // each prop has a key
-    // for each property, getfilestream for img data
-    // property.imgData = ^
-    res.send(properties);
-  });
+  model.Property.find().then(function (properties){
+    res.send(properties)
+  })
 });
 
 app.get("/properties/:propertyId", function (req, res) {
@@ -285,19 +288,17 @@ app.put("/properties/:propertiesId", AuthMiddleware, function (req, res) {
   });
 });
 
+
 // images
-app.post("/images", upload.single("file"), async (req, res) => {
+app.post("/images",  upload.single("file"), async (req, res) => {
   const file = req.file;
+  console.log(file);
   const result = await uploadFile(file);
-  console.log(result);
-  await unlinkFile("uploads/" + result.key);
-  // save listing with image(s) keys
+  await unlinkFile("uploads/" + result.Key);
   res.send({ imagePath: `/images/${result.key}` });
 });
 
 app.get("/images/:bucket/:key", (req, res) => {
-  // get key and bucket name from database for that property
-
   const key = req.params.key;
   const bucket = req.params.bucket;
   console.log(key, bucket);
@@ -305,6 +306,7 @@ app.get("/images/:bucket/:key", (req, res) => {
 
   readStream.pipe(res);
 });
+
 
 // session
 app.get("/session", function (req, res) {
@@ -344,27 +346,9 @@ app.delete("/session", function (req, res) {
   res.status(204).send(req.session);
 });
 
-// app.post('/images', upload.single('file'), async (req, res) =>{
-//   const file = req.file;
-//   const result = await uploadFile(file);
-//   console.log(result);
-//   await unlinkFile("uploads"+ result.key);
-//   res.send({imagePath: `/images/${result.key}`});
 
-//   // Call POST properties to handle the nested POST request
-//   postProperty(req.body, res);
-// });
-
-// // postProperty function to handle nested POST request
-// function postProperty(body, res) {
-//   const req = {
-//     body: body,
-//   };
-
-//   // call the first POST route handler
-//   app.handle(req, res, '/images')
-// };
 
 app.listen(port, function () {
   console.log(`Running server on port ${port}...`);
 });
+
