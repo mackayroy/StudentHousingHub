@@ -112,7 +112,7 @@ Vue.createApp({
       } else {
         this.showMyListingsModal = true;
       }
-      console.log("user.myListings: " + this.user);
+      console.log(this.user);
     },
 
     deleteListing: function (index) {
@@ -303,6 +303,7 @@ Vue.createApp({
           if (data && data.cookie && data.userId) {
             this.userSession = true;
             this.userId = data.userId;
+            this.getMyListings();
             this.setUser();
           }
         });
