@@ -137,7 +137,7 @@ app.put("/users/:usersId", function (req, res) {
 app.put("/users/:usersId/:propertyId", AuthMiddleware, function (req, res) {
   var userId = req.params.usersId;
   var propertyId = req.params.propertyId;
-  model.User.findOne({ "_id": userId }).then((user) => {
+  model.User.findOne({ _id: userId }).then((user) => {
     if (user) {
       if (user.savedListings.includes(propertyId)) {
         let index1 = user.savedListings.indexOf(propertyId);
@@ -198,7 +198,7 @@ app.get("/properties", function (req, res) {
 });
 
 app.get("/properties/:propertyId", function (req, res) {
-  model.Property.findOne({ "_id": req.params.propertyId }).then(function (
+  model.Property.findOne({ _id: req.params.propertyId }).then(function (
     property
   ) {
     if (property) {
