@@ -56,7 +56,7 @@ const PropertySchema = new mongoose.Schema({
     required: [true, "Must be set to true or false."],
   },
   parking: {
-    type: String,
+    type: Boolean,
     required: [true, "Property must have parking listed."],
   },
   description: {

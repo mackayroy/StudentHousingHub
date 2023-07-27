@@ -175,7 +175,7 @@ app.post("/properties", AuthMiddleware, function (req, res) {
     parking: req.body.parking,
     amenities: req.body.amenities,
     description: req.body.description,
-    // photos: req.body.photos
+    photos: req.body.photos,
   });
   newProperty
     .save()

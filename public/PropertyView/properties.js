@@ -147,14 +147,16 @@ Vue.createApp({
         .then((data) => {
           this.propertyInfo = data;
           this.fetchCoordinates();
+          this.getUserInfo();
         });
     },
 
     getUserInfo: function () {
-      fetch(URL + "users")
+      fetch(URL + "users/" + this.propertyInfo.creator)
         .then((response) => response.json())
         .then((data) => {
           this.userInfo = data;
+          console.log(this.userInfo);
         });
     },
   },
