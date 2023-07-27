@@ -53,6 +53,8 @@
                 <div @click="toggleSavedModal()">Saved Listings</div>
                 <span class="profileModalLine"></span>
                 <div @click="toggleContactModal()">Contact Us</div>
+                <span class="profileModalLine"></span>
+                <div @click="signOut()">Sign Out</div>
               </div>
             </div>
             <div @click="toggleNavModal()" v-else class="signIn">Sign In</div>
@@ -338,7 +340,7 @@
         </div>
       </div>
       <div class="savedModal" v-if="showSavedModal">
-        <div class="saved">
+        <div class="saved myListings">
           <div class="savedTopText">
             <h2 @click="toggleSavedModal()" class="savedExit"><i class="fa-solid fa-circle-xmark"></i></h2>
             <h2 class="myListingText">Saved Listings</h2>
