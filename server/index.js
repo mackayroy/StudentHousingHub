@@ -182,7 +182,7 @@ app.post("/properties", AuthMiddleware, function (req, res) {
     amenities: req.body.amenities,
 
     description: req.body.description,
-    // photos: req.body.photos
+    photos: req.body.photos,
 
   });
   newProperty
