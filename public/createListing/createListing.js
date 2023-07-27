@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/";
+const URL = "https://studenthousinghub-production.up.railway.app/";
 
 Vue.createApp({
   data() {
@@ -62,8 +62,8 @@ Vue.createApp({
       savedListings: [],
     };
   },
-  methods: {
 
+  methods: {
     navSaveListing: function (index) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -87,34 +87,35 @@ Vue.createApp({
         }
       });
     },
+
     getMyListings: function () {
       fetch(URL + "users/" + this.userId + "/listings")
         .then((response) => response.json())
         .then((data) => {
           this.user.myListings = data;
         });
-      
+    },
     async postImage() {
       const formData = new FormData();
-      formData.append('file', this.$refs.uploadImage.files[0]);
-      // name, price 
+      formData.append("file", this.$refs.uploadImage.files[0]);
+      // name, price
       try {
-        const response = await fetch('http://localhost:8080/images', {
-          method: 'POST',
-          body: formData
+        const response = await fetch("http://localhost:8080/images", {
+          method: "POST",
+          body: formData,
         });
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
-        
+
         const result = await response.json();
         return result;
-      } catch(error) {
+      } catch (error) {
         console.error(error);
         throw error;
       }
-
     },
+
     backtoHome: function () {
       window.location.href = "../index.html";
     },
