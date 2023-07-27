@@ -111,22 +111,21 @@ Vue.createApp({
         credentials: "include",
       };
 
-      fetch(
-        URL + "users/" + this.userId + "/" + this.properties[index]._id,
-        options
-      ).then((response) => {
-        if (response.status != 200) {
-          alert("Unable to save listing.");
-        } else {
-          if (this.properties[index].saved) {
-            this.properties[index].saved = false;
+      fetch(URL + "users/" + this.userId + "/" + this.properties[index]._id, options).then(
+        (response) => {
+          if (response.status != 200) {
+            alert("Unable to save listing.");
           } else {
-            this.properties[index].saved = true;
-          }
+            if (this.properties[index].saved) {
+              this.properties[index].saved = false;
+            } else {
+              this.properties[index].saved = true;
+            }
 
-          this.user.savedListings.push(this.properties[index]._id);
+            this.user.savedListings.push(this.properties[index]._id);
+          }
         }
-      });
+      );
     },
 
     toggleNavModal: function () {
@@ -157,8 +156,7 @@ Vue.createApp({
       }
     },
     goToProperty: function (index) {
-      window.location.href =
-        "../PropertyView/properties.html?p=" + this.properties[index]._id;
+      window.location.href = "../PropertyView/properties.html?p=" + this.properties[index]._id;
     },
 
     // Profile Modal
@@ -382,8 +380,7 @@ Vue.createApp({
     },
 
     toggleDropdown: function () {
-      var dropdownContent =
-        document.getElementsByClassName("dropdown-content")[0];
+      var dropdownContent = document.getElementsByClassName("dropdown-content")[0];
       dropdownContent.classList.toggle("show");
     },
     clearSearch() {
@@ -411,22 +408,16 @@ Vue.createApp({
         let meetsCriteria = true;
         this.sort = true;
 
-        if (this.minPrice && property.rent < this.minPrice)
-          meetsCriteria = false;
-        if (this.maxPrice && property.rent > this.maxPrice)
-          meetsCriteria = false;
+        if (this.minPrice && property.rent < this.minPrice) meetsCriteria = false;
+        if (this.maxPrice && property.rent > this.maxPrice) meetsCriteria = false;
         if (this.bedrooms && parseInt(property.rooms) != this.bedrooms) {
           meetsCriteria = false;
         }
-        if (this.bathrooms && parseInt(property.bathrooms) != this.bathrooms)
-          meetsCriteria = false;
-        if (this.privateRoomCheckbox && property.private !== true)
-          meetsCriteria = false;
+        if (this.bathrooms && parseInt(property.bathrooms) != this.bathrooms) meetsCriteria = false;
+        if (this.privateRoomCheckbox && property.private !== true) meetsCriteria = false;
         if (this.wifiCheckbox && property.wifi !== true) meetsCriteria = false;
-        if (this.washerDryerCheckbox && property.washerDryer !== true)
-          meetsCriteria = false;
-        if (this.parkingCheckbox && parking.Kitchen !== true)
-          meetsCriteria = false;
+        if (this.washerDryerCheckbox && property.washerDryer !== true) meetsCriteria = false;
+        if (this.parkingCheckbox && parking.Kitchen !== true) meetsCriteria = false;
 
         if (meetsCriteria) {
           this.sortedProperties.push(property);
@@ -438,8 +429,7 @@ Vue.createApp({
         if (!this.sortedProperties[index].bookMark) {
           this.sortedProperties[index].bookMark = true;
         } else {
-          this.sortedProperties[index].bookMark =
-            !this.sortedProperties[index].bookMark;
+          this.sortedProperties[index].bookMark = !this.sortedProperties[index].bookMark;
         }
       } else {
         if (!this.properties[index].bookMark) {
@@ -468,8 +458,10 @@ Vue.createApp({
 
   created: function () {
     if (sessionStorage.getItem("search")) {
-      this.search = sessionStorage.getItem("search");
-      sessionStorage.removeItem("search");
+      if (sessionStorage.getItem("search") !== null) {
+        this.search = sessionStorage.getItem("search");
+        sessionStorage.removeItem("search");
+      }
     }
     this.getListings();
     this.loggedIn();
