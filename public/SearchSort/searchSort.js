@@ -1,4 +1,4 @@
-const URL = "https://studenthousinghub-production.up.railway.app/";
+const URL = "http://localhost:8080/";
 
 Vue.createApp({
   data() {
@@ -119,7 +119,7 @@ Vue.createApp({
       fetch(URL + "properties")
         .then((response) => response.json())
         .then((data) => {
-          if (Object.keys(this.user).length > 0) {
+          if (Object.keys(this.user).length > 2) {
             for (let i = 0; i < data.length; i++) {
               if (this.user.savedListings.includes(data[i]._id)) {
                 data[i].saved = true;
