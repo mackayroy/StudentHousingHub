@@ -344,26 +344,6 @@ app.delete("/session", function (req, res) {
   res.status(204).send(req.session);
 });
 
-// app.post('/images', upload.single('file'), async (req, res) =>{
-//   const file = req.file;
-//   const result = await uploadFile(file);
-//   console.log(result);
-//   await unlinkFile("uploads"+ result.key);
-//   res.send({imagePath: `/images/${result.key}`});
-
-//   // Call POST properties to handle the nested POST request
-//   postProperty(req.body, res);
-// });
-
-// // postProperty function to handle nested POST request
-// function postProperty(body, res) {
-//   const req = {
-//     body: body,
-//   };
-
-//   // call the first POST route handler
-//   app.handle(req, res, '/images')
-// };
 
 app.listen(port, function () {
   console.log(`Running server on port ${port}...`);
