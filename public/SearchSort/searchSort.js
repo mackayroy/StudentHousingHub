@@ -460,6 +460,7 @@ Vue.createApp({
       this.properties.sort((a, b) => b.rent - a.rent);
       this.sortedProperties.sort((a, b) => b.rent - a.rent);
       this.activeSort = "high";
+      consoel.log(this.activeSort);
     },
 
     toggleDropdown: function () {
