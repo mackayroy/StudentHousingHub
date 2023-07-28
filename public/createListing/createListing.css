@@ -882,7 +882,7 @@ footer {
 }
 
 @media (max-width: 414px) {
-  .mainforms {
+  .forms {
     display: flex;
     flex-flow: column nowrap;
     background-color: var(--light-green);
