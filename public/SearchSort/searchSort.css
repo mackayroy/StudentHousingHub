@@ -991,13 +991,13 @@ nav .navRefs .signIn {
 
 /* Styles for BookMark Icon when Saved */
 
-/* @media (max-width: 1000px) {
+@media (max-width: 1000px) {
   .allListings {
     display: none;
   }
-} */
+}
 
-/* @media (max-width: 700px) {
+@media (max-width: 700px) {
   nav .navRefs {
     gap: 25px;
   }
@@ -1016,8 +1016,8 @@ nav .navRefs .signIn {
 
   #logoimage {
     background-size: 150%;
-  } */
-
+  }
+}
 /* End of Nav */
 
 @media (max-width: 900px) {

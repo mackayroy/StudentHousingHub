@@ -458,15 +458,16 @@ Vue.createApp({
     },
 
     sortByLowestPrice: function () {
-      this.properties.sort((a, b) => a.price - b.price);
-      this.sortedProperties.sort((a, b) => a.price - b.price);
+      this.properties.sort((a, b) => a.rent - b.rent);
+      this.sortedProperties.sort((a, b) => a.rent - b.rent);
       this.activeSort = "low";
     },
 
     sortByHighestPrice: function () {
-      this.properties.sort((a, b) => b.price - a.price);
-      this.sortedProperties.sort((a, b) => b.price - a.price);
+      this.properties.sort((a, b) => b.rent - a.rent);
+      this.sortedProperties.sort((a, b) => b.rent - a.rent);
       this.activeSort = "high";
+      consoel.log(this.activeSort);
     },
 
     toggleDropdown: function () {
