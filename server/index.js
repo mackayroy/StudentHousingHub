@@ -33,7 +33,7 @@ app.use(
 );
 app.use(express.static("public"));
 
-// middleware
+// MIDDLEWARE
 function AuthMiddleware(req, res, next) {
   if (req.session && req.session.userId) {
     model.User.findOne({ _id: req.session.userId }).then((user) => {
@@ -49,7 +49,7 @@ function AuthMiddleware(req, res, next) {
   }
 }
 
-// users
+// USERS
 app.post("/users", function (req, res) {
   const newUser = new model.User({
     name: req.body.name,
@@ -167,7 +167,7 @@ app.put("/users/:usersId/:propertyId", AuthMiddleware, function (req, res) {
   });
 });
 
-// property
+// PROPERTY
 app.post("/properties", AuthMiddleware, function (req, res) {
   const newProperty = new model.Property({
     college: req.body.college,
@@ -182,8 +182,6 @@ app.post("/properties", AuthMiddleware, function (req, res) {
     parking: req.body.parking,
     amenities: req.body.amenities,
     description: req.body.description,
-
-    // photos: req.body.photos,
     creator: req.user._id,
   });
   newProperty
@@ -199,9 +197,6 @@ app.post("/properties", AuthMiddleware, function (req, res) {
 
 app.get("/properties", function (req, res) {
   model.Property.find().then(function (properties) {
-    // each prop has a key
-    // for each property, getfilestream for img data
-    // property.imgData = ^
     res.send(properties);
   });
 });
@@ -285,19 +280,16 @@ app.put("/properties/:propertiesId", AuthMiddleware, function (req, res) {
   });
 });
 
-// images
+// IMAGES
 app.post("/images", upload.single("file"), async (req, res) => {
   const file = req.file;
   const result = await uploadFile(file);
   console.log(result);
   await unlinkFile("uploads/" + result.Key);
-  // save listing with image(s) keys
   res.send({ imagePath: `/images/${result.Key}` });
 });
 
 app.get("/images/:bucket/:key", (req, res) => {
-  // get key and bucket name from database for that property
-
   const key = req.params.key;
   const bucket = req.params.bucket;
   console.log(key, bucket);
@@ -306,7 +298,7 @@ app.get("/images/:bucket/:key", (req, res) => {
   readStream.pipe(res);
 });
 
-// session
+// SESSION
 app.get("/session", function (req, res) {
   res.send(req.session);
 });
@@ -343,7 +335,6 @@ app.delete("/session", function (req, res) {
 
   res.status(204).send(req.session);
 });
-
 
 app.listen(port, function () {
   console.log(`Running server on port ${port}...`);
