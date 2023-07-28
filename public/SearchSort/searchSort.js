@@ -513,7 +513,7 @@ Vue.createApp({
         if (this.wifiCheckbox && property.wifi !== true) meetsCriteria = false;
         if (this.washerDryerCheckbox && property.washerDryer !== true)
           meetsCriteria = false;
-        if (this.parkingCheckbox && parking.Kitchen !== true)
+        if (this.parkingCheckbox && property.parking !== true)
           meetsCriteria = false;
 
         if (meetsCriteria) {
