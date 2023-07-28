@@ -95,18 +95,17 @@ Vue.createApp({
         credentials: "include",
       };
 
-      fetch(
-        URL + "users/" + this.userId + "/" + this.savedListings[index]._id,
-        options
-      ).then((response) => {
-        if (response.status != 200) {
-          alert("Unable to save listing.");
-        } else {
-          this.savedListings.splice(index, 1);
+      fetch(URL + "users/" + this.userId + "/" + this.savedListings[index]._id, options).then(
+        (response) => {
+          if (response.status != 200) {
+            alert("Unable to save listing.");
+          } else {
+            this.savedListings.splice(index, 1);
 
-          this.user.savedListings.push(this.properties[index]._id);
+            this.user.savedListings.push(this.properties[index]._id);
+          }
         }
-      });
+      );
     },
     getMyListings: function () {
       fetch(URL + "users/" + this.userId + "/listings")
@@ -132,7 +131,8 @@ Vue.createApp({
         });
     },
     toCreateListing: function () {
-      window.location.href = "../createListing/createListing.html";
+      console.log("hi");
+      window.location.href = "http://localhost:8080/createListing/createListing.html";
     },
     saveListing: function (index) {
       var myHeaders = new Headers();
@@ -144,22 +144,21 @@ Vue.createApp({
         credentials: "include",
       };
 
-      fetch(
-        URL + "users/" + this.userId + "/" + this.properties[index]._id,
-        options
-      ).then((response) => {
-        if (response.status != 200) {
-          alert("Unable to save listing.");
-        } else {
-          if (this.properties[index].saved) {
-            this.properties[index].saved = false;
+      fetch(URL + "users/" + this.userId + "/" + this.properties[index]._id, options).then(
+        (response) => {
+          if (response.status != 200) {
+            alert("Unable to save listing.");
           } else {
-            this.properties[index].saved = true;
-          }
+            if (this.properties[index].saved) {
+              this.properties[index].saved = false;
+            } else {
+              this.properties[index].saved = true;
+            }
 
-          this.user.savedListings.push(this.properties[index]._id);
+            this.user.savedListings.push(this.properties[index]._id);
+          }
         }
-      });
+      );
     },
 
     // Sign In / Up Modal
@@ -191,8 +190,7 @@ Vue.createApp({
     },
 
     goToProperty: function (index) {
-      window.location.href =
-        "../PropertyView/properties.html?p=" + this.properties[index]._id;
+      window.location.href = "../PropertyView/properties.html?p=" + this.properties[index]._id;
     },
 
     // Profile Modal
@@ -230,16 +228,14 @@ Vue.createApp({
         method: "DELETE",
       };
 
-      fetch(URL + "properties/" + listingId, requestOptions).then(
-        (response) => {
-          if (response.status === 204) {
-            console.log("Listing deleted");
-            this.user.myListings.splice(index, 1);
-          } else {
-            alert("Not able to delete listing");
-          }
+      fetch(URL + "properties/" + listingId, requestOptions).then((response) => {
+        if (response.status === 204) {
+          console.log("Listing deleted");
+          this.user.myListings.splice(index, 1);
+        } else {
+          alert("Not able to delete listing");
         }
-      );
+      });
     },
 
     // Settings Modal
@@ -306,9 +302,6 @@ Vue.createApp({
           alert("Unable to update user.");
         }
       });
-    },
-    toCreateListing: function () {
-      window.location.href = "createListing/createListing.html";
     },
 
     togglePhoto: function () {
@@ -458,20 +451,19 @@ Vue.createApp({
     },
 
     sortByLowestPrice: function () {
-      this.properties.sort((a, b) => a.price - b.price);
-      this.sortedProperties.sort((a, b) => a.price - b.price);
+      this.properties.sort((a, b) => a.rent - b.rent);
+      this.sortedProperties.sort((a, b) => a.rent - b.rent);
       this.activeSort = "low";
     },
 
     sortByHighestPrice: function () {
-      this.properties.sort((a, b) => b.price - a.price);
-      this.sortedProperties.sort((a, b) => b.price - a.price);
+      this.properties.sort((a, b) => b.rent - a.rent);
+      this.sortedProperties.sort((a, b) => b.rent - a.rent);
       this.activeSort = "high";
     },
 
     toggleDropdown: function () {
-      var dropdownContent =
-        document.getElementsByClassName("dropdown-content")[0];
+      var dropdownContent = document.getElementsByClassName("dropdown-content")[0];
       dropdownContent.classList.toggle("show");
     },
     clearSearch() {
@@ -499,22 +491,16 @@ Vue.createApp({
         let meetsCriteria = true;
         this.sort = true;
 
-        if (this.minPrice && property.rent < this.minPrice)
-          meetsCriteria = false;
-        if (this.maxPrice && property.rent > this.maxPrice)
-          meetsCriteria = false;
+        if (this.minPrice && property.rent < this.minPrice) meetsCriteria = false;
+        if (this.maxPrice && property.rent > this.maxPrice) meetsCriteria = false;
         if (this.bedrooms && parseInt(property.rooms) != this.bedrooms) {
           meetsCriteria = false;
         }
-        if (this.bathrooms && parseInt(property.bathrooms) != this.bathrooms)
-          meetsCriteria = false;
-        if (this.privateRoomCheckbox && property.private !== true)
-          meetsCriteria = false;
+        if (this.bathrooms && parseInt(property.bathrooms) != this.bathrooms) meetsCriteria = false;
+        if (this.privateRoomCheckbox && property.private !== true) meetsCriteria = false;
         if (this.wifiCheckbox && property.wifi !== true) meetsCriteria = false;
-        if (this.washerDryerCheckbox && property.washerDryer !== true)
-          meetsCriteria = false;
-        if (this.parkingCheckbox && property.parking !== true)
-          meetsCriteria = false;
+        if (this.washerDryerCheckbox && property.washerDryer !== true) meetsCriteria = false;
+        if (this.parkingCheckbox && property.parking !== true) meetsCriteria = false;
 
         if (meetsCriteria) {
           this.sortedProperties.push(property);
@@ -526,8 +512,7 @@ Vue.createApp({
         if (!this.sortedProperties[index].bookMark) {
           this.sortedProperties[index].bookMark = true;
         } else {
-          this.sortedProperties[index].bookMark =
-            !this.sortedProperties[index].bookMark;
+          this.sortedProperties[index].bookMark = !this.sortedProperties[index].bookMark;
         }
       } else {
         if (!this.properties[index].bookMark) {
