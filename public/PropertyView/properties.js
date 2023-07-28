@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/";
+const URL = "https://studenthousinghub-production.up.railway.app/";
 Vue.createApp({
   data() {
     return {
