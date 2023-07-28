@@ -1,4 +1,4 @@
-const URL = "https://studenthousinghub-production.up.railway.app/";
+const URL = "http://localhost:8080/";
 Vue.createApp({
   data() {
     return {
@@ -373,7 +373,7 @@ Vue.createApp({
       });
     },
     toCreateListing: function () {
-      window.location.href = "createListing/createListing.html";
+      window.location.href = "../createListing/createListing.html";
     },
 
     togglePhoto: function () {
@@ -518,5 +518,6 @@ Vue.createApp({
     this.propertyId = window.location.href.split("=")[1];
     this.loggedIn();
     this.getProperty();
+    this.loginBtn();
   },
 }).mount("#app");

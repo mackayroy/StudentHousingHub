@@ -1,4 +1,4 @@
-const URL = "https://studenthousinghub-production.up.railway.app/";
+const URL = "http://localhost:8080/";
 
 Vue.createApp({
   data() {
@@ -221,7 +221,7 @@ Vue.createApp({
       });
     },
     toCreateListing: function () {
-      window.location.href = "createListing/createListing.html";
+      window.location.href = "./createListing/createListing.html";
     },
 
     togglePhoto: function () {

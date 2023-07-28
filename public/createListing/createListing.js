@@ -74,17 +74,18 @@ Vue.createApp({
         credentials: "include",
       };
 
-      fetch(URL + "users/" + this.userId + "/" + this.savedListings[index]._id, options).then(
-        (response) => {
-          if (response.status != 200) {
-            alert("Unable to save listing.");
-          } else {
-            this.savedListings.splice(index, 1);
+      fetch(
+        URL + "users/" + this.userId + "/" + this.savedListings[index]._id,
+        options
+      ).then((response) => {
+        if (response.status != 200) {
+          alert("Unable to save listing.");
+        } else {
+          this.savedListings.splice(index, 1);
 
-            this.user.savedListings.push(this.properties[index]._id);
-          }
+          this.user.savedListings.push(this.properties[index]._id);
         }
-      );
+      });
     },
 
     getMyListings: function () {
@@ -220,14 +221,16 @@ Vue.createApp({
         method: "DELETE",
       };
 
-      fetch(URL + "properties/" + listingId, requestOptions).then((response) => {
-        if (response.status === 204) {
-          console.log("Listing deleted");
-          this.user.myListings.splice(index, 1);
-        } else {
-          alert("Not able to delete listing");
+      fetch(URL + "properties/" + listingId, requestOptions).then(
+        (response) => {
+          if (response.status === 204) {
+            console.log("Listing deleted");
+            this.user.myListings.splice(index, 1);
+          } else {
+            alert("Not able to delete listing");
+          }
         }
-      });
+      );
     },
 
     // Settings Modal
@@ -294,9 +297,6 @@ Vue.createApp({
           alert("Unable to update user.");
         }
       });
-    },
-    toCreateListing: function () {
-      window.location.href = "http://localhost:8080/createListing/createListing.html";
     },
 
     togglePhoto: function () {
@@ -438,7 +438,12 @@ Vue.createApp({
 
     photos: function () {
       document.querySelector("#files").addEventListener("change", (e) => {
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
+        if (
+          window.File &&
+          window.FileReader &&
+          window.FileList &&
+          window.Blob
+        ) {
           const files = e.target.files;
           const output = document.querySelector("#result");
 
