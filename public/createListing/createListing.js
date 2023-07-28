@@ -295,9 +295,6 @@ Vue.createApp({
         }
       });
     },
-    toCreateListing: function () {
-      window.location.href = "http://localhost:8080/createListing/createListing.html";
-    },
 
     togglePhoto: function () {
       if (this.settingsUser.changePhoto) {
