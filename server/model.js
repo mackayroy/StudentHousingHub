@@ -64,7 +64,6 @@ const PropertySchema = new mongoose.Schema({
     required: [true, "Property must have a description."],
   },
   amenities: [String],
-  // photos: [PhotoSchema],
   creator: String,
 });
 
@@ -137,4 +136,4 @@ module.exports = {
   Property: Property,
 };
 
-//hello
+
